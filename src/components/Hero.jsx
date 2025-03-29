@@ -10,7 +10,7 @@ import { FaLink } from "react-icons/fa";
 import { IoDocumentText } from "react-icons/io5";
 import { IoIosClose } from "react-icons/io";
 
-// AnimatedGrid Component
+// / AnimatedGrid Component
 const AnimatedGrid = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
