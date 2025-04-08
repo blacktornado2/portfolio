@@ -1,12 +1,12 @@
 import React from "react";
-import profileImage from "../assets/images/profile.jpeg";
+import profileImage from "../assets/images/profile2.jpeg";
 
 const AboutMe = () => {
   return (
     <section
       className="about-section bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90 text-white py-32 pb-40 flex items-center justify-center"
     >
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-8 justify-center font-mono">
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-8 justify-center font-mono">
         <div className="content max-w-2xl">
           <h2 className="text-[#4ECCA3] text-3xl font-bold mb-12">WHO AM I?</h2>
           <p className="text-lg leading-loose">
@@ -19,11 +19,11 @@ const AboutMe = () => {
             I appreciate you taking the time to learn more about me ^_^
           </p>
         </div>
-        <div className="image-container size-60 flex items-center">
+        <div className="flex items-center overflow-hidden">
           <img
             src={profileImage}
             alt="Profile"
-            className="object-cover rounded-lg shadow-lg"
+            className="h-80 w-80 object-cover rounded-full shadow-lg"
           />
         </div>
       </div>

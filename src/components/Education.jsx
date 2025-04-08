@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+// TODO: show education loader
 const EducationSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -22,27 +23,27 @@ const EducationSection = () => {
       achievements: ["CGPA: 8.0",],
       skills: ["C++", "Operating System", "OOPS", "DBMS"],
       description:
-        "Focused on core computer science subjects with emphasis on practical laboratory work and scientific research methodologies.",
+        "Focused on core computer science subjects with emphasis on practical laboratory work and scientific research methodologies. Enjoyed college life ^_^",
     },
     {
-      degree: "Matriculation",
+      degree: "Intermediate (+2)",
       school: "St. Crispin's Sr. Sec. School",
-      mascot: "📗",
-      year: "2021-2023",
+      mascot: "📘",
+      year: "2016-2017",
       achievements: ["Percentage: 92%", ],
       skills: ["Mathematics", "Physics", "Chemistry", "English"],
       description:
-        "Developed strong analytical and critical thinking skills through comprehensive study of science ",
-    },
+        "Developed strong analytical and critical thinking skills through comprehensive study of science. Studies were highly engaging :D",
+    }, 
     {
-      degree: "High School",
+      degree: "Matriculation",
       school: "St. Crispin's Sr. Sec. School, Gurugram",
       mascot: "📕",
-      year: "2021-2023",
+      year: "2014-2015",
       achievements: ["CGPA: 9.4",],
       skills: ["Science", "English", "Social Studies", "Economics", "History"],
       description:
-        "Developed knowledge in a variety of subjects",
+        "Developed knowledge in a variety of subjects. Played sports like cricket, badminton, football, volleyball. Life was pretty easy :)",
     },
   ];
 
