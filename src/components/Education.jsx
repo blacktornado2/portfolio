@@ -20,7 +20,7 @@ const EducationSection = () => {
       school: "J.C. Bose University of Science and Technology, YMCA",
       mascot: "💻",
       year: "2018-2022",
-      achievements: ["CGPA: 8.0",],
+      achievements: ["CGPA: 8.0"],
       skills: ["C++", "Operating System", "OOPS", "DBMS"],
       description:
         "Focused on core computer science subjects with emphasis on practical laboratory work and scientific research methodologies. Enjoyed college life ^_^",
@@ -30,17 +30,17 @@ const EducationSection = () => {
       school: "St. Crispin's Sr. Sec. School",
       mascot: "📘",
       year: "2016-2017",
-      achievements: ["Percentage: 92%", ],
+      achievements: ["Percentage: 92%"],
       skills: ["Mathematics", "Physics", "Chemistry", "English"],
       description:
         "Developed strong analytical and critical thinking skills through comprehensive study of science. Studies were highly engaging :D",
-    }, 
+    },
     {
       degree: "Matriculation",
       school: "St. Crispin's Sr. Sec. School, Gurugram",
       mascot: "📕",
       year: "2014-2015",
-      achievements: ["CGPA: 9.4",],
+      achievements: ["CGPA: 9.4"],
       skills: ["Science", "English", "Social Studies", "Economics", "History"],
       description:
         "Developed knowledge in a variety of subjects. Played sports like cricket, badminton, football, volleyball. Life was pretty easy :)",
@@ -70,9 +70,7 @@ const EducationSection = () => {
   };
 
   return (
-    <section
-      className="min-h-screen relative overflow-hidden py-40 bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90"
-    >
+    <section className="min-h-screen relative overflow-hidden py-40 bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90">
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -80,7 +78,7 @@ const EducationSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-8xl md:text-7xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent mb-7">
+          <h2 className="text-8xl md:text-6xl sm:text-5xl font-bold bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-transparent pb-5 mb-7">
             Educational Journey
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">

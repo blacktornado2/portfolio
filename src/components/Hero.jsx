@@ -22,8 +22,9 @@ const AnimatedGrid = () => {
                 key={`v-${i}`}
                 className="relative h-full w-full border-r border-blue-500/10"
                 style={{
-                  animation: `gridPulse ${2 + Math.random() * 2
-                    }s ease-in-out infinite`,
+                  animation: `gridPulse ${
+                    2 + Math.random() * 2
+                  }s ease-in-out infinite`,
                   animationDelay: `${Math.random() * 2}s`,
                 }}
               />
@@ -35,8 +36,9 @@ const AnimatedGrid = () => {
                 key={`h-${i}`}
                 className="relative w-full h-full border-b border-blue-500/10"
                 style={{
-                  animation: `gridPulse ${2 + Math.random() * 2
-                    }s ease-in-out infinite`,
+                  animation: `gridPulse ${
+                    2 + Math.random() * 2
+                  }s ease-in-out infinite`,
                   animationDelay: `${Math.random() * 2}s`,
                 }}
               />
@@ -138,8 +140,16 @@ const profile = {
               {/* Description */}
               <div className="relative mb-8 sm:mb-12 max-w-xl">
                 <p className="font-mono sm:text-xl text-gray-300/90 leading-relaxed">
-                Full-stack dev making web and mobile apps with modern tech. 
-                <p className="text-purple-500 font-bold font-mono pt-2">Clean Readable Code | Responsive Layout | Extensible code </p>
+                  Full-stack dev making web and mobile apps with modern tech.
+                  <p className="text-purple-500 font-bold font-mono pt-2">
+                    Clean Readable Code
+                  </p>
+                  <p className="text-purple-500 font-bold font-mono pt-2">
+                    Responsive Layout
+                  </p>
+                  <p className="text-purple-500 font-bold font-mono pt-2">
+                    Extensible code
+                  </p>
                 </p>
               </div>
 
@@ -153,14 +163,14 @@ const profile = {
                   <span className="block w-full px-6 sm:px-8 py-3 sm:py-4 rounded-[11px] bg-gray-900 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-teal-400">
                     <span className="relative flex items-center justify-center gap-2 text-white font-medium">
                       <span className="pr-2">Learn More</span>
-                      <FaLink className="text-blue-300"/>
+                      <FaLink className="text-blue-300" />
                       {/* <i className="fas fa-arrow-right transform transition-all duration-300 group-hover:translate-x-1"></i> */}
                     </span>
                   </span>
                 </a>
 
                 {/* Contact Button */}
-                <a
+                {/*<a
                   href="#"
                   className="group relative inline-flex items-center justify-center gap-3 p-0.5 rounded-xl bg-gradient-to-r from-gray-800 to-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_-0.5rem_#60A5FA]"
                 >
@@ -168,19 +178,20 @@ const profile = {
                     <span className="relative flex items-center justify-center gap-2 text-gray-300 font-medium group-hover:text-white">
                       <span className="pr-2">Get Resume</span>
                       <IoDocumentText className="text-green-400"/>
-                      {/* <i className="fas fa-envelope transform transition-all duration-300 group-hover:rotate-12"></i> */}
+                       <i className="fas fa-envelope transform transition-all duration-300 group-hover:rotate-12"></i>
                     </span>
-                  </span>
+                  </span> 
                 </a>
+                */}
               </div>
 
               {/* Floating badges */}
-              <div className="hidden lg:block absolute left-[5.5rem] top-[2.3rem] animate-float-slow">
+              {/* <div className="hidden lg:block absolute left-[5.5rem] top-[2.3rem] animate-float-slow">
                 <div className="px-4 py-2 rounded-lg bg-purple-500/10 backdrop-blur-sm border border-purple-500/20 text-purple-400">
                   <i className="fas fa-wand-magic-sparkles"></i>&nbsp;&nbsp;UI
                   Magic
                 </div>
-              </div>
+              </div> */}
               <div className="hidden lg:block absolute right-10 top-20 animate-float">
                 <div className="px-4 py-2 rounded-lg bg-blue-500/10 backdrop-blur-sm border border-blue-500/20 text-blue-400">
                   <i className="fas fa-code"></i>&nbsp;&nbsp;Clean Code
@@ -198,7 +209,9 @@ const profile = {
               <div className="gradient-border">
                 <div className="code-window bg-[#091121]">
                   <div className="window-header">
-                    <div className="window-dot bg-red-500 flex items-center"><IoIosClose color="black"/></div>
+                    <div className="window-dot bg-red-500 flex items-center">
+                      <IoIosClose color="black" />
+                    </div>
                     <div className="window-dot bg-yellow-500"></div>
                     <div className="window-dot bg-green-500"></div>
                     <span className="ml-3 text-sm text-gray-400 flex items-center gap-2">
@@ -216,13 +229,13 @@ const profile = {
         </section>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce flex flex-col items-center gap-2">
+        {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce flex flex-col items-center gap-2">
           <span className="text-gray-400 text-sm flex items-center gap-2">
             <i className="fas fa-mouse text-blue-400"></i>
             Scroll to explore
           </span>
           <i className="fas fa-chevron-down text-blue-400 text-xl"></i>
-        </div>
+        </div> */}
 
         <PortfolioPage />
       </main>
