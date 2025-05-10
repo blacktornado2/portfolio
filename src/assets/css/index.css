@@ -103,7 +103,7 @@
 }
 
 .typing-effect::after {
-  content: "|";
+  content: "" !important;
   animation: blink 1s step-end infinite;
   margin-left: 2px;
   color: #60a5fa;
