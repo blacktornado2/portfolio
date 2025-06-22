@@ -66,14 +66,19 @@ const profile = {
     name: 'Ankit Bhardwaj',
     title: 'Software Developer | Full-Stack Developer | Mobile Developer',
     skills: [
-        'React Native', 'React.js', 'Node.js', 'Express',
-        'Next.js', 'MySQL', 'MongoDB', 'CockroachDB',
-        'TypeScript', 'Git', 'Linux'
+        'React Native', 'React.js', 'Node.js', 'Express.js',
+        'Next.js', 'TypeScript', 'MongoDB', 'MySQL',
+        'CockroachDB', 'REST APIs', 'Git', 'Linux',
+        'Unit Testing', 'Performance Optimisation'
     ],
-    problemSolver: true,
-    quickLearner: true,
-    hardWorker: true,
-    yearsOfExperience: 3, 
+    coreCompetencies: [
+        'Full-Stack Development',
+        'Cross-Platform Mobile App Development',
+        'API Design & Integration',
+        'Database Design & Management',
+        'Scalable Architecture Design',
+    ],
+    yearsOfExperience: 3+,
 };
   `);
 
