@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Send, MapPin, Mail } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
@@ -32,28 +32,36 @@ const inputClass = (error) =>
       : "border-[#2A2A2A] focus:border-[#E8B84B]"
   }`;
 
+const EMPTY_FORM = { name: "", email: "", subject: "", message: "" };
+
+function validateForm(data) {
+  const errs = {};
+  if (!data.name.trim())    errs.name    = "Name is required";
+  if (!data.email.trim())   errs.email   = "Email is required";
+  else if (!/\S+@\S+\.\S+/.test(data.email)) errs.email = "Email is invalid";
+  if (!data.subject.trim()) errs.subject = "Subject is required";
+  if (!data.message.trim()) errs.message = "Message is required";
+  return errs;
+}
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "", email: "", subject: "", message: "",
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const validate = () => {
-    const errs = {};
-    if (!formData.name.trim())    errs.name    = "Name is required";
-    if (!formData.email.trim())   errs.email   = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) errs.email = "Email is invalid";
-    if (!formData.subject.trim()) errs.subject = "Subject is required";
-    if (!formData.message.trim()) errs.message = "Message is required";
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    const errs = validateForm(formData);
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
 
+    setLoading(true);
     const form = new FormData();
     form.append("access_key", "0e22ebff-ca15-4e6c-b71a-6426816d9eb2");
     form.append("name",    formData.name);
@@ -66,17 +74,18 @@ export default function Contact() {
       const result = await res.json();
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData(EMPTY_FORM);
         setErrors({});
+        setTimeout(() => setStatus(null), 5000);
       } else {
         setStatus(result.message || "Something went wrong. Please try again.");
       }
     } catch {
       setStatus("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
-
-  const set = (field) => (e) => setFormData({ ...formData, [field]: e.target.value });
 
   return (
     <section aria-labelledby="contact-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
@@ -158,36 +167,37 @@ export default function Contact() {
             <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <input type="text" placeholder="Your Name"
+                  <input type="text" name="name" aria-label="Your name" placeholder="Your Name"
                     className={inputClass(errors.name)}
-                    value={formData.name} onChange={set("name")} />
+                    value={formData.name} onChange={handleChange} />
                   {errors.name    && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
                 <div>
-                  <input type="email" placeholder="Your Email"
+                  <input type="email" name="email" aria-label="Your email address" placeholder="Your Email"
                     className={inputClass(errors.email)}
-                    value={formData.email} onChange={set("email")} />
+                    value={formData.email} onChange={handleChange} />
                   {errors.email   && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
                 <div>
-                  <input type="text" placeholder="Subject"
+                  <input type="text" name="subject" aria-label="Message subject" placeholder="Subject"
                     className={inputClass(errors.subject)}
-                    value={formData.subject} onChange={set("subject")} />
+                    value={formData.subject} onChange={handleChange} />
                   {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
                 </div>
                 <div>
-                  <textarea placeholder="Your Message" rows={5}
+                  <textarea name="message" aria-label="Your message" placeholder="Your Message" rows={5}
                     className={`${inputClass(errors.message)} resize-none`}
-                    value={formData.message} onChange={set("message")} />
+                    value={formData.message} onChange={handleChange} />
                   {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full font-syne font-bold bg-[#E8B84B] text-[#111111] py-3 px-6 rounded-lg hover:bg-[#d4a83e] transition-colors flex items-center justify-center gap-2"
+                  disabled={loading}
+                  className="w-full font-syne font-bold bg-[#E8B84B] text-[#111111] py-3 px-6 rounded-lg hover:bg-[#d4a83e] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message
-                  <Send className="w-4 h-4" aria-hidden="true" />
+                  {loading ? "Sending…" : "Send Message"}
+                  {!loading && <Send className="w-4 h-4" aria-hidden="true" />}
                 </button>
               </form>
 
