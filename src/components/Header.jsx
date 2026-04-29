@@ -1,143 +1,116 @@
-// Header.jsx
 import React, { useState, useEffect } from "react";
-import {
-  FaHome,
-  FaLaptopCode,
-  FaBriefcase,
-  FaGraduationCap,
-  FaCode,
-  FaEnvelope,
-  FaBars,
-} from "react-icons/fa";
-import { useLocation } from "react-router-dom";
-import { HashLink } from "react-router-hash-link"; // Import HashLink
+import { HashLink } from "react-router-hash-link";
+import { Menu, X } from "lucide-react";
 
-// Accept isOnePage prop
-export default function Header({ isOnePage }) {
-  const location = useLocation();
-
-  // Function to get the active section based on current mode and location
-  const getCurrentActiveLink = () => {
-    const path = location.pathname.substring(1);
-    const hash = location.hash.substring(1); // Get hash without '#'
-
-    if (isOnePage) {
-      return hash || "home"; // Use hash in one-page mode, default to 'home'
-    } else {
-      // In router mode, match the path. Handle root path explicitly.
-      if (location.pathname === "/") return "home";
-      return path;
-    }
-  };
-
-  const [activeLink, setActiveLink] = useState(getCurrentActiveLink);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  // Effect to update active link when location changes (e.g., scroll, back/forward)
-  useEffect(() => {
-    setActiveLink(getCurrentActiveLink());
-  }, [location, isOnePage]); // Re-run when location or mode changes
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const ids = ["home", "skills", "experience", "education", "contact"];
+    const observers = ids.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      obs.observe(el);
+      return obs;
+    });
+    return () => observers.forEach((obs) => obs?.disconnect());
   }, []);
 
   const navLinks = [
-    { id: "home", icon: FaHome, text: "Home", path: "/" },
-    { id: "skills", icon: FaCode, text: "Skills", path: "/skills" },
-    {
-      id: "experience",
-      icon: FaBriefcase,
-      text: "Experience",
-      path: "/experience",
-    },
-    {
-      id: "education",
-      icon: FaGraduationCap,
-      text: "Education",
-      path: "/education",
-    },
-    // { id: "projects", icon: FaLaptopCode, text: "Projects", path: "/projects" },
-    { id: "contact", icon: FaEnvelope, text: "Contact", path: "/contact" },
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
+    { id: "contact", label: "Contact" },
   ];
 
-  // Simplified click handler
-  const handleLinkClick = () => {
-    setIsMenuOpen(false); // Close mobile menu on click
-    // No need to manually set activeLink here, useEffect handles it
-  };
-
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-gray-900/95 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
-      <div className="md:fixed md:top-4 md:left-1/2 md:transform md:-translate-x-1/2 w-full md:w-auto">
-        <div className="p-[2px] md:rounded-full bg-gradient-to-r from-emerald-400 via-cyan-500 to-indigo-500 animate-gradient-x">
-          <nav className="bg-gray-900/90 backdrop-blur-md md:rounded-full px-4 md:px-6 py-2.5">
-            {/* Mobile Menu Button */}
-            <div className="flex justify-between items-center md:hidden px-2">
-              {/* Use HashLink for the portfolio/home link too */}
-              <HashLink
-                to={isOnePage ? "/#home" : "/"}
-                smooth={isOnePage}
-                onClick={handleLinkClick}
-                className="text-white font-bold"
-              >
-                Portfolio
-              </HashLink>
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-white p-2"
-              >
-                <FaBars />
-              </button>
-            </div>
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#111111]/95 backdrop-blur-sm border-b border-[#2A2A2A]"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <HashLink
+          to="/#home"
+          smooth
+          className="font-syne font-bold text-white text-lg hover:text-[#E8B84B] transition-colors"
+        >
+          Ankit Bhardwaj
+        </HashLink>
 
-            {/* Navigation Links */}
-            <div className={`${isMenuOpen ? "block" : "hidden"} md:block`}>
-              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-1 lg:gap-2 py-4 md:py-0">
-                {navLinks.map(({ id, icon: Icon, text, path }) => {
-                  // Determine the target URL based on the mode
-                  const linkTo = isOnePage ? `/#${id}` : path;
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map(({ id, label }) => (
+            <HashLink
+              key={id}
+              to={`/#${id}`}
+              smooth
+              onClick={() => setMenuOpen(false)}
+              className={`text-sm font-medium transition-colors hover:text-[#E8B84B] ${
+                activeSection === id ? "text-[#E8B84B]" : "text-[#888888]"
+              }`}
+            >
+              {label}
+            </HashLink>
+          ))}
+          <HashLink
+            to="/#contact"
+            smooth
+            className="font-syne font-bold text-sm bg-[#E8B84B] text-[#111111] px-4 py-2 rounded-md hover:bg-[#d4a83e] transition-colors"
+          >
+            Hire Me
+          </HashLink>
+        </nav>
 
-                  return (
-                    <HashLink // Use HashLink component
-                      key={id}
-                      to={linkTo}
-                      smooth={isOnePage} // Enable smooth scroll only in one-page mode
-                      onClick={handleLinkClick} // Just close menu
-                      className={`px-3 py-2 md:py-1.5 rounded-lg md:rounded-full text-sm font-medium
-                        transition-all duration-300 flex items-center gap-2
-                        hover:bg-white/10
-                        ${
-                          activeLink === id // Use state for highlighting
-                            ? "bg-white/15 text-white"
-                            : "text-gray-300 hover:text-white"
-                        }
-                      `}
-                      // You can optionally add aria-current if needed
-                      aria-current={activeLink === id ? "page" : undefined}
-                    >
-                      <Icon
-                        className={`text-base ${
-                          activeLink === id ? "scale-110" : ""
-                        }`}
-                      />
-                      <span className="inline">{text}</span>
-                    </HashLink>
-                  );
-                })}
-              </div>
-            </div>
-          </nav>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden text-white p-1"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
 
-      <style>{`
-        @keyframes gradient-x { /* ... animation ... */ }
-        .animate-gradient-x { /* ... animation styles ... */ }
-      `}</style>
+      {/* Mobile drawer */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#1A1A1A] border-t border-[#2A2A2A] px-6 py-6 flex flex-col gap-5">
+          {navLinks.map(({ id, label }) => (
+            <HashLink
+              key={id}
+              to={`/#${id}`}
+              smooth
+              onClick={() => setMenuOpen(false)}
+              className="text-[#888888] hover:text-[#E8B84B] transition-colors font-medium"
+            >
+              {label}
+            </HashLink>
+          ))}
+          <HashLink
+            to="/#contact"
+            smooth
+            onClick={() => setMenuOpen(false)}
+            className="font-syne font-bold text-sm bg-[#E8B84B] text-[#111111] px-4 py-3 rounded-md text-center hover:bg-[#d4a83e] transition-colors"
+          >
+            Hire Me
+          </HashLink>
+        </div>
+      )}
     </header>
   );
 }
