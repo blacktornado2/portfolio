@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Send, MapPin, Mail } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { myEmail, myLocation, myPincode } from "../constants";
 
 const HEADER_ANIM = {
@@ -156,6 +156,24 @@ export default function Contact() {
                     className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
                   >
                     github.com/blacktornado2
+                  </a>
+                </div>
+              </div>
+
+              {/* LinkedIn */}
+              <div className="flex items-center gap-4">
+                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
+                  <FaLinkedin className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">LinkedIn</p>
+                  <a
+                    href="https://www.linkedin.com/in/bhardwaj--ankit/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+                  >
+                    linkedin.com/in/bhardwaj--ankit
                   </a>
                 </div>
               </div>
