@@ -103,10 +103,10 @@ export default function EducationSection() {
                   <h3 className="font-syne font-bold text-white text-xl leading-tight">
                     {degree}
                   </h3>
-                  <p className="text-[#888888] text-sm flex items-center gap-1.5 mt-1">
+                  <span className="text-[#888888] text-sm flex items-center gap-1.5 mt-1">
                     <BookOpen className="w-4 h-4 text-[#E8B84B] flex-shrink-0" aria-hidden="true" />
                     {school}
-                  </p>
+                  </span>
                 </div>
               </div>
 
