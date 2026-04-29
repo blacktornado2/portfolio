@@ -1,0 +1,159 @@
+<h2>How should the Hero section be laid out?</h2>
+<p class="subtitle">All three use the Dark Refined palette (charcoal + gold). The code window is present in all — it's the "developer identity" element.</p>
+
+<div class="cards">
+
+  <!-- Option A: Classic Split -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111111; padding:16px 20px; min-height:200px; position:relative; overflow:hidden; font-family:sans-serif;">
+      <!-- Nav hint -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #2A2A2A;margin-bottom:16px;">
+        <span style="font-size:10px;color:#fff;font-weight:700;">Ankit Bhardwaj</span>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span style="font-size:8px;color:#555;">Skills</span>
+          <span style="font-size:8px;color:#555;">Experience</span>
+          <span style="font-size:8px;color:#555;">Contact</span>
+          <span style="font-size:8px;color:#111;background:#E8B84B;padding:2px 8px;border-radius:3px;font-weight:700;">Hire Me</span>
+        </div>
+      </div>
+      <!-- Two column layout -->
+      <div style="display:flex;gap:16px;align-items:center;">
+        <!-- Left: Text -->
+        <div style="flex:1;">
+          <div style="font-size:8px;color:#E8B84B;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;">● Available for work</div>
+          <div style="font-size:22px;color:#FFFFFF;font-weight:800;line-height:1.1;margin-bottom:4px;">Ankit<br/><span style="color:#E8B84B;">Bhardwaj</span></div>
+          <div style="font-size:9px;color:#888;margin-bottom:10px;">Full-Stack Developer · 3+ Years</div>
+          <div style="font-size:8px;color:#666;line-height:1.6;max-width:160px;margin-bottom:10px;">Building web & mobile products with clean code and scalable architecture.</div>
+          <div style="display:flex;gap:6px;">
+            <span style="font-size:7px;border:1px solid #E8B84B;color:#E8B84B;padding:3px 8px;border-radius:3px;">View Work</span>
+            <span style="font-size:7px;border:1px solid #2A2A2A;color:#888;padding:3px 8px;border-radius:3px;">Download CV</span>
+          </div>
+        </div>
+        <!-- Right: Code Window -->
+        <div style="width:160px;background:#1A1A1A;border-radius:8px;padding:10px;font-family:monospace;font-size:7px;border:1px solid #2A2A2A;flex-shrink:0;">
+          <div style="display:flex;gap:4px;margin-bottom:8px;align-items:center;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block;"></span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+            <span style="margin-left:4px;color:#555;font-size:6px;">developer.js</span>
+          </div>
+          <div><span style="color:#E8B84B;">const</span> <span style="color:#eee;">profile</span> <span style="color:#888;">=</span> <span style="color:#eee;">{</span></div>
+          <div style="padding-left:10px;color:#666;">name: <span style="color:#d4c090;">'Ankit Bhardwaj'</span>,</div>
+          <div style="padding-left:10px;color:#666;">title: <span style="color:#d4c090;">'Full-Stack Dev'</span>,</div>
+          <div style="padding-left:10px;color:#666;">skills: <span style="color:#eee;">[</span></div>
+          <div style="padding-left:18px;color:#d4c090;">'React', 'Node.js',</div>
+          <div style="padding-left:18px;color:#d4c090;">'React Native'</div>
+          <div style="padding-left:10px;color:#eee;">],</div>
+          <div style="padding-left:10px;color:#666;">exp: <span style="color:#E8B84B;">3</span></div>
+          <div style="color:#eee;">}</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Classic Split (50 / 50)</h3>
+      <p>Name + CTA buttons on the left, code window on the right. Same structure as today but completely restyled. Familiar, clean, well-balanced.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Oversized Name + Floating Code Card -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111111; padding:16px 20px; min-height:200px; position:relative; overflow:hidden; font-family:sans-serif;">
+      <!-- Nav hint -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #2A2A2A;margin-bottom:14px;">
+        <span style="font-size:10px;color:#fff;font-weight:700;">Ankit Bhardwaj</span>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span style="font-size:8px;color:#555;">Skills</span>
+          <span style="font-size:8px;color:#555;">Experience</span>
+          <span style="font-size:8px;color:#555;">Contact</span>
+          <span style="font-size:8px;color:#111;background:#E8B84B;padding:2px 8px;border-radius:3px;font-weight:700;">Hire Me</span>
+        </div>
+      </div>
+      <!-- Full width oversized name -->
+      <div style="margin-bottom:10px;">
+        <div style="font-size:8px;color:#E8B84B;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;">Full-Stack Developer · React · Node.js · Mobile</div>
+        <div style="font-size:32px;color:#FFFFFF;font-weight:900;line-height:1.0;letter-spacing:-0.02em;">ANKIT<br/>BHARDWAJ<span style="color:#E8B84B;">.</span></div>
+      </div>
+      <!-- Bottom row: short bio left, floating code card right -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;">
+        <div>
+          <div style="font-size:8px;color:#666;line-height:1.6;max-width:160px;margin-bottom:8px;">3+ years building web & mobile products. Clean code, scalable systems.</div>
+          <div style="display:flex;gap:6px;">
+            <span style="font-size:7px;background:#E8B84B;color:#111;padding:3px 10px;border-radius:3px;font-weight:700;">View Work</span>
+            <span style="font-size:7px;border:1px solid #2A2A2A;color:#888;padding:3px 10px;border-radius:3px;">CV</span>
+          </div>
+        </div>
+        <!-- Compact floating code card -->
+        <div style="width:140px;background:#1A1A1A;border-radius:8px;padding:8px;font-family:monospace;font-size:7px;border:1px solid #E8B84B33;flex-shrink:0;box-shadow:0 0 20px #E8B84B15;">
+          <div style="display:flex;gap:3px;margin-bottom:6px;">
+            <span style="width:5px;height:5px;border-radius:50%;background:#ef4444;display:inline-block;"></span>
+            <span style="width:5px;height:5px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>
+            <span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+            <span style="margin-left:4px;color:#E8B84B;font-size:6px;">developer.js</span>
+          </div>
+          <div><span style="color:#E8B84B;">const</span> <span style="color:#eee;">profile</span> <span style="color:#888;">=</span> <span style="color:#eee;">{</span></div>
+          <div style="padding-left:10px;color:#666;">name: <span style="color:#d4c090;">'Ankit'</span>,</div>
+          <div style="padding-left:10px;color:#666;">exp: <span style="color:#E8B84B;">3</span>,</div>
+          <div style="padding-left:10px;color:#666;">open: <span style="color:#22c55e;">true</span></div>
+          <div style="color:#eee;">}</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Oversized name + floating code</h3>
+      <p>Giant full-width name dominates the viewport. Short bio and CTA bottom-left, code window floats bottom-right. Bold, editorial, high-impact — like a design agency site.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Asymmetric with accent line -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111111; padding:16px 20px; min-height:200px; position:relative; overflow:hidden; font-family:sans-serif;">
+      <!-- Nav hint -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #2A2A2A;margin-bottom:14px;">
+        <span style="font-size:10px;color:#fff;font-weight:700;">Ankit Bhardwaj</span>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span style="font-size:8px;color:#555;">Skills</span>
+          <span style="font-size:8px;color:#555;">Experience</span>
+          <span style="font-size:8px;color:#555;">Contact</span>
+          <span style="font-size:8px;color:#111;background:#E8B84B;padding:2px 8px;border-radius:3px;font-weight:700;">Hire Me</span>
+        </div>
+      </div>
+      <!-- 60/40 asymmetric layout -->
+      <div style="display:flex;gap:0;align-items:stretch;">
+        <!-- Left 60%: Text with gold vertical accent -->
+        <div style="flex:6;padding-right:16px;border-right:2px solid #E8B84B;">
+          <div style="font-size:8px;color:#555;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">01 — Software Developer</div>
+          <div style="font-size:24px;color:#FFFFFF;font-weight:800;line-height:1.1;margin-bottom:8px;">Ankit<br/><span style="color:#E8B84B;">Bhardwaj</span></div>
+          <div style="font-size:8px;color:#666;line-height:1.6;max-width:150px;margin-bottom:10px;">Full-Stack · Mobile · 3 years at one.com. MERN stack specialist.</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;">
+            <span style="font-size:7px;background:#1A1A1A;color:#888;padding:2px 7px;border:1px solid #2A2A2A;border-radius:2px;">React</span>
+            <span style="font-size:7px;background:#1A1A1A;color:#888;padding:2px 7px;border:1px solid #2A2A2A;border-radius:2px;">Node.js</span>
+            <span style="font-size:7px;background:#1A1A1A;color:#888;padding:2px 7px;border:1px solid #2A2A2A;border-radius:2px;">TypeScript</span>
+          </div>
+          <span style="font-size:7px;background:#E8B84B;color:#111;padding:3px 10px;border-radius:3px;font-weight:700;">Hire Me</span>
+        </div>
+        <!-- Right 40%: Code window -->
+        <div style="flex:4;padding-left:16px;">
+          <div style="background:#1A1A1A;border-radius:6px;padding:8px;font-family:monospace;font-size:7px;border:1px solid #2A2A2A;height:100%;">
+            <div style="display:flex;gap:3px;margin-bottom:6px;align-items:center;">
+              <span style="width:5px;height:5px;border-radius:50%;background:#ef4444;display:inline-block;"></span>
+              <span style="width:5px;height:5px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>
+              <span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+              <span style="margin-left:4px;color:#555;font-size:6px;">developer.js</span>
+            </div>
+            <div><span style="color:#E8B84B;">const</span> <span style="color:#eee;">dev</span> <span style="color:#888;">=</span> <span style="color:#eee;">{</span></div>
+            <div style="padding-left:8px;color:#666;">name: <span style="color:#d4c090;">'Ankit'</span>,</div>
+            <div style="padding-left:8px;color:#666;">role: <span style="color:#d4c090;">'Full-Stack'</span>,</div>
+            <div style="padding-left:8px;color:#666;">exp: <span style="color:#E8B84B;">3</span>,</div>
+            <div style="padding-left:8px;color:#666;">open: <span style="color:#22c55e;">true</span></div>
+            <div style="color:#eee;">}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Asymmetric 60/40 with gold divider</h3>
+      <p>60% text column with a bold gold vertical divider line, 40% code window. The divider creates strong visual structure. Numbered sections (01, 02...) add editorial depth.</p>
+    </div>
+  </div>
+
+</div>

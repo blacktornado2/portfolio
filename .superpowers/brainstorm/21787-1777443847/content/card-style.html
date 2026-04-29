@@ -1,0 +1,87 @@
+<h2>Which card style for Experience, Education & Skills?</h2>
+<p class="subtitle">This one pattern will be used consistently across all sections. Showing an Experience card as the example.</p>
+
+<div class="cards">
+
+  <!-- Option A: Left Gold Border -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111111; padding:20px; min-height:200px; font-family:sans-serif;">
+      <p style="font-size:9px;color:#555;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;">Experience — example card</p>
+      <div style="background:#1A1A1A; border-radius:8px; border-left:3px solid #E8B84B; padding:16px; max-width:320px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+          <div>
+            <div style="font-size:13px;color:#FFFFFF;font-weight:700;margin-bottom:2px;">Software Developer — 1</div>
+            <div style="font-size:11px;color:#E8B84B;font-weight:500;">one.com</div>
+          </div>
+          <span style="font-size:9px;color:#888;background:#111;border:1px solid #2A2A2A;padding:3px 8px;border-radius:4px;white-space:nowrap;">Jan 2024 – Present</span>
+        </div>
+        <div style="width:100%;height:1px;background:#2A2A2A;margin:10px 0;"></div>
+        <p style="font-size:10px;color:#888;line-height:1.6;">Frontend: working on integrating various services into our super app companion app.</p>
+        <div style="margin-top:10px;display:flex;gap:6px;">
+          <span style="font-size:8px;background:#111;color:#666;padding:2px 8px;border:1px solid #2A2A2A;border-radius:3px;">React</span>
+          <span style="font-size:8px;background:#111;color:#666;padding:2px 8px;border:1px solid #2A2A2A;border-radius:3px;">Node.js</span>
+          <span style="font-size:8px;background:#111;color:#666;padding:2px 8px;border:1px solid #2A2A2A;border-radius:3px;">TypeScript</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Left gold border accent</h3>
+      <p>Subtle but effective. The gold left-border flags every card as part of the same design language. Clean internal layout with a hairline divider. Highly readable.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Top Gold Bar + Elevated -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111111; padding:20px; min-height:200px; font-family:sans-serif;">
+      <p style="font-size:9px;color:#555;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;">Experience — example card</p>
+      <div style="background:#1A1A1A; border-radius:8px; overflow:hidden; max-width:320px; box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+        <!-- Gold top bar -->
+        <div style="height:3px;background:#E8B84B;width:100%;"></div>
+        <div style="padding:16px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <!-- Icon circle -->
+            <div style="width:32px;height:32px;background:#E8B84B15;border:1px solid #E8B84B33;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span style="font-size:12px;">🚀</span>
+            </div>
+            <div>
+              <div style="font-size:13px;color:#FFFFFF;font-weight:700;line-height:1.2;">Software Developer — 1</div>
+              <div style="font-size:10px;color:#E8B84B;">one.com</div>
+            </div>
+          </div>
+          <div style="font-size:9px;color:#666;background:#111;display:inline-block;padding:2px 8px;border-radius:3px;margin-bottom:8px;">Jan 2024 – Present</div>
+          <p style="font-size:10px;color:#888;line-height:1.6;">Frontend: working on integrating various services into our super app companion app.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Gold top bar + icon</h3>
+      <p>A thin gold bar crowns each card, with an icon badge on the left of the title. Elevated shadow adds depth. Feels more polished and "product-like".</p>
+    </div>
+  </div>
+
+  <!-- Option C: Outlined / Minimal -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#111111; padding:20px; min-height:200px; font-family:sans-serif;">
+      <p style="font-size:9px;color:#555;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;">Experience — example card</p>
+      <div style="border:1px solid #2A2A2A; border-radius:8px; padding:16px; max-width:320px; transition:border-color 0.2s;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <div>
+            <div style="font-size:10px;color:#E8B84B;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">one.com</div>
+            <div style="font-size:14px;color:#FFFFFF;font-weight:700;">Software Developer — 1</div>
+          </div>
+          <span style="font-size:9px;color:#555;white-space:nowrap;padding-top:2px;">Jan 2024 – Present</span>
+        </div>
+        <p style="font-size:10px;color:#777;line-height:1.7;border-top:1px solid #1E1E1E;padding-top:10px;">Frontend: working on integrating various services into our super app companion app.</p>
+        <div style="margin-top:10px;display:flex;gap:5px;">
+          <span style="font-size:8px;color:#E8B84B;background:#E8B84B10;padding:2px 8px;border-radius:3px;">React</span>
+          <span style="font-size:8px;color:#888;background:#1A1A1A;padding:2px 8px;border-radius:3px;">Node.js</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Clean outline, no fill</h3>
+      <p>Transparent background, just a subtle border. Maximum breathing room. Company name in gold uppercase above the title. The most refined and minimal of the three.</p>
+    </div>
+  </div>
+
+</div>
