@@ -24,6 +24,8 @@ const SUBHEADER_ANIM = {
 };
 
 const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
+const CARD_HOVER = { scale: 1.01 };
+const VIEWPORT_ONCE = { once: true };
 
 const experiences = [
   {
@@ -51,12 +53,12 @@ const experiences = [
 
 export default function ExperienceSection() {
   return (
-    <section className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="experience-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-4">
-          <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="experience-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
             <span className="text-[#E8B84B]">03</span> — Professional Journey
           </h2>
         </motion.div>
@@ -73,9 +75,9 @@ export default function ExperienceSection() {
               custom={i}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={VIEWPORT_ONCE}
               variants={cardVariants}
-              whileHover={{ scale: 1.01 }}
+              whileHover={CARD_HOVER}
               className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6"
               style={CARD_BORDER}
             >
