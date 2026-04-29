@@ -1,248 +1,206 @@
-import React, { useState } from "react";
-import { Send, Phone, MapPin, Mail } from "lucide-react";
-
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Send, MapPin, Mail } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { myEmail, myLocation, myPincode } from "../constants";
+
+const HEADER_ANIM = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5 },
+};
+
+const LEFT_ANIM = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay: 0.1 },
+};
+
+const RIGHT_ANIM = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay: 0.2 },
+};
+
+const inputClass = (error) =>
+  `w-full bg-[#111111] border rounded-lg px-4 py-3 text-white placeholder-[#555555] focus:outline-none transition-colors ${
+    error
+      ? "border-red-500 focus:border-red-400"
+      : "border-[#2A2A2A] focus:border-[#E8B84B]"
+  }`;
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: "", email: "", subject: "", message: "",
   });
-
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
 
-  const validateForm = () => {
-    let tempErrors = {};
-    let isValid = true;
-
-    if (!formData.name.trim()) {
-      tempErrors.name = "Name is required";
-      isValid = false;
-    }
-
-    if (!formData.email.trim()) {
-      tempErrors.email = "Email is required";
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      tempErrors.email = "Email is invalid";
-      isValid = false;
-    }
-
-    if (!formData.subject.trim()) {
-      tempErrors.subject = "Subject is required";
-      isValid = false;
-    }
-
-    if (!formData.message.trim()) {
-      tempErrors.message = "Message is required";
-      isValid = false;
-    }
-
-    setErrors(tempErrors);
-    return isValid;
+  const validate = () => {
+    const errs = {};
+    if (!formData.name.trim())    errs.name    = "Name is required";
+    if (!formData.email.trim())   errs.email   = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) errs.email = "Email is invalid";
+    if (!formData.subject.trim()) errs.subject = "Subject is required";
+    if (!formData.message.trim()) errs.message = "Message is required";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
-    if (!validateForm()) {
-      setStatus("Please fill in all required fields correctly.");
-      return;
-    }
-
-    // Create a new FormData object to send to Web3Forms API
     const form = new FormData();
-    form.append("access_key", "0e22ebff-ca15-4e6c-b71a-6426816d9eb2"); // Replace with your Web3Forms access key
-    form.append("name", formData.name);
-    form.append("email", formData.email);
-    form.append("subject", formData.subject || "New Contact Form Submission");
+    form.append("access_key", "0e22ebff-ca15-4e6c-b71a-6426816d9eb2");
+    form.append("name",    formData.name);
+    form.append("email",   formData.email);
+    form.append("subject", formData.subject);
     form.append("message", formData.message);
 
     try {
-      // Send form data to Web3Forms API
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: form,
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setStatus("Message sent successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+      const res    = await fetch("https://api.web3forms.com/submit", { method: "POST", body: form });
+      const result = await res.json();
+      if (res.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
         setErrors({});
       } else {
-        setStatus(result.message || "There was an error sending your message.");
+        setStatus(result.message || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("An error occurred. Please try again.");
-      console.error("Error:", error);
     }
   };
 
+  const set = (field) => (e) => setFormData({ ...formData, [field]: e.target.value });
+
   return (
-    <main
-      className="pt-20 lg:pt-[0rem] bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90
- text-white min-h-screen"
-    >
-      <section className="hero min-h-screen flex items-center relative px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-4xl font-bold mb-10 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                  Get in Touch
-                </h2>
-                <p className="text-blue-100 text-lg">
-                  Have a question or want to work together? <br />
-                  Feel free to reach out. <br />
-                  Drop us a message!
-                </p>
+    <section aria-labelledby="contact-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Section header */}
+        <motion.div {...HEADER_ANIM} className="mb-16">
+          <h2 id="contact-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
+            <span className="text-[#E8B84B]">05</span> — Contact
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+          {/* Left: Info */}
+          <motion.div {...LEFT_ANIM} className="space-y-8">
+            <div>
+              <h3 className="font-syne font-bold text-3xl text-white mb-4">
+                Let's build something.
+              </h3>
+              <p className="text-[#888888] leading-relaxed">
+                Have a project in mind or want to work together? Feel free to
+                reach out — I'm always open to new connections and conversations.
+              </p>
+            </div>
+
+            <div className="space-y-5">
+              {/* Email */}
+              <div className="flex items-center gap-4">
+                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
+                  <Mail className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">Email</p>
+                  <a
+                    href={`mailto:${myEmail}`}
+                    className="text-[#888888] hover:text-[#E8B84B] transition-colors font-mono text-sm break-all"
+                  >
+                    {myEmail}
+                  </a>
+                </div>
               </div>
 
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4 font-mono">
-                  <div className="bg-purple-500/10 p-3 rounded-lg">
-                    <Mail className="w-6 h-6 text-purple-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Email</h3>
-                    <a
-                      href={`mailto:${myEmail}`}
-                      className="text-gray-400 hover:text-purple-400 transition-colors"
-                    >
-                      {myEmail}
-                    </a>
-                  </div>
+              {/* Location */}
+              <div className="flex items-center gap-4">
+                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
+                  <MapPin className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
                 </div>
+                <div>
+                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">Location</p>
+                  <p className="text-[#888888] text-sm">
+                    {myLocation}, {myPincode}
+                  </p>
+                </div>
+              </div>
 
-                <div className="flex items-center space-x-4 font-mono">
-                  <div className="bg-pink-500/10 p-3 rounded-lg">
-                    <MapPin className="w-6 h-6 text-pink-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Location</h3>
-                    <p className="text-gray-400">
-                      {myLocation}, {myPincode}
-                    </p>
-                  </div>
+              {/* GitHub */}
+              <div className="flex items-center gap-4">
+                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
+                  <FaGithub className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">GitHub</p>
+                  <a
+                    href="https://github.com/blacktornado2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+                  >
+                    github.com/blacktornado2
+                  </a>
                 </div>
               </div>
             </div>
+          </motion.div>
 
-            {/* Contact Form */}
-            <div className="backdrop-blur-lg bg-white/5 p-8 rounded-2xl shadow-xl">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 gap-6">
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.name ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors`}
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                    />
-                    {errors.name && (
-                      <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Your Email"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.email ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors`}
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Subject"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.subject ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors`}
-                      value={formData.subject}
-                      onChange={(e) =>
-                        setFormData({ ...formData, subject: e.target.value })
-                      }
-                    />
-                    {errors.subject && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.subject}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <textarea
-                      placeholder="Your Message"
-                      rows="4"
-                      className={`w-full px-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.message ? "border-red-500" : "border-gray-700"
-                      } focus:border-blue-500 focus:outline-none transition-colors resize-none`}
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                    ></textarea>
-                    {errors.message && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.message}
-                      </p>
-                    )}
-                  </div>
+          {/* Right: Form */}
+          <motion.div {...RIGHT_ANIM}>
+            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-8">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <input type="text" placeholder="Your Name"
+                    className={inputClass(errors.name)}
+                    value={formData.name} onChange={set("name")} />
+                  {errors.name    && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                </div>
+                <div>
+                  <input type="email" placeholder="Your Email"
+                    className={inputClass(errors.email)}
+                    value={formData.email} onChange={set("email")} />
+                  {errors.email   && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                </div>
+                <div>
+                  <input type="text" placeholder="Subject"
+                    className={inputClass(errors.subject)}
+                    value={formData.subject} onChange={set("subject")} />
+                  {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
+                </div>
+                <div>
+                  <textarea placeholder="Your Message" rows={5}
+                    className={`${inputClass(errors.message)} resize-none`}
+                    value={formData.message} onChange={set("message")} />
+                  {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:opacity-90 transition-opacity"
+                  className="w-full font-syne font-bold bg-[#E8B84B] text-[#111111] py-3 px-6 rounded-lg hover:bg-[#d4a83e] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>Send Message</span>
-                  <Send className="w-4 h-4" />
+                  Send Message
+                  <Send className="w-4 h-4" aria-hidden="true" />
                 </button>
               </form>
 
-              {/* Status Message */}
               {status && (
-                <div
-                  className={`mt-4 text-center ${
-                    status.includes("success")
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }`}
-                >
-                  <p>{status}</p>
-                </div>
+                <p className={`mt-4 text-center text-sm ${status === "success" ? "text-green-400" : "text-red-400"}`}>
+                  {status === "success" ? "Message sent successfully!" : status}
+                </p>
               )}
             </div>
-          </div>
+          </motion.div>
+
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }
