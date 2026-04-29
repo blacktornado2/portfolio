@@ -14,6 +14,13 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  useEffect(() => {
     const ids = ["home", "skills", "experience", "education", "contact"];
     const observers = ids.map((id) => {
       const el = document.getElementById(id);
@@ -82,6 +89,7 @@ export default function Header() {
           className="md:hidden text-white p-1"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
