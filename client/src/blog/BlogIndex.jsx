@@ -117,8 +117,11 @@ export default function BlogIndex() {
   const [allTags, setAllTags] = useState(["All"]);
 
   useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
     getPosts(1, activeTag === "All" ? undefined : activeTag)
       .then((result) => {
+        if (cancelled) return;
         setPosts(result.data || []);
         const tags = Array.from(
           new Set(result.data?.flatMap((p) => p.tags) || [])
@@ -126,7 +129,12 @@ export default function BlogIndex() {
         setAllTags(["All", ...tags]);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [activeTag]);
 
   const filtered = useMemo(() => {

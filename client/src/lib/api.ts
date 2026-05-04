@@ -24,7 +24,7 @@ async function apiFetch(path: string, options: FetchOptions = {}) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error((error as any).message || `HTTP ${response.status}`);
+    throw new Error((error as { message?: string }).message || `HTTP ${response.status}`);
   }
 
   return response.json();

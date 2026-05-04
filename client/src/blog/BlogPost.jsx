@@ -3,6 +3,16 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPostBySlug, getComments, getLikes, createComment, toggleLike } from "@/lib/api";
+import profileImg from "@/assets/images/profile.jpeg";
+
+function slugify(text) {
+  return String(text)
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}
 
 function ReadProgress() {
   const [pct, setPct] = useState(0);
@@ -12,6 +22,7 @@ function ReadProgress() {
     const onScroll = () => {
       const rect = article.getBoundingClientRect();
       const total = article.offsetHeight - window.innerHeight;
+      if (total <= 0) { setPct(100); return; }
       const scrolled = Math.max(0, -rect.top);
       setPct(Math.min(100, (scrolled / total) * 100));
     };
@@ -86,7 +97,7 @@ function TableOfContents() {
 
       <div className="flex items-center gap-2.5 mb-6">
         <img
-          src="/src/assets/images/profile.jpeg"
+          src={profileImg}
           alt="Ankit Bhardwaj"
           className="w-9 h-9 rounded-full object-cover border border-[#2A2A2A] shrink-0"
         />
@@ -132,15 +143,19 @@ export default function BlogPost() {
   const [loading, setLoading] = useState(true);
   const [commentForm, setCommentForm] = useState({ authorName: "", authorEmail: "", body: "" });
   const [submittingComment, setSubmittingComment] = useState(false);
+  const [commentError, setCommentError] = useState("");
+  const [likePending, setLikePending] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
+    let cancelled = false;
     Promise.all([
       getPostBySlug(slug).catch(() => null),
       getComments(slug).catch(() => []),
       getLikes(slug).catch(() => ({ count: 0, liked: false })),
     ])
       .then(([postData, commentsData, likesData]) => {
+        if (cancelled) return;
         if (!postData) {
           navigate("/blog", { replace: true });
           return;
@@ -149,15 +164,24 @@ export default function BlogPost() {
         setComments(commentsData || []);
         setLikes(likesData);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [slug, navigate]);
 
   const handleLike = async () => {
+    if (likePending) return;
+    setLikePending(true);
     try {
       const result = await toggleLike(slug);
       setLikes(result);
     } catch (error) {
       console.error("Failed to toggle like:", error);
+    } finally {
+      setLikePending(false);
     }
   };
 
@@ -165,13 +189,14 @@ export default function BlogPost() {
     e.preventDefault();
     if (!commentForm.authorName || !commentForm.authorEmail || !commentForm.body) return;
 
+    setCommentError("");
     setSubmittingComment(true);
     try {
       const newComment = await createComment(slug, commentForm);
       setComments([...comments, newComment]);
       setCommentForm({ authorName: "", authorEmail: "", body: "" });
-    } catch (error) {
-      console.error("Failed to submit comment:", error);
+    } catch {
+      setCommentError("Failed to post comment. Please try again.");
     } finally {
       setSubmittingComment(false);
     }
@@ -237,11 +262,11 @@ export default function BlogPost() {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h2: ({ node, ...props }) => (
-                  <h2 id={props.children?.toString().toLowerCase().replace(/\s+/g, '-')} className="font-syne font-bold text-2xl tracking-tight mb-4 mt-10 scroll-mt-20" {...props} />
+                h2: ({ node, children, ...props }) => (
+                  <h2 id={slugify(children)} className="font-syne font-bold text-2xl tracking-tight mb-4 mt-10 scroll-mt-20" {...props}>{children}</h2>
                 ),
-                h3: ({ node, ...props }) => (
-                  <h3 id={props.children?.toString().toLowerCase().replace(/\s+/g, '-')} className="font-syne font-bold text-[18px] tracking-tight mb-3 mt-8 scroll-mt-20" {...props} />
+                h3: ({ node, children, ...props }) => (
+                  <h3 id={slugify(children)} className="font-syne font-bold text-[18px] tracking-tight mb-3 mt-8 scroll-mt-20" {...props}>{children}</h3>
                 ),
                 p: ({ node, ...props }) => (
                   <p className="text-[15px] text-white/80 leading-[1.8] mb-5" {...props} />
@@ -255,9 +280,10 @@ export default function BlogPost() {
                 pre: ({ node, ...props }) => (
                   <pre className="bg-[#161616] border border-[#2A2A2A] rounded-lg overflow-hidden !my-8 p-5 font-mono text-[13.5px] leading-[1.7] text-[#cccccc]" {...props} />
                 ),
-                a: ({ node, ...props }) => (
-                  <a className="text-[#E8B84B] hover:underline" {...props} />
-                ),
+                a: ({ node, href, ...props }) => {
+                  const safe = href && (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("/"));
+                  return <a className="text-[#E8B84B] hover:underline" href={safe ? href : "#"} target="_blank" rel="noopener noreferrer" {...props} />;
+                },
               }}
             >
               {post.body}
@@ -268,7 +294,8 @@ export default function BlogPost() {
             <div className="flex items-center gap-4 mb-8">
               <button
                 onClick={handleLike}
-                className={`flex items-center gap-2 px-4 py-2 rounded border transition-colors ${
+                disabled={likePending}
+                className={`flex items-center gap-2 px-4 py-2 rounded border transition-colors disabled:opacity-50 ${
                   likes.liked
                     ? "border-[#E8B84B] text-[#E8B84B]"
                     : "border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]"
@@ -305,6 +332,9 @@ export default function BlogPost() {
                     className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none resize-none"
                     rows={3}
                   />
+                  {commentError && (
+                    <p className="text-red-400 text-sm font-mono">{commentError}</p>
+                  )}
                   <button
                     type="submit"
                     disabled={submittingComment}
