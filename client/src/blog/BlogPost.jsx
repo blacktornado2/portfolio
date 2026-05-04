@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-jsx";
 import { getPostBySlug, getComments, getLikes, createComment, toggleLike } from "@/lib/api";
 import profileImg from "@/assets/images/profile.jpeg";
 
@@ -271,14 +278,28 @@ export default function BlogPost() {
                 p: ({ node, ...props }) => (
                   <p className="text-[15px] text-white/80 leading-[1.8] mb-5" {...props} />
                 ),
-                code: ({ node, inline, ...props }) => {
-                  if (inline) {
-                    return <code className="font-mono text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] px-1.5 py-0.5 rounded text-[#E8B84B]" {...props} />;
+                code: ({ node, className, children, ...props }) => {
+                  const match = /language-(\w+)/.exec(className || "");
+                  if (!match) {
+                    return <code className="font-mono text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] px-1.5 py-0.5 rounded text-[#E8B84B]" {...props}>{children}</code>;
                   }
-                  return <code className="block bg-[#1A1A1A] p-4 rounded overflow-x-auto" {...props} />;
+                  const lang = match[1];
+                  const grammar = Prism.languages[lang];
+                  const code = String(children).replace(/\n$/, "");
+                  const html = grammar
+                    ? Prism.highlight(code, grammar, lang)
+                    : code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                  return <code className={`language-${lang}`} dangerouslySetInnerHTML={{ __html: html }} />;
                 },
                 pre: ({ node, ...props }) => (
-                  <pre className="bg-[#161616] border border-[#2A2A2A] rounded-lg overflow-hidden !my-8 p-5 font-mono text-[13.5px] leading-[1.7] text-[#cccccc]" {...props} />
+                  <div className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden !my-8 shadow-lg">
+                    <div className="bg-[#161616] px-4 py-2.5 flex items-center gap-1.5 border-b border-[#2A2A2A]">
+                      <span className="w-3 h-3 rounded-full bg-[#EF4444]" />
+                      <span className="w-3 h-3 rounded-full bg-[#F59E0B]" />
+                      <span className="w-3 h-3 rounded-full bg-[#22C55E]" />
+                    </div>
+                    <pre className="!m-0 p-5 font-mono text-[13.5px] leading-[1.7] text-[#cccccc] overflow-x-auto" {...props} />
+                  </div>
                 ),
                 a: ({ node, href, ...props }) => {
                   const safe = href && (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("/"));
