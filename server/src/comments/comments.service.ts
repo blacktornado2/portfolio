@@ -30,6 +30,10 @@ export class CommentsService {
   async delete(commentId: number) {
     const comment = await this.prisma.comment.findUnique({ where: { id: commentId } });
     if (!comment) throw new NotFoundException(`Comment ${commentId} not found`);
-    return this.prisma.comment.update({ where: { id: commentId }, data: { deleted: true } });
+    return this.prisma.comment.update({
+      where: { id: commentId },
+      data: { deleted: true },
+      select: { id: true },
+    });
   }
 }

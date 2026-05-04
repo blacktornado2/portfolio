@@ -24,12 +24,10 @@ export class PostsService {
     ]);
 
     return {
-      data: posts.map((p) => ({
-        ...p,
-        likeCount: p._count.likes,
-        commentCount: p._count.comments,
-        _count: undefined,
-      })),
+      data: posts.map((p) => {
+        const { _count, ...rest } = p;
+        return { ...rest, likeCount: _count.likes, commentCount: _count.comments };
+      }),
       total,
       page,
       pageSize: take,
@@ -42,12 +40,8 @@ export class PostsService {
       include: { _count: { select: { comments: true, likes: true } } },
     });
     if (!post) throw new NotFoundException(`Post "${slug}" not found`);
-    return {
-      ...post,
-      likeCount: post._count.likes,
-      commentCount: post._count.comments,
-      _count: undefined,
-    };
+    const { _count, ...rest } = post;
+    return { ...rest, likeCount: _count.likes, commentCount: _count.comments };
   }
 
   async create(dto: CreatePostDto) {

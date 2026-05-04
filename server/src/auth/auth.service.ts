@@ -3,6 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './login.dto';
 
+const DUMMY_HASH = '$2b$12$invalidhashpaddingtoensureconstanttimeXXXXXXXXXXXXXXXX';
+
 @Injectable()
 export class AuthService {
   private readonly adminUsername = process.env.ADMIN_USERNAME;
@@ -12,21 +14,17 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const { username, password } = loginDto;
+    const usernameMatches = username === this.adminUsername;
+    const hashToCompare = usernameMatches
+      ? (this.adminPasswordHash as string)
+      : DUMMY_HASH;
 
-    if (username !== this.adminUsername) {
+    const isPasswordValid = await bcrypt.compare(password, hashToCompare);
+
+    if (!usernameMatches || !isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      this.adminPasswordHash as string,
-    );
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const token = this.jwtService.sign({ sub: username });
-    return { accessToken: token };
+    return { accessToken: this.jwtService.sign({ sub: username }) };
   }
 }

@@ -25,13 +25,22 @@ export class LikesService {
       where: { postId_ipHash: { postId: post.id, ipHash } },
     });
 
-    if (existing) {
-      await this.prisma.like.delete({ where: { postId_ipHash: { postId: post.id, ipHash } } });
-    } else {
-      await this.prisma.like.create({ data: { postId: post.id, ipHash } });
+    try {
+      if (existing) {
+        await this.prisma.like.delete({ where: { postId_ipHash: { postId: post.id, ipHash } } });
+      } else {
+        await this.prisma.like.create({ data: { postId: post.id, ipHash } });
+      }
+    } catch (e) {
+      // P2002 = unique constraint (concurrent create), P2025 = record not found (concurrent delete)
+      // Both are benign races — just proceed to return current count
+      if (e?.code !== 'P2002' && e?.code !== 'P2025') throw e;
     }
 
     const count = await this.prisma.like.count({ where: { postId: post.id } });
-    return { count, liked: !existing };
+    const likedNow = await this.prisma.like.findUnique({
+      where: { postId_ipHash: { postId: post.id, ipHash } },
+    });
+    return { count, liked: !!likedNow };
   }
 }
