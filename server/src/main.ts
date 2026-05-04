@@ -11,12 +11,15 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }),
+  );
 
   const port = process.env.PORT || 3001;
-  await app.listen(port, () => {
-    console.log(`✓ Server running on http://localhost:${port}`);
-  });
+  await app.listen(port);
 }
 
-bootstrap();
+bootstrap().catch((error) => {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+});
