@@ -10,8 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@mdx-js/react": "^3.1.1",
-    "@mdx-js/rollup": "^3.1.1",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
     "class-variance-authority": "^0.7.1",
@@ -24,9 +22,10 @@
     "react-dom": "^18.3.1",
     "react-icon-cloud": "^4.1.4",
     "react-icons": "^5.4.0",
+    "react-markdown": "^9.1.0",
     "react-router-dom": "^7.1.1",
     "react-router-hash-link": "^2.4.3",
-    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { MDXProvider } from "@mdx-js/react";
-import Prism from "prismjs";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-typescript";
-import { getPostBySlug, getRelatedPosts } from "./posts";
-import Callout from "./Callout";
-
-// ── Reading progress bar ──────────────────────────────────────────────────────
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { getPostBySlug, getComments, getLikes, createComment, toggleLike } from "@/lib/api";
 
 function ReadProgress() {
   const [pct, setPct] = useState(0);
@@ -31,26 +26,30 @@ function ReadProgress() {
   );
 }
 
-// ── TOC ───────────────────────────────────────────────────────────────────────
-
-const TOC_ITEMS = [
-  { id: "why-typescript-changes-everything", label: "Why TypeScript changes everything", level: 2 },
-  { id: "folder-structure-that-actually-scales", label: "Folder structure that actually scales", level: 2 },
-  { id: "error-handling-done-right", label: "Error handling done right", level: 2 },
-  { id: "async-route-wrappers", label: "Async route wrappers", level: 3 },
-  { id: "validation-with-zod", label: "Validation with Zod", level: 2 },
-  { id: "final-thoughts", label: "Final thoughts", level: 2 },
-];
-
 function TableOfContents() {
-  const [active, setActive] = useState(TOC_ITEMS[0].id);
+  const [active, setActive] = useState("");
+  const [headings, setHeadings] = useState([]);
+
+  useEffect(() => {
+    const updateHeadings = () => {
+      const els = Array.from(document.querySelectorAll("#blog-article h2, #blog-article h3"));
+      setHeadings(els.map((el) => ({
+        id: el.id,
+        label: el.textContent,
+        level: parseInt(el.tagName[1]),
+      })));
+    };
+    updateHeadings();
+    const timeout = setTimeout(updateHeadings, 500);
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
-      let current = TOC_ITEMS[0].id;
-      TOC_ITEMS.forEach(({ id }) => {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 100) current = id;
+      const els = document.querySelectorAll("#blog-article h2, #blog-article h3");
+      let current = "";
+      els.forEach((el) => {
+        if (el.getBoundingClientRect().top <= 100) current = el.id;
       });
       setActive(current);
     };
@@ -65,7 +64,7 @@ function TableOfContents() {
         On this page
       </p>
       <ul className="flex flex-col gap-0.5">
-        {TOC_ITEMS.map(({ id, label, level }) => (
+        {headings.map(({ id, label, level }) => (
           <li key={id}>
             <a
               href={`#${id}`}
@@ -124,142 +123,69 @@ function TableOfContents() {
   );
 }
 
-// ── Code block ────────────────────────────────────────────────────────────────
-
-function CodeBlock({ lang, children }) {
-  const language = lang || "text";
-  const rawCode = typeof children === "string" ? children : "";
-
-  let highlighted;
-  if (Prism.languages[language]) {
-    highlighted = Prism.highlight(rawCode, Prism.languages[language], language);
-  } else {
-    highlighted = rawCode
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  }
-
-  return (
-    <div className="bg-[#161616] border border-[#2A2A2A] rounded-lg overflow-hidden !my-8">
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#2A2A2A] bg-[#1A1A1A]">
-        <div className="flex gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]" />
-        </div>
-        <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-[#555555]">
-          {language}
-        </span>
-      </div>
-      <pre className="overflow-x-auto p-5 font-mono text-[13.5px] leading-[1.7] text-[#cccccc]">
-        <code dangerouslySetInnerHTML={{ __html: highlighted }} />
-      </pre>
-    </div>
-  );
-}
-
-// ── MDX component map ─────────────────────────────────────────────────────────
-
-const mdxComponents = {
-  h2: ({ id, children }) => (
-    <h2 id={id} className="font-syne font-bold text-2xl tracking-tight mb-4 mt-10 scroll-mt-20">
-      {children}
-    </h2>
-  ),
-  h3: ({ id, children }) => (
-    <h3 id={id} className="font-syne font-bold text-[18px] tracking-tight mb-3 mt-8 scroll-mt-20">
-      {children}
-    </h3>
-  ),
-  p: ({ children }) => (
-    <p className="text-[15px] text-white/80 leading-[1.8] mb-5" style={{ textWrap: "pretty" }}>
-      {children}
-    </p>
-  ),
-  code: ({ className, children }) => {
-    if (!className) {
-      return (
-        <code className="font-mono text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] px-1.5 py-0.5 rounded text-[#E8B84B]">
-          {children}
-        </code>
-      );
-    }
-    return <code className={className}>{children}</code>;
-  },
-  pre: ({ children }) => {
-    const codeEl = React.Children.only(children);
-    const className = codeEl?.props?.className || "";
-    const lang = className.replace("language-", "") || "text";
-    const code = codeEl?.props?.children || "";
-    return (
-      <CodeBlock lang={lang}>
-        {typeof code === "string" ? code.replace(/\n$/, "") : ""}
-      </CodeBlock>
-    );
-  },
-  strong: ({ children }) => (
-    <strong className="text-white font-semibold">{children}</strong>
-  ),
-  Callout,
-};
-
-// ── Related posts ─────────────────────────────────────────────────────────────
-
-function RelatedPosts({ posts }) {
-  if (!posts.length) return null;
-  return (
-    <div className="mt-16">
-      <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#555555] mb-5">
-        Related posts
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {posts.map((p) => (
-          <Link key={p.id} to={`/blog/${p.slug}`} className="group block">
-            <article className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg p-5 transition-all duration-200 group-hover:border-[#E8B84B] group-hover:-translate-y-0.5">
-              <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#E8B84B] mb-2">
-                {p.tags[0]}
-              </div>
-              <div className="font-syne font-bold text-[15px] leading-snug text-white mb-2 group-hover:text-[#E8B84B] transition-colors duration-150">
-                {p.title}
-              </div>
-              <div className="font-mono text-[11px] text-[#555555]">
-                {p.dateShort} · {p.readTime}
-              </div>
-            </article>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── MDX content loader ────────────────────────────────────────────────────────
-
-const contentModules = import.meta.glob("./content/*.mdx");
-
-// ── Main component ────────────────────────────────────────────────────────────
-
 export default function BlogPost() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const post = getPostBySlug(slug);
-  const [Content, setContent] = useState(null);
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState({ count: 0, liked: false });
+  const [loading, setLoading] = useState(true);
+  const [commentForm, setCommentForm] = useState({ authorName: "", authorEmail: "", body: "" });
+  const [submittingComment, setSubmittingComment] = useState(false);
 
   useEffect(() => {
-    if (!post) navigate("/blog", { replace: true });
-  }, [post, navigate]);
+    if (!slug) return;
+    Promise.all([
+      getPostBySlug(slug).catch(() => null),
+      getComments(slug).catch(() => []),
+      getLikes(slug).catch(() => ({ count: 0, liked: false })),
+    ])
+      .then(([postData, commentsData, likesData]) => {
+        if (!postData) {
+          navigate("/blog", { replace: true });
+          return;
+        }
+        setPost(postData);
+        setComments(commentsData || []);
+        setLikes(likesData);
+      })
+      .finally(() => setLoading(false));
+  }, [slug, navigate]);
 
-  useEffect(() => {
-    const key = `./content/${slug}.mdx`;
-    if (contentModules[key]) {
-      contentModules[key]().then((mod) => setContent(() => mod.default));
+  const handleLike = async () => {
+    try {
+      const result = await toggleLike(slug);
+      setLikes(result);
+    } catch (error) {
+      console.error("Failed to toggle like:", error);
     }
-  }, [slug]);
+  };
+
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+    if (!commentForm.authorName || !commentForm.authorEmail || !commentForm.body) return;
+
+    setSubmittingComment(true);
+    try {
+      const newComment = await createComment(slug, commentForm);
+      setComments([...comments, newComment]);
+      setCommentForm({ authorName: "", authorEmail: "", body: "" });
+    } catch (error) {
+      console.error("Failed to submit comment:", error);
+    } finally {
+      setSubmittingComment(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <main className="bg-[#111111] min-h-screen text-white flex items-center justify-center">
+        <div className="font-mono text-[#555555]">Loading…</div>
+      </main>
+    );
+  }
 
   if (!post) return null;
-
-  const related = getRelatedPosts(post);
 
   return (
     <main className="bg-[#111111] min-h-screen text-white">
@@ -284,7 +210,6 @@ export default function BlogPost() {
         style={{ gridTemplateColumns: "1fr 220px" }}
       >
         <article>
-          {/* Meta */}
           <div className="flex flex-wrap items-center gap-2 mb-6">
             {post.tags.slice(0, 2).map((t) => (
               <span
@@ -295,12 +220,11 @@ export default function BlogPost() {
               </span>
             ))}
             <span className="text-[#555555] text-xs">·</span>
-            <span className="font-mono text-[12px] text-[#888888]">{post.date}</span>
+            <span className="font-mono text-[12px] text-[#888888]">{new Date(post.publishedAt).toLocaleDateString()}</span>
             <span className="text-[#555555] text-xs">·</span>
             <span className="font-mono text-[12px] text-[#888888]">{post.readTime}</span>
           </div>
 
-          {/* Title */}
           <h1 className="font-syne font-extrabold text-[clamp(26px,5vw,42px)] leading-[1.15] tracking-[-0.03em] mb-5">
             {post.title}
           </h1>
@@ -309,19 +233,109 @@ export default function BlogPost() {
           </p>
           <hr className="border-[#2A2A2A] mb-9" />
 
-          {/* MDX body */}
-          {Content ? (
-            <MDXProvider components={mdxComponents}>
-              <Content />
-            </MDXProvider>
-          ) : (
-            <div className="text-[#555555] text-sm font-mono py-8">Loading…</div>
-          )}
+          <div className="prose prose-invert max-w-none mb-12">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                h2: ({ node, ...props }) => (
+                  <h2 id={props.children?.toString().toLowerCase().replace(/\s+/g, '-')} className="font-syne font-bold text-2xl tracking-tight mb-4 mt-10 scroll-mt-20" {...props} />
+                ),
+                h3: ({ node, ...props }) => (
+                  <h3 id={props.children?.toString().toLowerCase().replace(/\s+/g, '-')} className="font-syne font-bold text-[18px] tracking-tight mb-3 mt-8 scroll-mt-20" {...props} />
+                ),
+                p: ({ node, ...props }) => (
+                  <p className="text-[15px] text-white/80 leading-[1.8] mb-5" {...props} />
+                ),
+                code: ({ node, inline, ...props }) => {
+                  if (inline) {
+                    return <code className="font-mono text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] px-1.5 py-0.5 rounded text-[#E8B84B]" {...props} />;
+                  }
+                  return <code className="block bg-[#1A1A1A] p-4 rounded overflow-x-auto" {...props} />;
+                },
+                pre: ({ node, ...props }) => (
+                  <pre className="bg-[#161616] border border-[#2A2A2A] rounded-lg overflow-hidden !my-8 p-5 font-mono text-[13.5px] leading-[1.7] text-[#cccccc]" {...props} />
+                ),
+                a: ({ node, ...props }) => (
+                  <a className="text-[#E8B84B] hover:underline" {...props} />
+                ),
+              }}
+            >
+              {post.body}
+            </ReactMarkdown>
+          </div>
 
-          <RelatedPosts posts={related} />
+          <div className="mt-16 pt-8 border-t border-[#2A2A2A]">
+            <div className="flex items-center gap-4 mb-8">
+              <button
+                onClick={handleLike}
+                className={`flex items-center gap-2 px-4 py-2 rounded border transition-colors ${
+                  likes.liked
+                    ? "border-[#E8B84B] text-[#E8B84B]"
+                    : "border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]"
+                }`}
+              >
+                <span>{likes.liked ? "❤️" : "🤍"}</span>
+                <span className="font-mono text-sm">{likes.count}</span>
+              </button>
+            </div>
+
+            <div>
+              <h3 className="font-syne font-bold text-lg mb-4">Comments</h3>
+
+              <div className="mb-6 max-w-2xl">
+                <form onSubmit={handleSubmitComment} className="space-y-3">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={commentForm.authorName}
+                    onChange={(e) => setCommentForm({ ...commentForm, authorName: e.target.value })}
+                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={commentForm.authorEmail}
+                    onChange={(e) => setCommentForm({ ...commentForm, authorEmail: e.target.value })}
+                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none"
+                  />
+                  <textarea
+                    placeholder="Your comment…"
+                    value={commentForm.body}
+                    onChange={(e) => setCommentForm({ ...commentForm, body: e.target.value })}
+                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none resize-none"
+                    rows={3}
+                  />
+                  <button
+                    type="submit"
+                    disabled={submittingComment}
+                    className="px-4 py-2 bg-[#E8B84B] text-[#111111] rounded font-mono text-sm font-bold hover:bg-[#D9A73C] disabled:opacity-50"
+                  >
+                    {submittingComment ? "Posting…" : "Post Comment"}
+                  </button>
+                </form>
+              </div>
+
+              <div className="space-y-4">
+                {comments.length === 0 ? (
+                  <p className="text-[#555555] text-sm">No comments yet. Be the first!</p>
+                ) : (
+                  comments.map((comment) => (
+                    <div key={comment.id} className="bg-[#1A1A1A] border border-[#2A2A2A] rounded p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="font-mono text-sm font-bold text-white">{comment.authorName}</div>
+                        <span className="font-mono text-xs text-[#555555]">
+                          {new Date(comment.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p className="text-[15px] text-white/80 leading-relaxed">{comment.body}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
         </article>
 
-        {/* Sidebar */}
         <TableOfContents />
       </div>
     </main>
