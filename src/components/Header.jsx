@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { Menu, X } from "lucide-react";
 
@@ -40,6 +41,7 @@ export default function Header() {
     { id: "experience", label: "Experience" },
     { id: "education", label: "Education" },
     { id: "contact", label: "Contact" },
+    { id: "blog", label: "Blog", href: "/blog" },
   ];
 
   return (
@@ -62,19 +64,29 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map(({ id, label }) => (
-            <HashLink
-              key={id}
-              to={`/#${id}`}
-              smooth
-              onClick={() => setMenuOpen(false)}
-              className={`text-sm font-medium transition-colors hover:text-[#E8B84B] ${
-                activeSection === id ? "text-[#E8B84B]" : "text-[#888888]"
-              }`}
-            >
-              {label}
-            </HashLink>
-          ))}
+          {navLinks.map(({ id, label, href }) =>
+            href ? (
+              <Link
+                key={id}
+                to={href}
+                className="text-sm font-medium text-[#888888] hover:text-[#E8B84B] transition-colors"
+              >
+                {label}
+              </Link>
+            ) : (
+              <HashLink
+                key={id}
+                to={`/#${id}`}
+                smooth
+                onClick={() => setMenuOpen(false)}
+                className={`text-sm font-medium transition-colors hover:text-[#E8B84B] ${
+                  activeSection === id ? "text-[#E8B84B]" : "text-[#888888]"
+                }`}
+              >
+                {label}
+              </HashLink>
+            )
+          )}
           <HashLink
             to="/#contact"
             smooth
@@ -98,17 +110,28 @@ export default function Header() {
       {/* Mobile drawer */}
       {menuOpen && (
         <div className="md:hidden bg-[#1A1A1A] border-t border-[#2A2A2A] px-6 py-6 flex flex-col gap-5">
-          {navLinks.map(({ id, label }) => (
-            <HashLink
-              key={id}
-              to={`/#${id}`}
-              smooth
-              onClick={() => setMenuOpen(false)}
-              className="text-[#888888] hover:text-[#E8B84B] transition-colors font-medium"
-            >
-              {label}
-            </HashLink>
-          ))}
+          {navLinks.map(({ id, label, href }) =>
+            href ? (
+              <Link
+                key={id}
+                to={href}
+                onClick={() => setMenuOpen(false)}
+                className="text-[#888888] hover:text-[#E8B84B] transition-colors font-medium"
+              >
+                {label}
+              </Link>
+            ) : (
+              <HashLink
+                key={id}
+                to={`/#${id}`}
+                smooth
+                onClick={() => setMenuOpen(false)}
+                className="text-[#888888] hover:text-[#E8B84B] transition-colors font-medium"
+              >
+                {label}
+              </HashLink>
+            )
+          )}
           <HashLink
             to="/#contact"
             smooth

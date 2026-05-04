@@ -1,13 +1,17 @@
 import React from "react";
-import Hero from "./components/Hero";
+import { Routes, Route } from "react-router-dom";
 import "./assets/css/index.css";
+
 import Header from "./components/Header";
+import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
+import BlogIndex from "./blog/BlogIndex";
+import BlogPost from "./blog/BlogPost";
 
-export default function App() {
+function PortfolioHome() {
   return (
     <>
       <Header />
@@ -27,5 +31,15 @@ export default function App() {
         <Contact />
       </div>
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<PortfolioHome />} />
+      <Route path="/blog" element={<BlogIndex />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
+    </Routes>
   );
 }
