@@ -13,7 +13,7 @@ const CODE = `const profile = {
         'Node.js', 'TypeScript',
         'MongoDB', 'PostgreSQL',
     ],
-    experience: '3+ years',
+    experience: '4+ years',
     open: true,
 };`;
 
@@ -66,7 +66,7 @@ export default function Hero() {
 
             {/* Bio */}
             <motion.p {...FADE_UP[3]} className="text-[#888888] leading-relaxed max-w-md">
-              3+ years building web and mobile products at scale. Clean code,
+              4+ years building web and mobile products at scale. Clean code,
               scalable architecture, and a focus on performance.
             </motion.p>
 

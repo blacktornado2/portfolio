@@ -10,6 +10,10 @@ import Education from "./components/Education";
 import Contact from "./components/Contact";
 import BlogIndex from "./blog/BlogIndex";
 import BlogPost from "./blog/BlogPost";
+import GamesIndex from "./games/GamesIndex";
+import Game2048 from "./games/Game2048";
+import GameWordle from "./games/GameWordle";
+import GameTyperacer from "./games/GameTyperacer";
 
 function PortfolioHome() {
   return (
@@ -40,6 +44,10 @@ export default function App() {
       <Route path="/" element={<PortfolioHome />} />
       <Route path="/blog" element={<BlogIndex />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
+      <Route path="/games" element={<GamesIndex />} />
+      <Route path="/games/2048" element={<Game2048 />} />
+      <Route path="/games/wordle" element={<GameWordle />} />
+      <Route path="/games/typeracer" element={<GameTyperacer />} />
     </Routes>
   );
 }

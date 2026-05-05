@@ -1,9 +1,6 @@
-// src/blog/BlogIndex.jsx
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { POSTS, ALL_TAGS } from "./posts";
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
+import { getPosts } from "@/lib/api";
 
 function PostTag({ label }) {
   return (
@@ -51,8 +48,6 @@ function SearchBar({ value, onChange }) {
   );
 }
 
-// ── Post card (grid view) ─────────────────────────────────────────────────────
-
 function PostCard({ post }) {
   return (
     <Link to={`/blog/${post.slug}`} className="group block h-full">
@@ -72,15 +67,13 @@ function PostCard({ post }) {
           {post.summary}
         </p>
         <div className="flex justify-between items-center pt-3 border-t border-[#2A2A2A] mt-auto">
-          <span className="font-mono text-[11px] text-[#555555]">{post.dateShort}</span>
+          <span className="font-mono text-[11px] text-[#555555]">{new Date(post.publishedAt).toLocaleDateString()}</span>
           <span className="font-mono text-[11px] text-[#555555]">{post.readTime}</span>
         </div>
       </article>
     </Link>
   );
 }
-
-// ── Post row (list view) ──────────────────────────────────────────────────────
 
 function PostRow({ post }) {
   return (
@@ -107,7 +100,7 @@ function PostRow({ post }) {
           </p>
         </div>
         <div className="text-right shrink-0">
-          <div className="font-mono text-xs text-[#555555] mb-1">{post.dateShort}</div>
+          <div className="font-mono text-xs text-[#555555] mb-1">{new Date(post.publishedAt).toLocaleDateString()}</div>
           <div className="font-mono text-[11px] text-[#555555]">{post.readTime}</div>
         </div>
       </article>
@@ -115,25 +108,46 @@ function PostRow({ post }) {
   );
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
-
 export default function BlogIndex() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState("All");
-  const [layout, setLayout] = useState("grid"); // "grid" | "list"
+  const [layout, setLayout] = useState("grid");
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [allTags, setAllTags] = useState(["All"]);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    getPosts(1, activeTag === "All" ? undefined : activeTag)
+      .then((result) => {
+        if (cancelled) return;
+        setPosts(result.data || []);
+        const tags = Array.from(
+          new Set(result.data?.flatMap((p) => p.tags) || [])
+        );
+        setAllTags(["All", ...tags]);
+        setLoading(false);
+      })
+      .catch(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTag]);
 
   const filtered = useMemo(() => {
-    return POSTS.filter((p) => {
-      const matchTag = activeTag === "All" || p.tags.includes(activeTag);
+    return posts.filter((p) => {
       const q = search.toLowerCase();
-      const matchSearch =
+      return (
         !q ||
         p.title.toLowerCase().includes(q) ||
         p.summary.toLowerCase().includes(q) ||
-        p.tags.some((t) => t.toLowerCase().includes(q));
-      return matchTag && matchSearch;
+        p.tags.some((t) => t.toLowerCase().includes(q))
+      );
     });
-  }, [activeTag, search]);
+  }, [search, posts]);
 
   return (
     <main className="bg-[#111111] min-h-screen text-white">
@@ -150,9 +164,8 @@ export default function BlogIndex() {
           </Link>
         </div>
       </header>
-      <div className="max-w-5xl mx-auto px-6 pt-28 pb-20">
 
-        {/* Hero */}
+      <div className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         <div className="mb-12">
           <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#555555] mb-3">
             Writing
@@ -167,11 +180,10 @@ export default function BlogIndex() {
           </p>
         </div>
 
-        {/* Controls */}
         <div className="flex flex-col gap-4 mb-8">
           <SearchBar value={search} onChange={setSearch} />
           <div className="flex flex-wrap gap-2">
-            {ALL_TAGS.map((tag) => (
+            {allTags.map((tag) => (
               <TagFilter
                 key={tag}
                 label={tag}
@@ -182,12 +194,9 @@ export default function BlogIndex() {
           </div>
         </div>
 
-        {/* Toolbar: count + layout toggle */}
         <div className="flex items-center justify-between mb-6">
           <span className="font-mono text-[11px] text-[#555555]">
-            {filtered.length} {filtered.length === 1 ? "post" : "posts"}
-            {activeTag !== "All" ? ` in ${activeTag}` : ""}
-            {search ? ` matching "${search}"` : ""}
+            {loading ? "Loading…" : `${filtered.length} ${filtered.length === 1 ? "post" : "posts"}`}
           </span>
           <div className="flex gap-1">
             <button
@@ -220,8 +229,11 @@ export default function BlogIndex() {
           </div>
         </div>
 
-        {/* Posts */}
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-20 font-mono text-sm text-[#555555]">
+            Loading posts…
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-20 font-mono text-sm text-[#555555]">
             No posts found.
           </div>

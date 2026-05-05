@@ -1,0 +1,9 @@
+{
+  "name": "@portfolio/types",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "files": [
+    "index.ts"
+  ]
+}
