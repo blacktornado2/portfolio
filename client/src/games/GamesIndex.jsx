@@ -8,7 +8,7 @@ function GameCard({ href, tag, title, description, preview, previewBg }) {
       className="group block bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl overflow-hidden no-underline transition-all duration-200 hover:border-[#E8B84B] hover:-translate-y-0.5"
     >
       <div
-        className="h-[180px] flex items-center justify-content-center justify-center overflow-hidden"
+        className="h-[180px] flex items-center justify-center overflow-hidden"
         style={{ background: previewBg }}
       >
         <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-200">
