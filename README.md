@@ -1,181 +1,147 @@
+# Portfolio — Ankit Bhardwaj
 
-## Version 2  
+A single-page personal portfolio built with React 18, Vite 6, and Tailwind CSS. Showcases skills, experience, education, and projects, with an integrated MDX-powered blog.
 
-> ![image](https://github.com/user-attachments/assets/ce36e52b-96c2-4b72-a1e8-1e68b9767f6c)  
->  
-> 🔗 [View on GitHub](https://github.com/seraprogrammer/portfolio-v2)
-> 🔗 [v2 Portfolio](https://codervai2.vercel.app)
-
-
-
-# Portfolio Website
-<div align="center">
-  <pre>
-    _____           _    __      _ _       
-   |  __ \         | |  / _|    | (_)      
-   | |__) |__  _ __| |_| |_ ___ | |_  ___  
-   |  ___/ _ \| '__| __|  _/ _ \| | |/ _ \ 
-   | |  | (_) | |  | |_| || (_) | | | (_) |
-   |_|   \___/|_|   \__|_| \___/|_|_|\___/ 
-  </pre>
-</div>
-
- 
-Welcome to my **portfolio website**! This site showcases my skills, experience, education, projects, and how to get in touch with me. It's built with **React** and **Vite** for a fast, modern web experience. You can explore my work, learn about my journey, and contact me directly.
+🔗 **Live site:** [bhardwajankit.com](https://bhardwajankit.com)
 
 ---
 
-## Demo
+## Screenshots
 
-![Portfolio Demo](https://i.postimg.cc/Dfr5jCQp/Screenshot-2025-01-02-120901.png)
+**Hero**
+
+![Hero section](src/assets/images/Hero%20Section.png)
+
+**Skills**
+
+![Skills section](src/assets/images/Skills.png)
+
+**Blog**
+
+![Blog index](src/assets/images/Blog.png)
 
 ---
 
-## Live Preview
+## Tech Stack
 
-Check out the live preview of the portfolio website here:  
-[**Live Demo**](https://codervai.vercel.app/)
+| Layer | Tools |
+|---|---|
+| Framework | React 18, Vite 6 |
+| Routing | React Router v7, react-router-hash-link |
+| Styling | Tailwind CSS v3, shadcn/ui (Radix primitives) |
+| Animation | Framer Motion v11 |
+| Content | MDX (`@mdx-js/rollup`, `@mdx-js/react`) for the blog |
+| Syntax highlighting | Prism.js |
+| Icons | react-icons, lucide-react |
+| Forms | Web3Forms (client-side, no backend) |
+| Deployment | Vercel |
+
 ---
-### 🎯 Project Structure
-```bash
+
+## Sections
+
+The site is a single scrollable page with anchor-link navigation, plus a separate blog route.
+
+- `#home` — Hero with intro and a live syntax-highlighted code window
+- `#skills` — Categorized skill grid with icon cloud
+- `#experience` — Work history
+- `#education` — Academic background
+- `#contact` — Web3Forms-powered contact form
+- `/blog` — MDX-rendered articles
+
+---
+
+## Project Structure
+
+```
 portfolio/
-├── node_modules/
+├── docs/
+│   └── superpowers/           # Design spec & implementation plan
 ├── public/
 ├── src/
+│   ├── App.jsx                # Routes: /, /blog, /blog/:slug
+│   ├── main.jsx
 │   ├── assets/
-│   ├── components/
-│   │   ├── ui/
-│   │   │   ├── Reusable Components/
-│   │   │   │   ├── badge.jsx
-│   │   │   │   ├── button.jsx
-│   │   │   │   ├── card.jsx
-│   │   │   │   ├── EducationLoader.jsx
-│   │   │   │   ├── evervault-card.jsx
-│   │   │   │   ├── flip-words.jsx
-│   │   │   │   ├── icon-cloud.jsx
-│   │   │   │   ├── meteors.jsx
-│   │   │   │   ├── sparkles-text.jsx
-│   │   │   │   └── tooltip.jsx
-│   │   │   │
-│   │   │   ├── Main Components/
-│   │   │   │   ├── AnimatedGrid.jsx
-│   │   │   │   ├── Contact.jsx
-│   │   │   │   ├── Education.jsx
-│   │   │   │   ├── enhanced-portfolio-card.jsx
-│   │   │   │   ├── Experience.jsx
-│   │   │   │   ├── global.jsx
-│   │   │   │   ├── Header.jsx
-│   │   │   │   ├── Hero.jsx
-│   │   │   │   ├── PortfolioPage.jsx
-│   │   │   │   ├── Projects.jsx
-│   │   │   │   └── Skills.jsx
-│   │   └── lib/
-│   ├── App.jsx
-│   └── main.jsx
-├── Configuration Files/
-│   ├── .eslintrc.js
-│   ├── .gitignore
-│   ├── components.json
-│   ├── index.html
-│   ├── jsconfig.json
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── README.md
-│   ├── tailwind.config.js
-    └── vite.config.js
-
-
+│   │   ├── css/index.css      # Design tokens, fonts, Prism theme
+│   │   └── images/
+│   ├── blog/
+│   │   ├── BlogIndex.jsx
+│   │   ├── BlogPost.jsx
+│   │   ├── Callout.jsx
+│   │   ├── posts.js
+│   │   └── content/           # MDX articles
+│   ├── components/            # One file per page section
+│   │   ├── Header.jsx
+│   │   ├── Hero.jsx
+│   │   ├── PortfolioPage.jsx  # About — rendered inside Hero
+│   │   ├── Skills.jsx
+│   │   ├── Experience.jsx
+│   │   ├── Education.jsx
+│   │   ├── Projects.jsx
+│   │   ├── Contact.jsx
+│   │   ├── globe.jsx
+│   │   └── ui/                # shadcn/ui primitives
+│   ├── constants/index.js     # Email, location, pincode
+│   └── lib/utils.js           # cn() — Tailwind class merger
+├── tailwind.config.js
+├── vite.config.js
+└── vercel.json
 ```
----
-
-## Sections of the Portfolio
-
-The portfolio website consists of the following sections:
-
-- **Home**: Introduction and a brief overview.
-- **Skills**: A detailed list of my technical skills.
-- **Experience**: My professional journey and work experience.
-- **Education**: Academic background and certifications.
-- **Projects**: A showcase of the projects I've worked on.
-- **Contact**: Information on how to reach out to me.
 
 ---
 
-## 💻 Technologies Used
-- **Frontend:** React.js with Vite
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Icons:** React Icons
-- **Deployment:** Vercel
+## Design System
+
+Defined in [src/assets/css/index.css](src/assets/css/index.css):
+
+- Background `#111111` · Surface `#1A1A1A` · Border `#2A2A2A`
+- Gold accent `#E8B84B` · Secondary text `#888888`
+- Headings: `font-syne font-bold text-4xl lg:text-5xl`
+- Section numbering: `01 — About Me`, `02 — Skills`, …
 
 ---
 
-## Installation ⬇️
+## Getting Started
 
-You will need to download **Git** and **Node** to run this project.
+**Prerequisites:** Node.js 18+ and Git.
 
-### Git
-
-- Download and install Git from the official website: [Git Downloads](https://git-scm.com/)
-- Verify the installation:
-  ```bash
-  git --version
-  ```
-
-### Node
-
-- Download and install Node.js from the official website: [Node.js Downloads](https://nodejs.org/)
-- Make sure you have the latest version of both Git and Node on your computer.
-- Verify the installation:
-  ```bash
-  node --version
-  ```
-
-# Getting Started 🎯
-
-### Fork and Clone the Repository 🚀
-1. Click the **Fork** button at the top-right corner of the page to create your own copy of the repository.
-2. After forking, open your terminal and run the following commands to clone the repo:
-
-  ```bash
-  git clone https://github.com/seraprogrammer/portfolio.git
-  ```
-Navigate to the Project Directory 📂
-Once the repository is cloned, change your directory to the project folder:
 ```bash
+git clone https://github.com/blacktornado2/portfolio.git
 cd portfolio
-```
-
-Install Dependencies ⚙️
-From the root directory of your project, install the necessary packages:
-```bash
 npm install
-```
-
-Run the Development Server 🚀
-Start the development server to see your project live:
-```bash
 npm run dev
 ```
 
-View the Project 🌐
-Open your browser and visit http://localhost:5173/ to see the result! 🎉
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## 📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Build for production into `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
 
 ---
 
-### 🤝 Contributing
+## Customization
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+- **Personal info** (email, location, pincode) — edit [src/constants/index.js](src/constants/index.js)
+- **GitHub & LinkedIn URLs, Web3Forms key** — edit [src/components/Contact.jsx](src/components/Contact.jsx)
+- **Skills, experience, education** — edit data arrays at the top of each section component
+- **Blog posts** — add an `.mdx` file to [src/blog/content/](src/blog/content/) and register it in [src/blog/posts.js](src/blog/posts.js)
+
+---
+
+## Contributing
+
+1. Fork the repo
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m 'Add your feature'`
+4. Push: `git push origin feature/your-feature`
 5. Open a Pull Request
 
 ---
 
-<div align="center"> Made with ❤️ by Ankit Bhardwaj </div>
-
+<div align="center">Made with ❤️ by <a href="https://github.com/blacktornado2">Ankit Bhardwaj</a></div>
