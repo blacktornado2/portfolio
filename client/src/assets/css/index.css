@@ -4,6 +4,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---- Custom golden cursor ---- */
+body.golden-cursor-active * { cursor: none !important; }
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: #E8B84B;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  margin-left: -4px;
+  margin-top: -4px;
+  will-change: transform;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border: 1.5px solid rgba(232, 184, 75, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  margin-left: -16px;
+  margin-top: -16px;
+  transition: width 0.2s ease, height 0.2s ease, margin 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-ring.expanded {
+  width: 48px; height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  border-color: rgba(232, 184, 75, 0.8);
+}
+
 /* ---- Available for work badge shine ---- */
 .badge-shine {
   position: relative;

@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./assets/css/index.css";
 
 import Header from "./components/Header";
+import GoldenCursor from "./components/GoldenCursor";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
@@ -18,6 +19,7 @@ import GameTyperacer from "./games/GameTyperacer";
 function PortfolioHome() {
   return (
     <>
+      <GoldenCursor />
       <Header />
       <div id="home">
         <Hero />
