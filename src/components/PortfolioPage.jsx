@@ -37,30 +37,30 @@ export default function PortfolioPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* Left: Bio */}
-          <motion.div {...BIO_ANIM} className="space-y-4 text-[#888888] text-lg leading-relaxed">
+          <motion.div {...BIO_ANIM} className="space-y-5 text-[#888888] text-lg leading-relaxed">
             <p>
-              Hey, I am{" "}
-              <span className="text-[#E8B84B] font-semibold">Ankit :) </span>
-              I'm a software developer with over 3 years of experience, currently
-              working at one.com as a SDE-1.
+              Hey, I'm{" "}
+              <span className="text-[#E8B84B] font-semibold">Ankit</span> — a
+              full-stack and mobile developer with 4+ years of experience
+              building products that people actually use. Currently at{" "}
+              <span className="text-white font-medium">BetterWorks</span>,
+              working on enterprise performance management software.
             </p>
             <p>
-              I have experience in Full Stack Development working with React
-              Native, React.js, Node.js, PostgreSQL, CockroachDB, MongoDB, Redux
-              and Firebase.
+              I care a lot about the quality of what I ship — clean
+              architecture, readable code, and interfaces that feel fast and
+              intentional. Whether it's designing a solid API, picking the right
+              data model, or making a mobile screen feel effortless, I want the
+              engineering to be something I'm proud of.
             </p>
             <p>
-              I am passionate about building scalable and high-performance
-              applications, focusing on clean and efficient code. I enjoy solving
-              complex problems and continuously learning new technologies to
-              enhance my skill set.
+              Outside work, I travel whenever I can, play cricket and badminton,
+              and spend time at the gym. I think the best engineers are curious
+              people who live beyond the screen.
             </p>
             <p>
-              Apart from coding, I like travelling, playing sports like cricket,
-              badminton, swimming etc. and working out at the gym. Always open to
-              new connections — feel free to reach out. I appreciate you taking
-              the time to learn more about me{" "}
-              <span className="text-[#E8B84B]">^_^</span>
+              If you're building something interesting or just want to connect —
+              I'm always up for a conversation.
             </p>
           </motion.div>
 

@@ -4,7 +4,7 @@ import "./assets/css/index.css";
 import Header from "./components/Header";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
-import Education from "./components/Education";
+import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 
 export default function App() {
@@ -20,8 +20,8 @@ export default function App() {
       <div id="experience">
         <Experience />
       </div>
-      <div id="education">
-        <Education />
+      <div id="projects">
+        <Projects />
       </div>
       <div id="contact">
         <Contact />

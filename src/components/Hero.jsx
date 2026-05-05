@@ -7,14 +7,14 @@ import PortfolioPage from "./PortfolioPage";
 
 const CODE = `const profile = {
     name: 'Ankit Bhardwaj',
-    title: 'Full-Stack Developer',
+    title: 'Software Developer',
     skills: [
-        'React Native', 'React.js',
-        'Node.js', 'TypeScript',
+        'React Native', 'React.js', 'Vue.js',
+        'Node.js', 'TypeScript', 'Nest.js',
         'MongoDB', 'PostgreSQL',
     ],
-    experience: '3+ years',
-    open: true,
+    experience: '4+ years',
+    openToWork: true,
 };`;
 
 const FADE_UP = [0.1, 0.2, 0.3, 0.4, 0.5].map((delay) => ({
@@ -44,7 +44,7 @@ export default function Hero() {
           <div className="space-y-6">
             {/* Availability badge */}
             <motion.div {...FADE_UP[0]}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-sm text-[#888888]">
+              <span className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-sm text-[#888888]">
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
                 Available for work
               </span>
@@ -61,12 +61,12 @@ export default function Hero() {
 
             {/* Role */}
             <motion.p {...FADE_UP[2]} className="text-[#888888] text-xl">
-              Full-Stack Developer · React Native · Node.js
+              Full-Stack Developer · Mobile Developer
             </motion.p>
 
             {/* Bio */}
             <motion.p {...FADE_UP[3]} className="text-[#888888] leading-relaxed max-w-md">
-              3+ years building web and mobile products at scale. Clean code,
+              4+ years building web and mobile products at scale. Clean code,
               scalable architecture, and a focus on performance.
             </motion.p>
 
@@ -77,12 +77,6 @@ export default function Hero() {
                 className="font-syne font-bold bg-[#E8B84B] text-[#111111] px-6 py-3 rounded-lg hover:bg-[#d4a83e] transition-colors"
               >
                 Hire Me
-              </a>
-              <a
-                href="#"
-                className="border border-[#2A2A2A] text-[#888888] px-6 py-3 rounded-lg hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors"
-              >
-                Download CV
               </a>
             </motion.div>
           </div>
@@ -109,7 +103,9 @@ export default function Hero() {
         </div>
       </section>
 
-      <PortfolioPage />
+      <div id="about">
+        <PortfolioPage />
+      </div>
     </main>
   );
 }

@@ -29,9 +29,16 @@ const VIEWPORT_ONCE = { once: true };
 
 const experiences = [
   {
+    title: "Software Developer",
+    company: "BetterWorks",
+    period: "Nov 2025 – Present",
+    description:
+      "Building performance management features on a Nest.js + Vue.js stack, contributing to a platform used by enterprise teams worldwide.",
+  },
+  {
     title: "Software Developer — 1",
     company: "one.com",
-    period: "Jan 2024 – Present",
+    period: "Jan 2024 – Aug 2025",
     description:
       "Frontend: working on integrating various services into our super app — companion app.",
   },
