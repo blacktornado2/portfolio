@@ -56,6 +56,7 @@ export default function Header() {
     { id: "education", label: "Education" },
     { id: "contact", label: "Contact" },
     { id: "blog", label: "Blog", href: "/blog" },
+    { id: "games", label: "Games", href: "/games" },
   ];
 
   return (
