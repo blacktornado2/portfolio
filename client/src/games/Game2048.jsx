@@ -206,9 +206,9 @@ export default function Game2048() {
       render();
     };
 
-    document.getElementById("newGame").addEventListener("click", newGame);
-    document.getElementById("overlayBtn").addEventListener("click", newGame);
-    document.getElementById("undoBtn").addEventListener("click", undoHandler);
+    document.getElementById("newGame")?.addEventListener("click", newGame);
+    document.getElementById("overlayBtn")?.addEventListener("click", newGame);
+    document.getElementById("undoBtn")?.addEventListener("click", undoHandler);
 
     newGame();
 
