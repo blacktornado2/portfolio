@@ -27,7 +27,7 @@ const CSS = `
   .dot{width:10px;height:10px;border-radius:50%;}
   .dot.r{background:#EF4444;} .dot.y{background:#F59E0B;} .dot.g{background:#22C55E;}
   .code-filename{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted2);margin-left:6px;}
-  .code-content{padding:24px;font-family:'JetBrains Mono',monospace;font-size:15px;line-height:1.8;letter-spacing:0.01em;min-height:100px;}
+  .code-content{padding:24px;font-family:'JetBrains Mono',monospace;font-size:15px;line-height:1.8;letter-spacing:0.01em;min-height:100px;white-space:pre-wrap;}
   .char{transition:color 0.05s;}
   .char.correct{color:var(--green);}
   .char.wrong{color:var(--red);background:rgba(239,68,68,0.15);border-radius:2px;}
@@ -135,7 +135,8 @@ export default function GameTyperacer() {
       inputArea.classList.add("hidden");
       statsEl.classList.add("hidden");
       document.getElementById("snippetTabs").classList.add("hidden");
-      document.querySelector(".btn-row").classList.add("hidden");
+      document.getElementById("gameControls").classList.add("hidden");
+      document.getElementById("progressWrap").classList.add("hidden");
       resultScreen.classList.remove("hidden");
     }
 
@@ -175,7 +176,8 @@ export default function GameTyperacer() {
       gameArea.classList.remove("hidden"); inputArea.classList.remove("hidden");
       statsEl.classList.remove("hidden");
       document.getElementById("snippetTabs").classList.remove("hidden");
-      document.querySelector(".btn-row").classList.remove("hidden");
+      document.getElementById("gameControls").classList.remove("hidden");
+      document.getElementById("progressWrap").classList.remove("hidden");
       resultScreen.classList.add("hidden");
       renderCode();
     }
@@ -238,7 +240,7 @@ export default function GameTyperacer() {
           <div className="stat"><div className="stat-val" id="errDisplay">0</div><div className="stat-label">Errors</div></div>
         </div>
 
-        <div className="progress-wrap"><div className="progress-bar" id="progressBar"></div></div>
+        <div className="progress-wrap" id="progressWrap"><div className="progress-bar" id="progressBar"></div></div>
 
         <div className="code-window" id="gameArea">
           <div className="code-chrome">
@@ -262,7 +264,7 @@ export default function GameTyperacer() {
           />
         </div>
 
-        <div className="btn-row">
+        <div className="btn-row" id="gameControls">
           <button className="btn btn-primary" id="startBtn">Start</button>
           <button className="btn btn-secondary" id="resetBtn">Reset</button>
         </div>
