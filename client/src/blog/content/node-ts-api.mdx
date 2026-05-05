@@ -1,0 +1,92 @@
+import Callout from '../Callout';
+
+## Why TypeScript changes everything
+
+When I first started writing Node.js APIs, I was all-in on plain JavaScript. It felt faster — no compilation step, no type annotations to maintain. But after a couple of production bugs that a type-checker would have caught instantly, I switched and never looked back.
+
+TypeScript gives you something invaluable at scale: **a living contract**. Every function signature is documentation that the compiler enforces. Refactors stop being scary when you have 300 endpoints and a team of four.
+
+<Callout>
+  💡 If you're starting a new project today, start with TypeScript from day one. Retrofitting types onto a large codebase is painful — trust me.
+</Callout>
+
+## Folder structure that actually scales
+
+The most common mistake I see in Node APIs is a flat `routes/` folder with one giant file per resource. This works fine at 3 endpoints. At 30, it's chaos.
+
+```filesystem
+src/
+├── modules/
+│   ├── users/
+│   │   ├── users.router.ts
+│   │   ├── users.service.ts
+│   │   ├── users.repository.ts
+│   │   └── users.types.ts
+│   └── auth/
+│       ├── auth.router.ts
+│       └── auth.service.ts
+├── shared/
+│   ├── middleware/
+│   ├── errors/
+│   └── db/
+└── app.ts
+```
+
+## Error handling done right
+
+Express's default error handling is fine. But production apps need something more deliberate. The pattern I use is a typed `AppError` class combined with a single central error middleware.
+
+```typescript
+export class AppError extends Error {
+  constructor(
+    public statusCode: number,
+    public message: string,
+    public isOperational = true
+  ) {
+    super(message);
+    Object.setPrototypeOf(this, AppError.prototype);
+  }
+}
+
+// Central middleware — add once, catches everything
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  if (err instanceof AppError) {
+    res.status(err.statusCode).json({ error: err.message });
+  } else {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+```
+
+### Async route wrappers
+
+One of the most common Express gotchas: unhandled promise rejections inside async route handlers silently swallow errors. Wrap every handler:
+
+```typescript
+const asyncHandler = (fn: RequestHandler) =>
+  (req: Request, res: Response, next: NextFunction) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
+```
+
+## Validation with Zod
+
+Don't trust incoming request bodies. Ever. Zod is my go-to for runtime validation — it pairs perfectly with TypeScript because you get both a validator and an inferred type from a single schema definition.
+
+```typescript
+import { z } from 'zod';
+
+const CreateUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(2).max(100),
+  role: z.enum(['admin', 'user']).default('user'),
+});
+
+// Inferred type — no duplication!
+type CreateUserDto = z.infer<typeof CreateUserSchema>;
+```
+
+## Final thoughts
+
+There's no single "correct" architecture for Node.js APIs — what matters is consistency and adaptability. The patterns above have held up across projects ranging from solo side-projects to multi-team codebases. Pick what works, document it, and stick to it.
+
+In the next post, I'll cover database access patterns using Prisma and how to keep your repository layer testable without spinning up a real DB.

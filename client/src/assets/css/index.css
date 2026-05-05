@@ -45,6 +45,11 @@ pre[class*="language-"] {
 .token.comment { color: #444444 !important; font-style: italic; }
 .token.function { color: #FFFFFF !important; }
 
+/* ---- Command palette scrollbar ---- */
+.cmd-palette-results::-webkit-scrollbar { width: 4px; }
+.cmd-palette-results::-webkit-scrollbar-track { background: transparent; }
+.cmd-palette-results::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 2px; }
+
 /* ---- shadcn/ui CSS variables (kept for component compatibility) ---- */
 @layer base {
   :root {
