@@ -41,7 +41,7 @@ export default function PortfolioPage() {
             <p>
               Hey, I am{" "}
               <span className="text-[#E8B84B] font-semibold">Ankit :) </span>
-              I'm a software developer with over 3 years of experience, currently
+              I'm a software developer with over 4 years of experience, currently
               working at one.com as a SDE-1.
             </p>
             <p>
