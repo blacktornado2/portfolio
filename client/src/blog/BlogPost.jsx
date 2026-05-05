@@ -10,7 +10,7 @@ import "prismjs/components/prism-json";
 import "prismjs/components/prism-sql";
 import "prismjs/components/prism-jsx";
 import { getPostBySlug, getComments, getLikes, createComment, toggleLike } from "@/lib/api";
-import profileImg from "@/assets/images/profile.jpeg";
+import profileImg from "@/assets/images/profile2.jpeg";
 
 function slugify(text) {
   return String(text)

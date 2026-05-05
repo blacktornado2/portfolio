@@ -24,7 +24,7 @@ export default function Header() {
   }, [menuOpen]);
 
   useEffect(() => {
-    const ids = ["home", "skills", "experience", "education", "contact"];
+    const ids = ["home", "about", "skills", "experience", "projects", "contact"];
     const observers = ids.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;
@@ -51,9 +51,10 @@ export default function Header() {
   }, []);
 
   const navLinks = [
+    { id: "about", label: "About Me" },
     { id: "skills", label: "Skills" },
-    { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
+    { id: "experience", label: "Professional Journey" },
+    { id: "projects", label: "Projects" },
     { id: "contact", label: "Contact" },
     { id: "blog", label: "Blog", href: "/blog" },
     { id: "games", label: "Games", href: "/games" },

@@ -1,121 +1,119 @@
-// import React from "react";
-// import { Github, ExternalLink } from "lucide-react";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
-// const MacOsButtons = () => (
-//   <div className="flex gap-2 mb-4">
-//     <div className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors shadow-md" />
-//     <div className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors shadow-md" />
-//     <div className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 transition-colors shadow-md" />
-//   </div>
-// );
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: i * 0.15 },
+  }),
+};
 
-// const ProjectShowcase = () => {
-//   const projects = [
-//     {
-//       title: "Olova! A Lightweight JavaScript Library",
-//       description:
-//         "Olova.js is a lightweight JavaScript library for building modern, reactive, and dynamic web applications. It features a simple, component-based architecture, enabling developers to create reusable and interactive UI elements with minimal code and overhead.",
-//       tags: ["JavaScript", "Reactive", "Web Development"],
-//       links: {
-//         github: "https://github.com/olovajs/olova",
-//         demo: "https://olova.js.org/",
-//       },
-//       image: olova,
-//       featured: true,
-//     },
-//   ];
+const HEADER_ANIM = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5 },
+};
 
-//   return (
-//     <div
-//       className="pt-20 min-h-screen bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90
-//  p-8 text-slate-100"
-//     >
-//       <h2 className="text-5xl md:text-7xl font-black text-transparent bg-gradient-to-r from-teal-400 to-blue-500 bg-clip-text text-center pb-20">
-//         Projects
-//       </h2>
+const SUBHEADER_ANIM = {
+  initial: { opacity: 0, y: 10 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay: 0.1 },
+};
 
-//       <div className="max-w-7xl mx-auto space-y-12">
-//         {projects.map((project, index) => (
-//           <div
-//             key={index}
-//             className="flex flex-col md:flex-row items-center group rounded-lg p-[2px] bg-gradient-to-r from-cyan-500 via-purple-500 to-emerald-500 bg-[length:400%_400%] animate-gradient-xy hover:bg-[length:100%_100%] transition-all duration-700 shadow-lg"
-//           >
-//             {/* Image Section */}
-//             <div className="md:w-1/2 overflow-hidden rounded-lg">
-//               <img
-//                 src={project.image}
-//                 alt={project.title}
-//                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-//               />
-//             </div>
+const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
 
-//             {/* Text Section */}
-//             <Card className="md:w-1/2 bg-gradient-to-br from-slate-800 to-gray-900 rounded-lg overflow-hidden shadow-md transition-transform duration-500 group-hover:scale-105 group-hover:shadow-2xl p-6">
-//               <MacOsButtons />
+const projects = [
+  {
+    title: "DevTrack",
+    description:
+      "A real-time developer task management platform with Kanban boards, team collaboration, and sprint planning. Built to handle high concurrency with WebSocket-powered live updates.",
+    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Socket.io"],
+    github: "#",
+    live: "#",
+  },
+  {
+    title: "ShopFlow",
+    description:
+      "A cross-platform mobile e-commerce app with a seamless checkout experience, push notifications, and real-time inventory sync. Integrated Stripe for secure payments.",
+    tech: ["React Native", "Node.js", "MongoDB", "Stripe", "Firebase"],
+    github: "#",
+    live: "#",
+  },
+];
 
-//               <CardHeader>
-//                 <div className="flex justify-between items-start">
-//                   <div>
-//                     <div className="text-emerald-400 text-sm font-mono mb-2 tracking-wide uppercase">
-//                       Featured Project
-//                     </div>
-//                     <CardTitle className="text-slate-100 text-3xl font-bold">
-//                       {project.title}
-//                     </CardTitle>
-//                   </div>
-//                   <div className="flex gap-4">
-//                     <a
-//                       href={project.links.github}
-//                       className="text-slate-400 hover:text-emerald-400 transition-all duration-300 transform hover:scale-125"
-//                       target="_blank"
-//                       rel="noopener noreferrer"
-//                     >
-//                       <Github size={22} />
-//                     </a>
-//                     <a
-//                       href={project.links.demo}
-//                       className="text-slate-400 hover:text-emerald-400 transition-all duration-300 transform hover:scale-125"
-//                       target="_blank"
-//                       rel="noopener noreferrer"
-//                     >
-//                       <ExternalLink size={22} />
-//                     </a>
-//                   </div>
-//                 </div>
-//               </CardHeader>
-
-//               <CardContent className="mt-4">
-//                 <p className="text-slate-300 mb-6 text-lg leading-relaxed">
-//                   {project.description}
-//                 </p>
-//                 <div className="flex flex-wrap gap-3">
-//                   {project.tags.map((tag, tagIndex) => (
-//                     <span
-//                       key={tagIndex}
-//                       className="px-3 py-1 text-sm font-medium rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 text-gray-900 shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300"
-//                     >
-//                       {tag}
-//                     </span>
-//                   ))}
-//                 </div>
-//               </CardContent>
-//             </Card>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ProjectShowcase;
-
-import React from 'react'
-
-const Projects = () => {
+export default function Projects() {
   return (
-    <div>Projects</div>
-  )
-}
+    <section className="bg-[#111111] py-24 px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto">
 
-export default Projects;
+        <motion.div {...HEADER_ANIM} className="mb-4">
+          <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
+            <span className="text-[#E8B84B]">04</span> — Projects
+          </h2>
+        </motion.div>
+
+        <motion.p {...SUBHEADER_ANIM} className="text-[#888888] italic mb-16">
+          "Things I've built — and things worth building"
+        </motion.p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map(({ title, description, tech, github, live }, i) => (
+            <motion.div
+              key={title}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={cardVariants}
+              whileHover={{ scale: 1.01 }}
+              className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6 flex flex-col"
+              style={CARD_BORDER}
+            >
+              <h3 className="font-syne font-bold text-white text-xl mb-3">{title}</h3>
+
+              <p className="text-[#888888] text-sm leading-relaxed mb-5">{description}</p>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {tech.map((t) => (
+                  <span
+                    key={t}
+                    className="bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1 text-xs"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              <div className="border-t border-[#2A2A2A] pt-4 flex items-center gap-6 mt-auto">
+                <a
+                  href={github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
+                >
+                  <FaGithub className="w-4 h-4" />
+                  GitHub
+                </a>
+                <a
+                  href={live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Live Demo
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
