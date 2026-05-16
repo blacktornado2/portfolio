@@ -6,6 +6,7 @@ import {
 import {
   SiNextdotjs, SiTypescript, SiTailwindcss, SiPostgresql, SiMongodb,
   SiGraphql, SiJest, SiWebpack, SiRedux, SiFirebase, SiVercel, SiVite,
+  SiVuedotjs, SiNestjs, SiExpress, SiCockroachlabs,
 } from "react-icons/si";
 import { TbBrandVscode } from "react-icons/tb";
 import { BsFileEarmarkCode, BsGrid1X2 } from "react-icons/bs";
@@ -29,54 +30,59 @@ const HEADER_ANIM = {
 };
 
 const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
+const CARD_HOVER = { scale: 1.03, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
 
 const skillCategories = [
   {
     Icon: Code2,
     title: "Frontend",
     skills: [
-      { name: "React",        SkillIcon: FaReact,           color: "text-[#61DAFB]" },
-      { name: "React Native", SkillIcon: FaReact,           color: "text-[#61DAFB]" },
-      { name: "Next.js",      SkillIcon: SiNextdotjs,       color: "text-white" },
-      { name: "TypeScript",   SkillIcon: SiTypescript,      color: "text-[#3178C6]" },
-      { name: "Tailwind CSS", SkillIcon: SiTailwindcss,     color: "text-[#38B2AC]" },
-      { name: "CSS",          SkillIcon: BsFileEarmarkCode, color: "text-[#1572B6]" },
-      { name: "HTML",         SkillIcon: BsFileEarmarkCode, color: "text-[#E34F26]" },
+      { name: "React", SkillIcon: FaReact, color: "text-[#61DAFB]" },
+      { name: "Vue.js", SkillIcon: SiVuedotjs, color: "text-[#4FC08D]" },
+      { name: "React Native", SkillIcon: FaReact, color: "text-[#61DAFB]" },
+      { name: "Next.js", SkillIcon: SiNextdotjs, color: "text-white" },
+      { name: "TypeScript", SkillIcon: SiTypescript, color: "text-[#3178C6]" },
+      { name: "Tailwind CSS", SkillIcon: SiTailwindcss, color: "text-[#38B2AC]" },
+      { name: "CSS", SkillIcon: BsFileEarmarkCode, color: "text-[#1572B6]" },
+      { name: "HTML", SkillIcon: BsFileEarmarkCode, color: "text-[#E34F26]" },
     ],
   },
   {
     Icon: Database,
     title: "Backend",
     skills: [
-      { name: "Node.js",    SkillIcon: FaNodeJs,    color: "text-[#339933]" },
+      { name: "Node.js", SkillIcon: FaNodeJs, color: "text-[#339933]" },
+      { name: "Nest.js", SkillIcon: SiNestjs, color: "text-[#E0234E]" },
+      { name: "Express", SkillIcon: SiExpress, color: "text-white" },
       { name: "PostgreSQL", SkillIcon: SiPostgresql, color: "text-[#336791]" },
-      { name: "MongoDB",    SkillIcon: SiMongodb,   color: "text-[#47A248]" },
-      { name: "REST APIs",  SkillIcon: BsGrid1X2,   color: "text-[#FF6C37]" },
-      { name: "GraphQL",    SkillIcon: SiGraphql,   color: "text-[#E10098]" },
+      { name: "MongoDB", SkillIcon: SiMongodb, color: "text-[#47A248]" },
+      { name: "CockroachDB", SkillIcon: SiCockroachlabs, color: "text-[#6933FF]" },
+      { name: "GraphQL", SkillIcon: SiGraphql, color: "text-[#E10098]" },
+      { name: "REST APIs", SkillIcon: BsGrid1X2, color: "text-[#FF6C37]" },
     ],
   },
   {
     Icon: Cloud,
     title: "Cloud & DevOps",
     skills: [
-      { name: "CI/CD",  SkillIcon: FcWorkflow, color: "" },
-      { name: "Git",    SkillIcon: FaGitAlt,   color: "text-[#F05032]" },
-      { name: "Linux",  SkillIcon: FaLinux,    color: "text-[#FCC624]" },
-      { name: "GitHub", SkillIcon: FaGithub,   color: "text-white" },
-      { name: "GitLab", SkillIcon: FaGitlab,   color: "text-orange-500" },
+      { name: "CI/CD", SkillIcon: FcWorkflow, color: "" },
+      { name: "Git", SkillIcon: FaGitAlt, color: "text-[#F05032]" },
+      { name: "Linux", SkillIcon: FaLinux, color: "text-[#FCC624]" },
+      { name: "GitHub", SkillIcon: FaGithub, color: "text-white" },
+      { name: "GitLab", SkillIcon: FaGitlab, color: "text-orange-500" },
     ],
   },
   {
     Icon: Cpu,
     title: "Tools",
     skills: [
-      { name: "VS Code",  SkillIcon: TbBrandVscode, color: "text-[#007ACC]" },
-      { name: "Jest",     SkillIcon: SiJest,        color: "text-[#C21325]" },
-      { name: "Webpack",  SkillIcon: SiWebpack,     color: "text-[#8DD6F9]" },
-      { name: "Redux",    SkillIcon: SiRedux,       color: "text-[#764ABC]" },
-      { name: "Firebase", SkillIcon: SiFirebase,    color: "text-[#FFCA28]" },
-      { name: "Vercel",   SkillIcon: SiVercel,      color: "text-white" },
-      { name: "Vite",     SkillIcon: SiVite,        color: "text-[#646CFF]" },
+      { name: "VS Code", SkillIcon: TbBrandVscode, color: "text-[#007ACC]" },
+      { name: "Firebase", SkillIcon: SiFirebase, color: "text-[#FFCA28]" },
+      { name: "Vercel", SkillIcon: SiVercel, color: "text-white" },
+      { name: "Vite", SkillIcon: SiVite, color: "text-[#646CFF]" },
+      { name: "Webpack", SkillIcon: SiWebpack, color: "text-[#8DD6F9]" },
+      { name: "Redux", SkillIcon: SiRedux, color: "text-[#764ABC]" },
+      { name: "Jest", SkillIcon: SiJest, color: "text-[#C21325]" },
     ],
   },
 ];
@@ -110,7 +116,7 @@ export default function SkillsSection() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={cardVariants}
-              whileHover={{ scale: 1.01 }}
+              whileHover={CARD_HOVER}
               className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6"
               style={CARD_BORDER}
             >
@@ -120,13 +126,23 @@ export default function SkillsSection() {
               </div>
               <div className="border-t border-[#2A2A2A] pt-4 flex flex-wrap gap-2">
                 {skills.map(({ name, SkillIcon, color }) => (
-                  <span
+                  <motion.span
                     key={name}
-                    className="flex items-center gap-1.5 bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1.5 text-sm"
+                    whileHover={{
+                      scale: 1.1,
+                      boxShadow: "0 0 14px rgba(232, 184, 75, 0.45)",
+                      borderColor: "rgba(232, 184, 75, 0.5)",
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    className="relative flex items-center gap-1.5 bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1.5 text-sm overflow-hidden cursor-default group"
                   >
-                    <SkillIcon className={`w-4 h-4 ${color}`} aria-hidden="true" />
-                    {name}
-                  </span>
+                    <SkillIcon className={`w-4 h-4 ${color} relative z-10`} aria-hidden="true" />
+                    <span className="relative z-10">{name}</span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-in-out bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                    />
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

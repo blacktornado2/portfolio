@@ -44,10 +44,14 @@ export default function Hero() {
           <div className="space-y-6">
             {/* Availability badge */}
             <motion.div {...FADE_UP[0]}>
-              <span className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-sm text-[#888888]">
+              <motion.span
+                whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
+                transition={{ duration: 0.3 }}
+                className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-sm text-[#888888]"
+              >
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
                 Available for work
-              </span>
+              </motion.span>
             </motion.div>
 
             {/* Name */}
@@ -83,7 +87,7 @@ export default function Hero() {
 
           {/* Right column — Code Window */}
           <motion.div {...CODE_WINDOW_ANIM}>
-            <div className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden shadow-2xl">
+            <div className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden" style={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.1)" }}>
               {/* Window chrome */}
               <div className="bg-[#161616] px-4 py-3 flex items-center gap-2 border-b border-[#2A2A2A]">
                 <span className="w-3 h-3 rounded-full bg-[#EF4444] flex items-center justify-center">
@@ -91,7 +95,7 @@ export default function Hero() {
                 </span>
                 <span className="w-3 h-3 rounded-full bg-[#F59E0B]" />
                 <span className="w-3 h-3 rounded-full bg-[#22C55E]" />
-                <span className="ml-3 text-xs text-[#555555] font-mono">developer.js</span>
+                <span className="ml-3 text-xs text-[#ff3b3b] font-mono">developer.js</span>
               </div>
               {/* Code */}
               <pre className="language-javascript !m-0">

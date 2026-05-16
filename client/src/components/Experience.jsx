@@ -24,37 +24,30 @@ const SUBHEADER_ANIM = {
 };
 
 const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
-const CARD_HOVER = { scale: 1.01 };
+const CARD_HOVER = { scale: 1.05, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
 const VIEWPORT_ONCE = { once: true };
 
 const experiences = [
   {
-    title: "Software Developer",
+    title: "Software Engineer II",
     company: "BetterWorks",
     period: "Nov 2025 – Present",
     description:
-      "Building performance management features on a Nest.js + Vue.js stack, contributing to a platform used by enterprise teams worldwide.",
+      "Building performance management features on a Nest.js + Vue.js stack for enterprise teams worldwide.",
   },
   {
     title: "Software Developer — 1",
     company: "one.com",
     period: "Jan 2024 – Aug 2025",
     description:
-      "Frontend: working on integrating various services into our super app — companion app.",
+      "Owned frontend of one.com's companion super app — bringing multiple products together into one seamless experience.",
   },
   {
     title: "Associate Software Developer",
     company: "one.com",
     period: "May 2022 – Dec 2023",
     description:
-      "Backend: Assisted in making various DB optimisations and integrating APIs.",
-  },
-  {
-    title: "Software Developer Intern",
-    company: "one.com",
-    period: "Dec 2021 – May 2022",
-    description:
-      "Learnt various tools and technologies like React.js, Node.js, Vanilla JS, Git, Ubuntu, JIRA etc.",
+      "Optimised DB queries, wired up APIs, and gradually took ownership of entire backend modules.",
   },
 ];
 

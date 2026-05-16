@@ -26,18 +26,17 @@ const RIGHT_ANIM = {
 };
 
 const inputClass = (error) =>
-  `w-full bg-[#111111] border rounded-lg px-4 py-3 text-white placeholder-[#555555] focus:outline-none transition-colors ${
-    error
-      ? "border-red-500 focus:border-red-400"
-      : "border-[#2A2A2A] focus:border-[#E8B84B]"
+  `w-full bg-[#111111] border rounded-lg px-4 py-3 text-white placeholder-[#555555] focus:outline-none transition-colors ${error
+    ? "border-red-500 focus:border-red-400"
+    : "border-[#2A2A2A] focus:border-[#E8B84B]"
   }`;
 
 const EMPTY_FORM = { name: "", email: "", subject: "", message: "" };
 
 function validateForm(data) {
   const errs = {};
-  if (!data.name.trim())    errs.name    = "Name is required";
-  if (!data.email.trim())   errs.email   = "Email is required";
+  if (!data.name.trim()) errs.name = "Name is required";
+  if (!data.email.trim()) errs.email = "Email is required";
   else if (!/\S+@\S+\.\S+/.test(data.email)) errs.email = "Email is invalid";
   if (!data.subject.trim()) errs.subject = "Subject is required";
   if (!data.message.trim()) errs.message = "Message is required";
@@ -64,13 +63,13 @@ export default function Contact() {
     setLoading(true);
     const form = new FormData();
     form.append("access_key", "0e22ebff-ca15-4e6c-b71a-6426816d9eb2");
-    form.append("name",    formData.name);
-    form.append("email",   formData.email);
+    form.append("name", formData.name);
+    form.append("email", formData.email);
     form.append("subject", formData.subject);
     form.append("message", formData.message);
 
     try {
-      const res    = await fetch("https://api.web3forms.com/submit", { method: "POST", body: form });
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: form });
       const result = await res.json();
       if (res.ok) {
         setStatus("success");
@@ -107,7 +106,7 @@ export default function Contact() {
                 Let's build something.
               </h3>
               <p className="text-[#888888] leading-relaxed">
-                Have a project in mind or want to work together? Feel free to
+                Have a project in mind or want to work together? <br /> Please feel free to
                 reach out — I'm always open to new connections and conversations.
               </p>
             </div>
@@ -181,20 +180,20 @@ export default function Contact() {
           </motion.div>
 
           {/* Right: Form */}
-          <motion.div {...RIGHT_ANIM}>
+          <motion.div {...RIGHT_ANIM} whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }} transition={{ duration: 0.3 }}>
             <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <input type="text" name="name" aria-label="Your name" placeholder="Your Name"
                     className={inputClass(errors.name)}
                     value={formData.name} onChange={handleChange} />
-                  {errors.name    && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                  {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
                 <div>
                   <input type="email" name="email" aria-label="Your email address" placeholder="Your Email"
                     className={inputClass(errors.email)}
                     value={formData.email} onChange={handleChange} />
-                  {errors.email   && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
                 </div>
                 <div>
                   <input type="text" name="subject" aria-label="Message subject" placeholder="Subject"

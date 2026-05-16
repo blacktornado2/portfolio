@@ -69,6 +69,7 @@ export default function PortfolioPage() {
             <img
               src={profileImage}
               alt="Ankit Bhardwaj"
+              style={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
               className="h-80 w-80 object-cover rounded-full ring-2 ring-[#E8B84B] ring-offset-4 ring-offset-[#111111]"
             />
           </motion.div>
