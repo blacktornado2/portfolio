@@ -1,6 +1,6 @@
 # Portfolio — Ankit Bhardwaj
 
-A single-page personal portfolio built with React 18, Vite 6, and Tailwind CSS. Showcases skills, experience, education, and projects, with an integrated MDX-powered blog.
+A full-stack personal portfolio built with React 18 + Vite on the frontend and NestJS + Prisma on the backend. Single-page design with anchor navigation, plus separate routes for a blog and a games section.
 
 🔗 **Live site:** [bhardwajankit.com](https://bhardwajankit.com)
 
@@ -10,19 +10,21 @@ A single-page personal portfolio built with React 18, Vite 6, and Tailwind CSS. 
 
 **Hero**
 
-![Hero section](src/assets/images/Hero%20Section.png)
+![Hero section](.github/assets/Hero%20Section.png)
 
 **Skills**
 
-![Skills section](src/assets/images/Skills.png)
+![Skills section](.github/assets/Skills.png)
 
 **Blog**
 
-![Blog index](src/assets/images/Blog.png)
+![Blog index](.github/assets/Blog.png)
 
 ---
 
 ## Tech Stack
+
+### Frontend (`client/`)
 
 | Layer | Tools |
 |---|---|
@@ -30,61 +32,91 @@ A single-page personal portfolio built with React 18, Vite 6, and Tailwind CSS. 
 | Routing | React Router v7, react-router-hash-link |
 | Styling | Tailwind CSS v3, shadcn/ui (Radix primitives) |
 | Animation | Framer Motion v11 |
-| Content | MDX (`@mdx-js/rollup`, `@mdx-js/react`) for the blog |
 | Syntax highlighting | Prism.js |
 | Icons | react-icons, lucide-react |
-| Forms | Web3Forms (client-side, no backend) |
+| Blog rendering | react-markdown, remark-gfm |
+| Forms | Web3Forms (client-side, no backend required) |
 | Deployment | Vercel |
+
+### Backend (`server/`)
+
+| Layer | Tools |
+|---|---|
+| Framework | NestJS v10 |
+| ORM | Prisma |
+| Auth | JWT (passport-jwt) |
+| Language | TypeScript |
 
 ---
 
-## Sections
+## Sections & Routes
 
-The site is a single scrollable page with anchor-link navigation, plus a separate blog route.
-
-- `#home` — Hero with intro and a live syntax-highlighted code window
-- `#skills` — Categorized skill grid with icon cloud
-- `#experience` — Work history
-- `#education` — Academic background
-- `#contact` — Web3Forms-powered contact form
-- `/blog` — MDX-rendered articles
+| Route | Description |
+|---|---|
+| `/` `#home` | Hero — intro, syntax-highlighted code window |
+| `/` `#skills` | Skill grid with icon cloud |
+| `/` `#experience` | Professional journey cards |
+| `/` `#projects` | Project showcase |
+| `/` `#contact` | Web3Forms-powered contact form |
+| `/blog` | Blog index |
+| `/blog/:slug` | Individual blog post (react-markdown) |
+| `/games` | Games hub |
+| `/games/2048` | 2048 |
+| `/games/wordle` | Wordle |
+| `/games/typeracer` | Typeracer |
 
 ---
 
 ## Project Structure
 
 ```
-portfolio/
+portfolio/                          # Monorepo root
+├── client/                         # React frontend
+│   ├── src/
+│   │   ├── App.jsx                 # All routes
+│   │   ├── main.jsx
+│   │   ├── assets/
+│   │   │   └── css/index.css       # Design tokens, fonts, Prism theme
+│   │   ├── blog/
+│   │   │   ├── BlogIndex.jsx
+│   │   │   ├── BlogPost.jsx
+│   │   │   ├── Callout.jsx
+│   │   │   ├── posts.js
+│   │   │   └── content/            # Markdown articles
+│   │   ├── components/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Hero.jsx
+│   │   │   ├── PortfolioPage.jsx   # About — rendered inside Hero
+│   │   │   ├── Skills.jsx
+│   │   │   ├── Experience.jsx
+│   │   │   ├── Projects.jsx
+│   │   │   ├── Contact.jsx
+│   │   │   ├── CommandPalette.jsx  # ⌘K search
+│   │   │   ├── GoldenCursor.jsx
+│   │   │   ├── globe.jsx
+│   │   │   └── ui/                 # shadcn/ui primitives
+│   │   ├── games/
+│   │   │   ├── GamesIndex.jsx
+│   │   │   ├── Game2048.jsx
+│   │   │   ├── GameWordle.jsx
+│   │   │   └── GameTyperacer.jsx
+│   │   ├── constants/index.js      # Email, location, pincode
+│   │   └── lib/utils.js            # cn() — Tailwind class merger
+│   ├── tailwind.config.js
+│   └── vite.config.js
+├── server/                         # NestJS backend
+│   ├── src/
+│   │   ├── app.module.ts
+│   │   ├── main.ts
+│   │   ├── auth/
+│   │   ├── posts/
+│   │   ├── comments/
+│   │   ├── likes/
+│   │   └── prisma/
+│   ├── prisma/
+│   └── tsconfig.json
 ├── docs/
-│   └── superpowers/           # Design spec & implementation plan
-├── public/
-├── src/
-│   ├── App.jsx                # Routes: /, /blog, /blog/:slug
-│   ├── main.jsx
-│   ├── assets/
-│   │   ├── css/index.css      # Design tokens, fonts, Prism theme
-│   │   └── images/
-│   ├── blog/
-│   │   ├── BlogIndex.jsx
-│   │   ├── BlogPost.jsx
-│   │   ├── Callout.jsx
-│   │   ├── posts.js
-│   │   └── content/           # MDX articles
-│   ├── components/            # One file per page section
-│   │   ├── Header.jsx
-│   │   ├── Hero.jsx
-│   │   ├── PortfolioPage.jsx  # About — rendered inside Hero
-│   │   ├── Skills.jsx
-│   │   ├── Experience.jsx
-│   │   ├── Education.jsx
-│   │   ├── Projects.jsx
-│   │   ├── Contact.jsx
-│   │   ├── globe.jsx
-│   │   └── ui/                # shadcn/ui primitives
-│   ├── constants/index.js     # Email, location, pincode
-│   └── lib/utils.js           # cn() — Tailwind class merger
-├── tailwind.config.js
-├── vite.config.js
+│   └── superpowers/                # Design spec & implementation plan
 └── vercel.json
 ```
 
@@ -92,7 +124,7 @@ portfolio/
 
 ## Design System
 
-Defined in [src/assets/css/index.css](src/assets/css/index.css):
+Defined in `client/src/assets/css/index.css`:
 
 - Background `#111111` · Surface `#1A1A1A` · Border `#2A2A2A`
 - Gold accent `#E8B84B` · Secondary text `#888888`
@@ -108,13 +140,26 @@ Defined in [src/assets/css/index.css](src/assets/css/index.css):
 ```bash
 git clone https://github.com/blacktornado2/portfolio.git
 cd portfolio
-npm install
-npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+### Frontend
 
-### Scripts
+```bash
+cd client
+npm install
+npm run dev        # http://localhost:5173
+```
+
+### Backend
+
+```bash
+cd server
+npm install
+npx prisma generate
+npm run start:dev  # http://localhost:3000
+```
+
+### Frontend Scripts
 
 | Command | Description |
 |---|---|
@@ -127,10 +172,11 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Customization
 
-- **Personal info** (email, location, pincode) — edit [src/constants/index.js](src/constants/index.js)
-- **GitHub & LinkedIn URLs, Web3Forms key** — edit [src/components/Contact.jsx](src/components/Contact.jsx)
-- **Skills, experience, education** — edit data arrays at the top of each section component
-- **Blog posts** — add an `.mdx` file to [src/blog/content/](src/blog/content/) and register it in [src/blog/posts.js](src/blog/posts.js)
+- **Personal info** (email, location, pincode) — edit `client/src/constants/index.js`
+- **GitHub, LinkedIn URLs & Web3Forms key** — edit `client/src/components/Contact.jsx`
+- **Skills, experience** — edit the data arrays at the top of each section component
+- **Blog posts** — add a Markdown file to `client/src/blog/content/` and register it in `client/src/blog/posts.js`
+
 
 ---
 
