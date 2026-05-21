@@ -31,21 +31,21 @@ const experiences = [
   {
     title: "Software Engineer II",
     company: "BetterWorks",
-    period: "Nov 2025 – Present",
+    period: "2025 – Present",
     description:
       "Building performance management features on a Nest.js + Vue.js stack for enterprise teams worldwide.",
   },
   {
     title: "Software Developer — 1",
     company: "one.com",
-    period: "Jan 2024 – Aug 2025",
+    period: "2023 – 2025",
     description:
       "Owned frontend of one.com's companion super app — bringing multiple products together into one seamless experience.",
   },
   {
     title: "Associate Software Developer",
     company: "one.com",
-    period: "May 2022 – Dec 2023",
+    period: "2022 – 2023",
     description:
       "Optimised DB queries, wired up APIs, and gradually took ownership of entire backend modules.",
   },

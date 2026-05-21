@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import profileImage from "../assets/images/profile2.jpeg";
+import profileImage from "../assets/images/Ankit-3D.png";
 
 const HEADER_ANIM = {
   initial: { opacity: 0, y: 20 },
@@ -36,7 +36,18 @@ export default function PortfolioPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-          {/* Left: Bio */}
+          {/* Left: Profile photo */}
+          <motion.div {...PHOTO_ANIM} className="flex justify-center">
+            <motion.img
+              src={profileImage}
+              alt="Ankit Bhardwaj"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[#E8B84B] ring-offset-4 ring-offset-[#111111]"
+            />
+          </motion.div>
+
+          {/* Right: Bio */}
           <motion.div {...BIO_ANIM} className="space-y-5 text-[#888888] text-lg leading-relaxed">
             <p>
               Hey, I'm{" "}
@@ -62,16 +73,6 @@ export default function PortfolioPage() {
               If you're building something interesting or just want to connect —
               I'm always up for a conversation.
             </p>
-          </motion.div>
-
-          {/* Right: Profile photo */}
-          <motion.div {...PHOTO_ANIM} className="flex justify-center">
-            <img
-              src={profileImage}
-              alt="Ankit Bhardwaj"
-              style={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
-              className="h-80 w-80 object-cover rounded-full ring-2 ring-[#E8B84B] ring-offset-4 ring-offset-[#111111]"
-            />
           </motion.div>
         </div>
 

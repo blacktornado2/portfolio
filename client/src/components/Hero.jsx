@@ -86,10 +86,14 @@ export default function Hero() {
           </div>
 
           {/* Right column — Code Window */}
-          <motion.div {...CODE_WINDOW_ANIM}>
-            <div className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden" style={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.1)" }}>
+          <motion.div
+            {...CODE_WINDOW_ANIM}
+            whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.1)" }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden">
               {/* Window chrome */}
-              <div className="bg-[#161616] px-4 py-3 flex items-center gap-2 border-b border-[#2A2A2A]">
+              <div className="bg-[#161616] px-5 py-4 flex items-center gap-2 border-b border-[#2A2A2A]">
                 <span className="w-3 h-3 rounded-full bg-[#EF4444] flex items-center justify-center">
                   <IoIosClose color="#1A0000" className="w-2.5 h-2.5" aria-hidden="true" />
                 </span>
@@ -98,7 +102,7 @@ export default function Hero() {
                 <span className="ml-3 text-xs text-[#ff3b3b] font-mono">developer.js</span>
               </div>
               {/* Code */}
-              <pre className="language-javascript !m-0">
+              <pre className="language-javascript !m-0 !p-5 !text-[15px]">
                 <code className="language-javascript">{CODE}</code>
               </pre>
             </div>

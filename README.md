@@ -1,6 +1,6 @@
 # Portfolio — Ankit Bhardwaj
 
-A full-stack personal portfolio built with React 18 + Vite on the frontend and NestJS + Prisma on the backend. Single-page design with anchor navigation, plus separate routes for a blog and a games section.
+A personal portfolio built with React 18 + Vite on the frontend and NestJS + Prisma on the backend. Single-page design with anchor navigation, plus separate routes for a blog and a games section.
 
 🔗 **Live site:** [bhardwajankit.com](https://bhardwajankit.com)
 
@@ -15,10 +15,6 @@ A full-stack personal portfolio built with React 18 + Vite on the frontend and N
 **Skills**
 
 ![Skills section](.github/assets/Skills.png)
-
-**Blog**
-
-![Blog index](.github/assets/Blog.png)
 
 ---
 
@@ -54,9 +50,10 @@ A full-stack personal portfolio built with React 18 + Vite on the frontend and N
 | Route | Description |
 |---|---|
 | `/` `#home` | Hero — intro, syntax-highlighted code window |
+| `/` `#about` | About — 3D profile photo + bio |
 | `/` `#skills` | Skill grid with icon cloud |
 | `/` `#experience` | Professional journey cards |
-| `/` `#projects` | Project showcase |
+| `/` `#projects` | Project showcase with preview images |
 | `/` `#contact` | Web3Forms-powered contact form |
 | `/blog` | Blog index |
 | `/blog/:slug` | Individual blog post (react-markdown) |
@@ -64,6 +61,18 @@ A full-stack personal portfolio built with React 18 + Vite on the frontend and N
 | `/games/2048` | 2048 |
 | `/games/wordle` | Wordle |
 | `/games/typeracer` | Typeracer |
+
+---
+
+## Projects
+
+| Project | Stack | Links |
+|---|---|---|
+| [Vitano](https://www.vitano.in) | React, TypeScript, Tailwind CSS | [GitHub](https://github.com/blacktornado2/vitano) · [Live](https://www.vitano.in) |
+| DevTrack | React, TypeScript, Node.js, PostgreSQL, Socket.io | — |
+| ShopFlow | React Native, Node.js, MongoDB, Stripe, Firebase | — |
+
+Project cards support an optional `image` field — set it to an imported asset to show a preview thumbnail at the top of the card.
 
 ---
 
@@ -76,11 +85,14 @@ portfolio/                          # Monorepo root
 │   │   ├── App.jsx                 # All routes
 │   │   ├── main.jsx
 │   │   ├── assets/
-│   │   │   └── css/index.css       # Design tokens, fonts, Prism theme
+│   │   │   ├── css/index.css       # Design tokens, fonts, Prism theme
+│   │   │   └── images/
+│   │   │       ├── Ankit-3D.png    # AI-generated profile photo (About section)
+│   │   │       ├── vitano-preview.png  # Vitano project card thumbnail
+│   │   │       └── logo.png
 │   │   ├── blog/
 │   │   │   ├── BlogIndex.jsx
 │   │   │   ├── BlogPost.jsx
-│   │   │   ├── Callout.jsx
 │   │   │   ├── posts.js
 │   │   │   └── content/            # Markdown articles
 │   │   ├── components/
@@ -175,8 +187,8 @@ npm run start:dev  # http://localhost:3000
 - **Personal info** (email, location, pincode) — edit `client/src/constants/index.js`
 - **GitHub, LinkedIn URLs & Web3Forms key** — edit `client/src/components/Contact.jsx`
 - **Skills, experience** — edit the data arrays at the top of each section component
+- **Projects** — add an entry to the `projects` array in `Projects.jsx`; include an `image` import for a card thumbnail
 - **Blog posts** — add a Markdown file to `client/src/blog/content/` and register it in `client/src/blog/posts.js`
-
 
 ---
 

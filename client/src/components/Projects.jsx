@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import vitanoPreview from "../assets/images/vitano-preview.png";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -29,6 +30,15 @@ const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
 const CARD_HOVER = { scale: 1.03, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
 
 const projects = [
+  {
+    title: "Vitano",
+    description:
+      "A production business landing page built for a client selling FMCG products. Designed to convert visitors into buyers with a clean product showcase, category browsing, and a mobile-first responsive layout. Deployed live and actively used by the client.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Google Reviews"],
+    github: "https://github.com/blacktornado2/vitano",
+    live: "https://www.vitano.in",
+    image: vitanoPreview,
+  },
   {
     title: "DevTrack",
     description:
@@ -63,7 +73,7 @@ export default function Projects() {
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map(({ title, description, tech, github, live }, i) => (
+          {projects.map(({ title, description, tech, github, live, image }, i) => (
             <motion.div
               key={title}
               custom={i}
@@ -72,43 +82,55 @@ export default function Projects() {
               viewport={{ once: true }}
               variants={cardVariants}
               whileHover={CARD_HOVER}
-              className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6 flex flex-col"
+              className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] flex flex-col overflow-hidden"
               style={CARD_BORDER}
             >
-              <h3 className="font-syne font-bold text-white text-xl mb-3">{title}</h3>
+              {image && (
+                <div className="h-44 overflow-hidden border-b border-[#2A2A2A]">
+                  <img
+                    src={image}
+                    alt={`${title} preview`}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              )}
 
-              <p className="text-[#888888] text-sm leading-relaxed mb-5">{description}</p>
+              <div className="p-6 flex flex-col flex-1">
+                <h3 className="font-syne font-bold text-white text-xl mb-3">{title}</h3>
 
-              <div className="flex flex-wrap gap-2 mb-6">
-                {tech.map((t) => (
-                  <span
-                    key={t}
-                    className="bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1 text-xs"
+                <p className="text-[#888888] text-sm leading-relaxed mb-5">{description}</p>
+
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {tech.map((t) => (
+                    <span
+                      key={t}
+                      className="bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1 text-xs"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="border-t border-[#2A2A2A] pt-4 flex items-center gap-6 mt-auto">
+                  <a
+                    href={github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
                   >
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              <div className="border-t border-[#2A2A2A] pt-4 flex items-center gap-6 mt-auto">
-                <a
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
-                >
-                  <FaGithub className="w-4 h-4" />
-                  GitHub
-                </a>
-                <a
-                  href={live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Live Demo
-                </a>
+                    <FaGithub className="w-4 h-4" />
+                    GitHub
+                  </a>
+                  <a
+                    href={live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Live Demo
+                  </a>
+                </div>
               </div>
             </motion.div>
           ))}
