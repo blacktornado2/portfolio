@@ -1,5 +1,5 @@
 {
-  "name": "portfolio-monorepo",
+  "name": "ankit-portfolio",
   "version": "1.0.0",
   "description": "Ankit's portfolio with blog and backend API",
   "private": true,
