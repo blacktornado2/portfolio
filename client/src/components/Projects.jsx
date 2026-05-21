@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import vitanoPreview from "../assets/images/vitano-preview.png";
+import utkarshPreview from "../assets/images/utkarsh-portfolio.png";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -38,6 +39,15 @@ const projects = [
     github: "https://github.com/blacktornado2/vitano",
     live: "https://www.vitano.in",
     image: vitanoPreview,
+  },
+  {
+    title: "Utkarsh Chaudhary — Portfolio",
+    description:
+      "A developer portfolio for Utkarsh Chaudhary, a Senior Software Engineer specializing in scalable distributed systems and production AI. Bold typographic design with a minimal dark aesthetic and smooth scroll animations.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    github: "#",
+    live: "https://www.utkarshch.com",
+    image: utkarshPreview,
   },
   {
     title: "DevTrack",
