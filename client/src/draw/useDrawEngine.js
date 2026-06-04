@@ -160,11 +160,11 @@ export function useDrawEngine() {
 
   const onPointerDown = useCallback((e) => {
     const canvas = canvasRef.current;
-    canvas.setPointerCapture(e.pointerId);
     const screen = { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY };
     const world = screenToWorld(screen, viewportRef.current);
 
     if (pointerRef.current.spaceDown || e.button === 1) {
+      canvas.setPointerCapture(e.pointerId);
       pointerRef.current.panning = true;
       pointerRef.current.last = screen;
       return;
@@ -177,6 +177,7 @@ export function useDrawEngine() {
       setTextValue("");
       return;
     }
+    canvas.setPointerCapture(e.pointerId);
     if (t === TOOLS.ERASER) {
       pointerRef.current.drawing = true;
       const tol = ERASER_TOLERANCE / viewportRef.current.scale;
@@ -297,12 +298,16 @@ export function useDrawEngine() {
       historyRef.current = createHistory(saved.objects);
       if (saved.viewport) viewportRef.current = saved.viewport;
     }
-    setPalette(loadPalette());
-    setColor(loadPalette()[0]);
+    const pal = loadPalette();
+    setPalette(pal);
+    setColor(pal[0]);
     syncUndoState();
     redraw();
 
-    return () => window.removeEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+    };
   }, [redraw, syncUndoState]);
 
   // --- wheel listener with passive:false so preventDefault works ---
@@ -317,7 +322,9 @@ export function useDrawEngine() {
   // --- keyboard: space-pan toggle + undo/redo ---
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (e.code === "Space" && e.target === document.body) {
+      const tag = e.target.tagName;
+      const editable = tag === "INPUT" || tag === "TEXTAREA" || e.target.isContentEditable;
+      if (e.code === "Space" && !editable) {
         e.preventDefault();
         pointerRef.current.spaceDown = true;
       }
