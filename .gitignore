@@ -26,3 +26,6 @@ dist.zip
 *.njsproj
 *.sln
 *.sw?
+
+# Brainstorming visual-companion mockups
+.superpowers/
