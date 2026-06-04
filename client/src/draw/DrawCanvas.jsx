@@ -13,7 +13,10 @@ export default function DrawCanvas({ engine }) {
     setTextValue,
     commitText,
     cancelText,
+    selectCursor,
   } = engine;
+
+  const cursor = tool === null ? selectCursor : tool === TOOLS.ERASER ? "cell" : "crosshair";
 
   return (
     <>
@@ -24,7 +27,7 @@ export default function DrawCanvas({ engine }) {
         onPointerUp={onPointerUp}
         onMouseDown={(e) => e.preventDefault()}
         className="block w-full h-full touch-none"
-        style={{ cursor: tool === TOOLS.ERASER ? "cell" : "crosshair" }}
+        style={{ cursor }}
       />
       {textInput && (
         <input

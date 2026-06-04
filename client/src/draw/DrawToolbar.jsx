@@ -50,7 +50,7 @@ export default function DrawToolbar({ engine }) {
             title={label}
             aria-label={label}
             aria-pressed={tool === id}
-            onClick={() => setTool(id)}
+            onClick={() => setTool(tool === id ? null : id)}
             className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors ${
               tool === id
                 ? "bg-[#E8B84B] text-[#111111]"
@@ -61,6 +61,12 @@ export default function DrawToolbar({ engine }) {
           </button>
         ))}
       </div>
+
+      {tool === null && (
+        <span className="font-mono text-[10px] text-[#E8B84B] whitespace-nowrap shrink-0">
+          select · drag to move · ⌫ delete
+        </span>
+      )}
 
       <div className="w-px h-6 bg-[#2A2A2A] shrink-0" />
 

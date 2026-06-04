@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { screenToWorld, worldToScreen, createStroke, createRect, createEllipse, createText, normalizeRect, hitTest, getBoundingBox } from "../drawModel";
+import { screenToWorld, worldToScreen, createStroke, createRect, createEllipse, createText, normalizeRect, hitTest, getBoundingBox, objectBounds, translateObject, resizeBounds, resizeObject, handleAt } from "../drawModel";
 
 describe("coordinate transforms", () => {
   const viewport = { offsetX: 100, offsetY: 50, scale: 2 };
@@ -114,5 +114,98 @@ describe("getBoundingBox", () => {
     const e = createEllipse({ color: "#fff", size: 2, x: 100, y: 100, w: 40, h: 40 });
     const box = getBoundingBox([r, e]);
     expect(box).toEqual({ minX: 0, minY: 0, maxX: 140, maxY: 140 });
+  });
+});
+
+describe("objectBounds", () => {
+  it("returns the bounds of a single rect", () => {
+    const r = createRect({ color: "#fff", size: 2, x: 10, y: 20, w: 30, h: 40 });
+    expect(objectBounds(r)).toEqual({ minX: 10, minY: 20, maxX: 40, maxY: 60 });
+  });
+
+  it("returns the bounds of a stroke", () => {
+    const s = createStroke({ color: "#fff", size: 4, points: [{ x: 0, y: 0 }, { x: 50, y: 30 }] });
+    expect(objectBounds(s)).toEqual({ minX: 0, minY: 0, maxX: 50, maxY: 30 });
+  });
+});
+
+describe("translateObject", () => {
+  it("shifts a rect's origin", () => {
+    const r = createRect({ color: "#fff", size: 2, x: 10, y: 20, w: 30, h: 40 });
+    const moved = translateObject(r, 5, -3);
+    expect(moved).toMatchObject({ x: 15, y: 17, w: 30, h: 40, id: r.id });
+  });
+
+  it("shifts every point of a stroke", () => {
+    const s = createStroke({ color: "#fff", size: 4, points: [{ x: 0, y: 0 }, { x: 10, y: 10 }] });
+    const moved = translateObject(s, 2, 3);
+    expect(moved.points).toEqual([{ x: 2, y: 3 }, { x: 12, y: 13 }]);
+    expect(moved.id).toBe(s.id);
+  });
+
+  it("does not mutate the original", () => {
+    const r = createRect({ color: "#fff", size: 2, x: 0, y: 0, w: 10, h: 10 });
+    translateObject(r, 5, 5);
+    expect(r.x).toBe(0);
+  });
+});
+
+describe("resizeBounds", () => {
+  const bounds = { minX: 0, minY: 0, maxX: 100, maxY: 100 };
+
+  it("drags the SE corner, anchoring the NW corner", () => {
+    expect(resizeBounds(bounds, "se", 20, 30)).toEqual({ minX: 0, minY: 0, maxX: 120, maxY: 130 });
+  });
+
+  it("drags the NW corner, anchoring the SE corner", () => {
+    expect(resizeBounds(bounds, "nw", 10, 10)).toEqual({ minX: 10, minY: 10, maxX: 100, maxY: 100 });
+  });
+
+  it("an edge handle resizes only one axis", () => {
+    expect(resizeBounds(bounds, "e", 25, 999)).toEqual({ minX: 0, minY: 0, maxX: 125, maxY: 100 });
+  });
+
+  it("clamps to the minimum size instead of collapsing/flipping", () => {
+    const r = resizeBounds(bounds, "e", -200, 0, 4);
+    expect(r.maxX).toBe(4);
+    expect(r.minX).toBe(0);
+  });
+});
+
+describe("resizeObject", () => {
+  it("scales a rect from old bounds to new bounds", () => {
+    const r = createRect({ color: "#fff", size: 2, x: 0, y: 0, w: 100, h: 100 });
+    const out = resizeObject(r, { minX: 0, minY: 0, maxX: 100, maxY: 100 }, { minX: 0, minY: 0, maxX: 200, maxY: 50 });
+    expect(out).toMatchObject({ x: 0, y: 0, w: 200, h: 50 });
+  });
+
+  it("scales every stroke point", () => {
+    const s = createStroke({ color: "#fff", size: 4, points: [{ x: 0, y: 0 }, { x: 100, y: 100 }] });
+    const out = resizeObject(s, { minX: 0, minY: 0, maxX: 100, maxY: 100 }, { minX: 0, minY: 0, maxX: 200, maxY: 200 });
+    expect(out.points).toEqual([{ x: 0, y: 0 }, { x: 200, y: 200 }]);
+  });
+
+  it("scales text font size with the vertical scale", () => {
+    const t = createText({ color: "#fff", size: 20, x: 0, y: 0, text: "hi", font: "monospace" });
+    const out = resizeObject(t, { minX: 0, minY: 0, maxX: 100, maxY: 20 }, { minX: 0, minY: 0, maxX: 100, maxY: 40 });
+    expect(out.size).toBe(40);
+  });
+});
+
+describe("handleAt", () => {
+  const bounds = { minX: 0, minY: 0, maxX: 100, maxY: 100 };
+
+  it("returns the corner handle id when near a corner", () => {
+    expect(handleAt(bounds, { x: 1, y: 1 }, 5)).toBe("nw");
+    expect(handleAt(bounds, { x: 100, y: 100 }, 5)).toBe("se");
+  });
+
+  it("returns an edge handle id near an edge midpoint", () => {
+    expect(handleAt(bounds, { x: 50, y: 0 }, 5)).toBe("n");
+    expect(handleAt(bounds, { x: 100, y: 50 }, 5)).toBe("e");
+  });
+
+  it("returns null when not near any handle", () => {
+    expect(handleAt(bounds, { x: 50, y: 50 }, 5)).toBeNull();
   });
 });

@@ -152,3 +152,84 @@ export function getBoundingBox(objects) {
   }
   return { minX, minY, maxX, maxY };
 }
+
+// --- selection / move / resize helpers ---
+
+// Bounds of a single object (world space).
+export function objectBounds(obj) {
+  return getBoundingBox([obj]);
+}
+
+// Return a copy of `obj` shifted by (dx, dy). Never mutates the original.
+export function translateObject(obj, dx, dy) {
+  if (obj.type === "stroke") {
+    return { ...obj, points: obj.points.map((p) => ({ x: p.x + dx, y: p.y + dy })) };
+  }
+  return { ...obj, x: obj.x + dx, y: obj.y + dy };
+}
+
+// Apply a handle drag (dx, dy world units) to an axis-aligned bounds box.
+// The edges the handle controls move; the opposite edges stay anchored.
+// Result is clamped to `minSize` (no collapse/flip).
+export function resizeBounds(bounds, handle, dx, dy, minSize = 1) {
+  let { minX, minY, maxX, maxY } = bounds;
+  if (handle.includes("w")) minX += dx;
+  if (handle.includes("e")) maxX += dx;
+  if (handle.includes("n")) minY += dy;
+  if (handle.includes("s")) maxY += dy;
+  if (maxX - minX < minSize) {
+    if (handle.includes("w")) minX = maxX - minSize;
+    else maxX = minX + minSize;
+  }
+  if (maxY - minY < minSize) {
+    if (handle.includes("n")) minY = maxY - minSize;
+    else maxY = minY + minSize;
+  }
+  return { minX, minY, maxX, maxY };
+}
+
+// Return a copy of `obj` scaled so oldBounds maps onto newBounds.
+export function resizeObject(obj, oldBounds, newBounds) {
+  const ow = oldBounds.maxX - oldBounds.minX || 1;
+  const oh = oldBounds.maxY - oldBounds.minY || 1;
+  const sx = (newBounds.maxX - newBounds.minX) / ow;
+  const sy = (newBounds.maxY - newBounds.minY) / oh;
+  const mapX = (x) => newBounds.minX + (x - oldBounds.minX) * sx;
+  const mapY = (y) => newBounds.minY + (y - oldBounds.minY) * sy;
+  if (obj.type === "stroke") {
+    return { ...obj, points: obj.points.map((p) => ({ x: mapX(p.x), y: mapY(p.y) })) };
+  }
+  if (obj.type === "text") {
+    return { ...obj, x: mapX(obj.x), y: mapY(obj.y), size: Math.max(1, obj.size * sy) };
+  }
+  // rect / ellipse
+  const x1 = mapX(obj.x);
+  const y1 = mapY(obj.y);
+  const x2 = mapX(obj.x + obj.w);
+  const y2 = mapY(obj.y + obj.h);
+  return { ...obj, x: Math.min(x1, x2), y: Math.min(y1, y2), w: Math.abs(x2 - x1), h: Math.abs(y2 - y1) };
+}
+
+const HANDLE_IDS = ["nw", "n", "ne", "e", "se", "s", "sw", "w"];
+
+// World-space positions of the 8 selection handles for a bounds box.
+export function handlePositions(bounds) {
+  const { minX, minY, maxX, maxY } = bounds;
+  const midX = (minX + maxX) / 2;
+  const midY = (minY + maxY) / 2;
+  return {
+    nw: { x: minX, y: minY }, n: { x: midX, y: minY }, ne: { x: maxX, y: minY },
+    e: { x: maxX, y: midY }, se: { x: maxX, y: maxY }, s: { x: midX, y: maxY },
+    sw: { x: minX, y: maxY }, w: { x: minX, y: midY },
+  };
+}
+
+// Which handle (if any) is within `tol` of `point`. Returns its id or null.
+export function handleAt(bounds, point, tol) {
+  const pos = handlePositions(bounds);
+  for (const id of HANDLE_IDS) {
+    const h = pos[id];
+    if (Math.abs(point.x - h.x) <= tol && Math.abs(point.y - h.y) <= tol) return id;
+  }
+  return null;
+}

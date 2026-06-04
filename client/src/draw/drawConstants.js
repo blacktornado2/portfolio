@@ -18,6 +18,12 @@ export const TEXT_MIN_PX = 14;
 export const MIN_SCALE = 0.2;
 export const MAX_SCALE = 5;
 
+// Selection / move / resize (neutral "no tool" mode)
+export const SELECT_TOL = 6; // screen px tolerance for clicking thin objects
+export const HANDLE_HIT = 10; // screen px tolerance to grab a resize handle
+export const HANDLE_SIZE = 8; // screen px square handle size
+export const MIN_RESIZE = 4; // min world size when resizing
+
 // Export
 export const EXPORT_PADDING = 40;
 export const BG_COLOR = "#111111";

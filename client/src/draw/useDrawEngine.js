@@ -8,6 +8,9 @@ import {
   FONT_FAMILY,
   TEXT_SIZE_FACTOR,
   TEXT_MIN_PX,
+  SELECT_TOL,
+  HANDLE_HIT,
+  MIN_RESIZE,
 } from "./drawConstants";
 import {
   screenToWorld,
@@ -16,6 +19,11 @@ import {
   createEllipse,
   createText,
   hitTest,
+  objectBounds,
+  translateObject,
+  resizeBounds,
+  resizeObject,
+  handleAt,
 } from "./drawModel";
 import {
   createHistory,
@@ -30,6 +38,12 @@ import { loadCanvas, saveCanvas, loadPalette, savePalette } from "./drawPersiste
 
 const ERASER_TOLERANCE = 6; // screen px, divided by scale to get world tolerance
 const MIN_SHAPE = 2; // world px below which a drag commits nothing
+
+// cursor shown when hovering each resize handle in select mode
+const HANDLE_CURSORS = {
+  nw: "nwse-resize", se: "nwse-resize", ne: "nesw-resize", sw: "nesw-resize",
+  n: "ns-resize", s: "ns-resize", e: "ew-resize", w: "ew-resize",
+};
 
 export function useDrawEngine() {
   const canvasRef = useRef(null);
@@ -51,6 +65,14 @@ export function useDrawEngine() {
   const [canRedo, setCanRedo] = useState(false);
   const [textInput, setTextInput] = useState(null); // { worldX, worldY, screenX, screenY }
   const [textValue, setTextValue] = useState("");
+  const [selectedId, setSelectedId] = useState(null); // selected object id in neutral mode
+  const [selectCursor, setSelectCursor] = useState("default"); // cursor while in select mode
+
+  // select-mode interaction: { mode: 'move'|'resize'|null, handle, startWorld, origObj, origBounds }
+  const selectRef = useRef({ mode: null, handle: null, startWorld: null, origObj: null, origBounds: null });
+  const editDraftRef = useRef(null); // in-progress moved/resized object (preview)
+  const selectedIdRef = useRef(null);
+  const cursorRef = useRef("default");
 
   // live values used inside DOM-event closures that are bound once
   const toolRef = useRef(tool);
@@ -73,12 +95,17 @@ export function useDrawEngine() {
     const canvas = canvasRef.current;
     const ctx = ctxRef.current;
     if (!canvas || !ctx) return;
+    const present = historyRef.current.present;
+    const edit = editDraftRef.current;
+    const objects = edit ? present.map((o) => (o.id === edit.id ? edit : o)) : present;
+    const selObj = objects.find((o) => o.id === selectedIdRef.current);
     renderScene(ctx, {
-      objects: historyRef.current.present,
+      objects,
       viewport: viewportRef.current,
       width: canvas.width,
       height: canvas.height,
       preview: draftRef.current,
+      selection: selObj ? objectBounds(selObj) : null,
     });
   }, []);
 
@@ -181,6 +208,36 @@ export function useDrawEngine() {
     if (e.button !== 0) return;
 
     const t = toolRef.current;
+    if (t === null) {
+      // neutral select / move / resize mode
+      const scale = viewportRef.current.scale;
+      const sel = historyRef.current.present.find((o) => o.id === selectedIdRef.current);
+      // 1. grab a resize handle of the already-selected object?
+      if (sel) {
+        const handle = handleAt(objectBounds(sel), world, HANDLE_HIT / scale);
+        if (handle) {
+          canvas.setPointerCapture(e.pointerId);
+          selectRef.current = { mode: "resize", handle, startWorld: world, origObj: sel, origBounds: objectBounds(sel) };
+          return;
+        }
+      }
+      // 2. select the topmost object under the cursor and start moving it
+      const id = hitTest(historyRef.current.present, world, SELECT_TOL / scale);
+      if (id) {
+        canvas.setPointerCapture(e.pointerId);
+        selectedIdRef.current = id;
+        setSelectedId(id);
+        const origObj = historyRef.current.present.find((o) => o.id === id);
+        selectRef.current = { mode: "move", handle: null, startWorld: world, origObj, origBounds: null };
+        redraw();
+        return;
+      }
+      // 3. empty space → deselect
+      selectedIdRef.current = null;
+      setSelectedId(null);
+      redraw();
+      return;
+    }
     if (t === TOOLS.TEXT) {
       // commit any in-progress text before starting a new one (mousedown is
       // preventDefaulted on the canvas, so blur won't fire on a same-canvas re-click)
@@ -230,6 +287,36 @@ export function useDrawEngine() {
       redraw();
       return;
     }
+    // select-mode drag (move or resize) and hover cursor
+    if (toolRef.current === null) {
+      const scale = viewportRef.current.scale;
+      const world = screenToWorld(screen, viewportRef.current);
+      const sel = selectRef.current;
+      if (sel.mode === "move") {
+        editDraftRef.current = translateObject(sel.origObj, world.x - sel.startWorld.x, world.y - sel.startWorld.y);
+        redraw();
+        return;
+      }
+      if (sel.mode === "resize") {
+        const next = resizeBounds(sel.origBounds, sel.handle, world.x - sel.startWorld.x, world.y - sel.startWorld.y, MIN_RESIZE);
+        editDraftRef.current = resizeObject(sel.origObj, sel.origBounds, next);
+        redraw();
+        return;
+      }
+      // hover: pick a cursor (resize handle > move over object > default)
+      let cur = "default";
+      const selObj = historyRef.current.present.find((o) => o.id === selectedIdRef.current);
+      if (selObj) {
+        const handle = handleAt(objectBounds(selObj), world, HANDLE_HIT / scale);
+        if (handle) cur = HANDLE_CURSORS[handle];
+      }
+      if (cur === "default" && hitTest(historyRef.current.present, world, SELECT_TOL / scale)) cur = "move";
+      if (cur !== cursorRef.current) {
+        cursorRef.current = cur;
+        setSelectCursor(cur);
+      }
+      return;
+    }
     if (!pointerRef.current.drawing) return;
     const world = screenToWorld(screen, viewportRef.current);
     if (toolRef.current === TOOLS.ERASER) {
@@ -255,6 +342,16 @@ export function useDrawEngine() {
     if (pointerRef.current.panning) {
       pointerRef.current.panning = false;
       scheduleSave();
+      return;
+    }
+    // finish a select-mode move/resize: commit the edited object (one undo step)
+    if (selectRef.current.mode) {
+      const edit = editDraftRef.current;
+      selectRef.current = { mode: null, handle: null, startWorld: null, origObj: null, origBounds: null };
+      editDraftRef.current = null;
+      if (edit) {
+        commitObjects(historyRef.current.present.map((o) => (o.id === edit.id ? edit : o)));
+      }
       return;
     }
     if (!pointerRef.current.drawing) return;
@@ -348,6 +445,24 @@ export function useDrawEngine() {
         if (e.shiftKey) redo();
         else undo();
       }
+      // select-mode: delete the selected object
+      if (!editable && toolRef.current === null && selectedIdRef.current && (e.key === "Delete" || e.key === "Backspace")) {
+        e.preventDefault();
+        const id = selectedIdRef.current;
+        selectedIdRef.current = null;
+        setSelectedId(null);
+        commitObjects(historyRef.current.present.filter((o) => o.id !== id));
+      }
+      // Escape: deselect the current object, or enter select mode from a drawing tool
+      if (!editable && e.key === "Escape") {
+        if (toolRef.current === null && selectedIdRef.current) {
+          selectedIdRef.current = null;
+          setSelectedId(null);
+          redraw();
+        } else if (toolRef.current !== null) {
+          setTool(null);
+        }
+      }
     };
     const onKeyUp = (e) => {
       if (e.code === "Space") pointerRef.current.spaceDown = false;
@@ -358,7 +473,18 @@ export function useDrawEngine() {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
     };
-  }, [undo, redo]);
+  }, [undo, redo, commitObjects, redraw]);
+
+  // repaint the selection overlay whenever the selection changes
+  useEffect(() => {
+    selectedIdRef.current = selectedId;
+    redraw();
+  }, [selectedId, redraw]);
+
+  // leaving select mode (picking a drawing tool) clears any selection
+  useEffect(() => {
+    if (tool !== null) setSelectedId(null);
+  }, [tool]);
 
   return {
     canvasRef,
@@ -370,5 +496,6 @@ export function useDrawEngine() {
     clear, exportPng,
     onPointerDown, onPointerMove, onPointerUp,
     textInput, textValue, setTextValue, commitText, cancelText,
+    selectCursor,
   };
 }

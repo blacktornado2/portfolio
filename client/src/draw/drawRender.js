@@ -1,5 +1,5 @@
-import { BG_COLOR, EXPORT_PADDING } from "./drawConstants";
-import { getBoundingBox } from "./drawModel";
+import { BG_COLOR, EXPORT_PADDING, HANDLE_SIZE } from "./drawConstants";
+import { getBoundingBox, worldToScreen } from "./drawModel";
 
 // Draw a single object in the current (already-transformed) context.
 export function renderObject(ctx, obj) {
@@ -42,14 +42,47 @@ export function renderObject(ctx, obj) {
   }
 }
 
+// Draw the selection box + 8 resize handles in SCREEN space, so they stay a
+// constant size regardless of zoom. `bounds` is in world space.
+export function renderSelection(ctx, bounds, viewport) {
+  const tl = worldToScreen({ x: bounds.minX, y: bounds.minY }, viewport);
+  const br = worldToScreen({ x: bounds.maxX, y: bounds.maxY }, viewport);
+  const x = tl.x;
+  const y = tl.y;
+  const w = br.x - tl.x;
+  const h = br.y - tl.y;
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.strokeStyle = "#E8B84B";
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 3]);
+  ctx.strokeRect(x, y, w, h);
+  ctx.setLineDash([]);
+  const midX = x + w / 2;
+  const midY = y + h / 2;
+  const points = [
+    [x, y], [midX, y], [x + w, y],
+    [x + w, midY], [x + w, y + h], [midX, y + h],
+    [x, y + h], [x, midY],
+  ];
+  ctx.fillStyle = "#E8B84B";
+  ctx.strokeStyle = "#111111";
+  for (const [hx, hy] of points) {
+    ctx.fillRect(hx - HANDLE_SIZE / 2, hy - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE);
+    ctx.strokeRect(hx - HANDLE_SIZE / 2, hy - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE);
+  }
+  ctx.restore();
+}
+
 // Repaint the whole visible canvas: clear, fill bg, apply viewport, draw all + preview.
-export function renderScene(ctx, { objects, viewport, width, height, preview }) {
+export function renderScene(ctx, { objects, viewport, width, height, preview, selection }) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = BG_COLOR;
   ctx.fillRect(0, 0, width, height);
   ctx.setTransform(viewport.scale, 0, 0, viewport.scale, viewport.offsetX, viewport.offsetY);
   for (const obj of objects) renderObject(ctx, obj);
   if (preview) renderObject(ctx, preview);
+  if (selection) renderSelection(ctx, selection, viewport);
 }
 
 // Render all objects to an offscreen canvas sized to their bounding box.
