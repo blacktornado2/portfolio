@@ -123,3 +123,32 @@ export function hitTest(objects, point, tolerance) {
   }
   return null;
 }
+
+// --- bounding box over all objects (world space); null when empty ---
+
+export function getBoundingBox(objects) {
+  if (objects.length === 0) return null;
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  const extend = (x, y) => {
+    if (x < minX) minX = x;
+    if (y < minY) minY = y;
+    if (x > maxX) maxX = x;
+    if (y > maxY) maxY = y;
+  };
+  for (const obj of objects) {
+    if (obj.type === "stroke") {
+      for (const pt of obj.points) extend(pt.x, pt.y);
+    } else if (obj.type === "rect" || obj.type === "ellipse") {
+      extend(obj.x, obj.y);
+      extend(obj.x + obj.w, obj.y + obj.h);
+    } else if (obj.type === "text") {
+      const box = textBox(obj);
+      extend(box.x, box.y);
+      extend(box.x + box.w, box.y + box.h);
+    }
+  }
+  return { minX, minY, maxX, maxY };
+}

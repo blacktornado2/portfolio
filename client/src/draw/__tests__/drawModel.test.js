@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { screenToWorld, worldToScreen, createStroke, createRect, createEllipse, createText, normalizeRect, hitTest } from "../drawModel";
+import { screenToWorld, worldToScreen, createStroke, createRect, createEllipse, createText, normalizeRect, hitTest, getBoundingBox } from "../drawModel";
 
 describe("coordinate transforms", () => {
   const viewport = { offsetX: 100, offsetY: 50, scale: 2 };
@@ -96,5 +96,23 @@ describe("hitTest", () => {
     const a = createRect({ color: "#fff", size: 2, x: 0, y: 0, w: 100, h: 100 });
     const b = createRect({ color: "#fff", size: 2, x: 0, y: 0, w: 100, h: 100 });
     expect(hitTest([a, b], { x: 50, y: 50 }, 0)).toBe(b.id);
+  });
+});
+
+describe("getBoundingBox", () => {
+  it("returns null for an empty drawing", () => {
+    expect(getBoundingBox([])).toBeNull();
+  });
+
+  it("wraps a single stroke's points", () => {
+    const s = createStroke({ color: "#fff", size: 4, points: [{ x: 10, y: 20 }, { x: 30, y: 5 }] });
+    expect(getBoundingBox([s])).toEqual({ minX: 10, minY: 5, maxX: 30, maxY: 20 });
+  });
+
+  it("includes rect, ellipse and text extents", () => {
+    const r = createRect({ color: "#fff", size: 2, x: 0, y: 0, w: 50, h: 50 });
+    const e = createEllipse({ color: "#fff", size: 2, x: 100, y: 100, w: 40, h: 40 });
+    const box = getBoundingBox([r, e]);
+    expect(box).toEqual({ minX: 0, minY: 0, maxX: 140, maxY: 140 });
   });
 });
