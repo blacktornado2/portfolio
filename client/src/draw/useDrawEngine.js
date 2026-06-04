@@ -56,9 +56,13 @@ export function useDrawEngine() {
   const toolRef = useRef(tool);
   const colorRef = useRef(color);
   const sizeRef = useRef(size);
+  const textInputRef = useRef(textInput);
+  const textValueRef = useRef(textValue);
   useEffect(() => { toolRef.current = tool; }, [tool]);
   useEffect(() => { colorRef.current = color; }, [color]);
   useEffect(() => { sizeRef.current = size; }, [size]);
+  useEffect(() => { textInputRef.current = textInput; }, [textInput]);
+  useEffect(() => { textValueRef.current = textValue; }, [textValue]);
 
   const syncUndoState = useCallback(() => {
     setCanUndo(histCanUndo(historyRef.current));
@@ -140,16 +144,21 @@ export function useDrawEngine() {
     setPalette(next);
   }, []);
 
-  const commitText = useCallback(() => {
-    const t = textInput;
-    setTextInput(null);
-    const value = textValue;
-    setTextValue("");
+  // Commit a specific text input + value to the object model (no React state reads).
+  const commitTextValue = useCallback((t, value) => {
     if (!t || !value.trim()) return;
     const px = Math.max(TEXT_MIN_PX, sizeRef.current * TEXT_SIZE_FACTOR);
     const obj = createText({ color: colorRef.current, size: px, x: t.worldX, y: t.worldY, text: value, font: FONT_FAMILY });
     commitObjects([...historyRef.current.present, obj]);
-  }, [textInput, textValue, commitObjects]);
+  }, [commitObjects]);
+
+  const commitText = useCallback(() => {
+    const t = textInput;
+    const value = textValue;
+    setTextInput(null);
+    setTextValue("");
+    commitTextValue(t, value);
+  }, [textInput, textValue, commitTextValue]);
 
   const cancelText = useCallback(() => {
     setTextInput(null);
@@ -173,6 +182,11 @@ export function useDrawEngine() {
 
     const t = toolRef.current;
     if (t === TOOLS.TEXT) {
+      // commit any in-progress text before starting a new one (mousedown is
+      // preventDefaulted on the canvas, so blur won't fire on a same-canvas re-click)
+      if (textInputRef.current) {
+        commitTextValue(textInputRef.current, textValueRef.current);
+      }
       setTextInput({ worldX: world.x, worldY: world.y, screenX: screen.x, screenY: screen.y });
       setTextValue("");
       return;
@@ -201,7 +215,7 @@ export function useDrawEngine() {
       };
     }
     redraw();
-  }, [commitObjects, redraw]);
+  }, [commitObjects, commitTextValue, redraw]);
 
   const onPointerMove = useCallback((e) => {
     const screen = { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY };

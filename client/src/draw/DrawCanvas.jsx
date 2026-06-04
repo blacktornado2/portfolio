@@ -22,6 +22,7 @@ export default function DrawCanvas({ engine }) {
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
+        onMouseDown={(e) => e.preventDefault()}
         className="block w-full h-full touch-none"
         style={{ cursor: tool === TOOLS.ERASER ? "cell" : "crosshair" }}
       />
