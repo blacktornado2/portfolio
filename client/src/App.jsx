@@ -15,6 +15,7 @@ import GamesIndex from "./games/GamesIndex";
 import Game2048 from "./games/Game2048";
 import GameWordle from "./games/GameWordle";
 import GameTyperacer from "./games/GameTyperacer";
+import DrawPage from "./draw/DrawPage";
 
 function PortfolioHome() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
       <Route path="/games/2048" element={<Game2048 />} />
       <Route path="/games/wordle" element={<GameWordle />} />
       <Route path="/games/typeracer" element={<GameTyperacer />} />
+      <Route path="/draw" element={<DrawPage />} />
     </Routes>
   );
 }
