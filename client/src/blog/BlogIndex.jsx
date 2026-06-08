@@ -123,10 +123,12 @@ export default function BlogIndex() {
       .then((result) => {
         if (cancelled) return;
         setPosts(result.data || []);
-        const tags = Array.from(
-          new Set(result.data?.flatMap((p) => p.tags) || [])
-        );
-        setAllTags(["All", ...tags]);
+        if (activeTag === "All") {
+          const tags = Array.from(
+            new Set(result.data?.flatMap((p) => p.tags) || [])
+          );
+          setAllTags(["All", ...tags]);
+        }
         setLoading(false);
       })
       .catch(() => {
