@@ -236,8 +236,31 @@ export default function BlogIndex() {
             Loading posts…
           </div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-20 font-mono text-sm text-[#555555]">
-            No posts found.
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <svg
+              width="40" height="40" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" strokeWidth="1.5"
+              strokeLinecap="round" strokeLinejoin="round"
+              className="text-[#2A2A2A] mb-5"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              <line x1="8" y1="11" x2="14" y2="11" />
+            </svg>
+            <p className="font-syne font-bold text-lg text-white mb-2">
+              No posts found
+            </p>
+            <p className="font-sans text-sm text-[#555555] mb-6 max-w-xs">
+              {search
+                ? `No results for "${search}"${activeTag !== "All" ? ` in ${activeTag}` : ""}.`
+                : `No posts tagged "${activeTag}" yet.`}
+            </p>
+            <button
+              onClick={() => { setSearch(""); setActiveTag("All"); }}
+              className="font-mono text-[11px] uppercase tracking-[0.06em] px-4 py-2 rounded border border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B] transition-all duration-150"
+            >
+              Clear filters
+            </button>
           </div>
         ) : layout === "grid" ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
