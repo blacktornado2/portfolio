@@ -6,16 +6,15 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
+  const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+    .split(',')
+    .map((s) => s.trim());
   app.enableCors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (curl, Postman, server-to-server)
       if (!origin) return callback(null, true);
-      // In production, require exact match
       if (process.env.NODE_ENV === 'production') {
-        return callback(null, origin === allowedOrigin);
+        return callback(null, allowedOrigins.includes(origin));
       }
-      // In development, allow any localhost or 127.0.0.1 port
       const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
       callback(null, isLocalhost);
     },
