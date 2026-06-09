@@ -6,37 +6,58 @@
 
 ## 1. Color Palette
 
-### Core
+### CSS Custom Property Token System
 
-| Token | Hex | Usage |
-|---|---|---|
-| `bg-base` | `#111111` | Page background, code windows, skill pill bg |
-| `bg-surface` | `#1A1A1A` | Cards, nav drawer, form container, code pane, window chrome |
-| `bg-surface-dim` | `#161616` | Window title bar (subtler than surface) |
-| `border` | `#2A2A2A` | All borders — cards, inputs, nav, dividers |
-| `text-primary` | `#FFFFFF` | Headings, card titles, active nav links |
-| `text-secondary` | `#888888` | Body copy, subtitles, nav links (default), labels, descriptions |
-| `text-dim` | `#555555` | Placeholder text, very quiet labels (uppercase tracking) |
-| `text-faint` | `#444444` | Code comments |
-| `accent-gold` | `#E8B84B` | Section number prefix, CTA buttons, card left border, icons, focus ring, hover states |
-| `accent-gold-hover` | `#D4A83E` | Gold button hover (–10% lightness) |
-| `accent-gold-dim` | `rgba(232,184,75,0.35)` | Card hover glow |
-| `accent-gold-ring` | `rgba(232,184,75,0.45)` | Custom cursor ring |
-| `accent-green` | `#22C55E` | "Available for work" pulse dot |
-| `accent-red` | `#EF4444` | macOS close button, validation errors |
-| `accent-amber` | `#F59E0B` | macOS minimise button |
-| `accent-blue-glow` | `rgba(0,98,255,0.2)` | Hover box-shadow primary (photo, form, code window) |
-| `accent-teal-glow` | `rgba(0,255,251,0.15)` | Hover box-shadow secondary |
+All non-admin components use CSS custom properties (set in `client/src/assets/css/index.css`). **Never use raw hex for these values in new code — always use the CSS var.**
 
-### Semantic aliases (use these in new components)
+| CSS var | Dark value | Light value | Usage |
+|---|---|---|---|
+| `var(--bg)` | `#111111` | `#F5F5F5` | Page background, code windows, skill pill bg |
+| `var(--bg-deep)` | `#0D0D0D` | `#E8E8E8` | Footer background |
+| `var(--bg-95)` | `rgba(17,17,17,0.95)` | `rgba(245,245,245,0.95)` | Frosted navbar bg (pre-computed; Tailwind opacity modifier can't use vars) |
+| `var(--surface)` | `#1A1A1A` | `#FFFFFF` | Cards, nav drawer, form container, code pane, window chrome |
+| `var(--border)` | `#2A2A2A` | `#D8D8D8` | All borders — cards, inputs, nav, dividers |
+| `var(--text-1)` | `#FFFFFF` | `#111111` | Headings, card titles, active nav links |
+| `var(--text-2)` | `#888888` | `#555555` | Body copy, subtitles, nav links (default), labels, descriptions |
+| `var(--text-3)` | `#555555` | `#888888` | Placeholder text, very quiet labels |
+| `var(--text-4)` | `#444444` | `#AAAAAA` | Code comments, copyright |
+
+Accent vars (theme-switchable, not mode-switchable):
+
+| CSS var | Gold (default) | Blue | Purple |
+|---|---|---|---|
+| `var(--accent)` | `#E8B84B` | `#60A5FA` | `#A78BFA` |
+| `var(--accent-dark)` | `#D4A83E` | `#3B82F6` | `#7C3AED` |
+| `var(--accent-05..70)` | rgba at each opacity | — | — |
+
+### Static hex values (not mode/theme dependent — still hardcoded)
+
+| Hex | Usage |
+|---|---|
+| `#111111` | Gold button text (`text-[#111111]`) — intentionally hardcoded so button text stays dark in both modes |
+| `#161616` | Code window title bar (subtler than surface) |
+| `#22C55E` | "Available for work" pulse dot |
+| `#EF4444` | macOS close button, validation errors |
+| `#F59E0B` | macOS minimise button |
+| `#d60039` | Blog "Featured" badge text |
+| `rgba(0,98,255,0.2)` | Hover box-shadow primary (photo, form, code window) |
+| `rgba(0,255,251,0.15)` | Hover box-shadow secondary |
+
+### Mode switching
+
+The `<html>` element gets `data-mode="dark"` (default) or `data-mode="light"`. `ThemeContext.jsx` manages this and persists to `localStorage("portfolio-mode")`. The `[data-mode="light"]` selector in `index.css` overrides all mode vars.
+
+**Admin panel** (`client/src/admin/`) is excluded — all admin files retain hardcoded hex and stay permanently dark regardless of global mode.
+
+### Semantic aliases (use CSS vars in new components)
 
 ```
-background  →  #111111
-surface     →  #1A1A1A
-border      →  #2A2A2A
-text        →  #FFFFFF
-muted       →  #888888
-accent      →  #E8B84B
+background  →  var(--bg)
+surface     →  var(--surface)
+border      →  var(--border)
+text        →  var(--text-1)
+muted       →  var(--text-2)
+accent      →  var(--accent)
 ```
 
 ---
@@ -120,40 +141,42 @@ New sections follow: `09`, `10`, etc.
 The universal card recipe. Use for experience, education, skills, projects, any list item.
 
 ```
-bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6
-style={{ borderLeft: "3px solid #E8B84B" }}    ← gold accent — must be inline style
-whileHover={{ scale: 1.03, boxShadow: "0 0 24px rgba(232,184,75,0.35)" }}
+bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6
+style={{ borderLeft: "3px solid var(--accent)" }}    ← gold accent — must be inline style
+whileHover={{ scale: 1.03, boxShadow: theme.r35 }}
 ```
 
-- Inner divider: `border-t border-[#2A2A2A] pt-4`
-- Card heading: `font-syne font-bold text-white text-xl`
-- Card body: `text-[#888888] text-sm leading-relaxed`
+- Inner divider: `border-t border-[var(--border)] pt-4`
+- Card heading: `font-syne font-bold text-[var(--text-1)] text-xl`
+- Card body: `text-[var(--text-2)] text-sm leading-relaxed`
 
 ### 4.2 Primary Button (CTA)
 
 ```
-font-syne font-bold bg-[#E8B84B] text-[#111111] px-6 py-3 rounded-lg
-hover:bg-[#D4A83E] transition-colors
+font-syne font-bold bg-[var(--accent)] text-[#111111] px-6 py-3 rounded-lg
+hover:bg-[var(--accent-dark)] transition-colors
 ```
+
+Note: button text is hardcoded `text-[#111111]` (not a CSS var) — intentionally dark in both light and dark mode.
 
 Compact nav variant: `px-4 py-2 rounded-md text-sm`
 
 ### 4.3 Ghost / Text Link
 
 ```
-text-[#888888] hover:text-[#E8B84B] transition-colors
+text-[var(--text-2)] hover:text-[var(--accent)] transition-colors
 ```
 
 ### 4.4 Skill / Tag Pill
 
 ```
-flex items-center gap-1.5 bg-[#111111] border border-[#2A2A2A]
-text-[#888888] rounded-md px-3 py-1.5 text-sm
+flex items-center gap-1.5 bg-[var(--bg)] border border-[var(--border)]
+text-[var(--text-2)] rounded-md px-3 py-1.5 text-sm
 ```
 
 Hover (spring animation):
 ```js
-whileHover={{ scale: 1.1, boxShadow: "0 0 14px rgba(232,184,75,0.45)", borderColor: "rgba(232,184,75,0.5)" }}
+whileHover={{ scale: 1.1, boxShadow: theme.r45, borderColor: theme.r50 }}
 transition={{ type: "spring", stiffness: 400, damping: 25 }}
 ```
 
@@ -167,27 +190,27 @@ Shimmer overlay inside pill:
 ### 4.5 Tech / Readonly Tag (no hover)
 
 ```
-bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1 text-xs
+bg-[var(--bg)] border border-[var(--border)] text-[var(--text-2)] rounded-md px-3 py-1 text-xs
 ```
 
 ### 4.6 Status / Period Badge
 
 ```
-text-xs text-[#888888] bg-[#111111] border border-[#2A2A2A] px-3 py-1 rounded-md whitespace-nowrap
+text-xs text-[var(--text-2)] bg-[var(--bg)] border border-[var(--border)] px-3 py-1 rounded-md whitespace-nowrap
 ```
 
 ### 4.7 Icon Container (contact info row)
 
 ```
-bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0
-<Icon class="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
+bg-[var(--surface)] border border-[var(--border)] p-3 rounded-lg flex-shrink-0
+<Icon class="w-5 h-5 text-[var(--accent)]" aria-hidden="true" />
 ```
 
 ### 4.8 Availability Badge
 
 ```
 badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-bg-[#1A1A1A] border border-[#2A2A2A] text-sm text-[#888888]
+bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]
 ```
 
 Pulse dot inside: `w-2 h-2 rounded-full bg-[#22C55E] animate-pulse`
@@ -195,16 +218,16 @@ Pulse dot inside: `w-2 h-2 rounded-full bg-[#22C55E] animate-pulse`
 ### 4.9 Code Window (macOS chrome)
 
 ```
-bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden
+bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden
 
-  Title bar:  bg-[#161616] px-5 py-4 border-b border-[#2A2A2A]
+  Title bar:  bg-[#161616] px-5 py-4 border-b border-[var(--border)]
   Traffic lights: w-3 h-3 rounded-full  bg-[#EF4444] / [#F59E0B] / [#22C55E]
-  Filename label: text-xs text-[#888888] font-mono ml-3
+  Filename label: text-xs text-[var(--text-2)] font-mono ml-3
 
   Code area: pre.language-javascript  !m-0 !p-5 !text-[15px]
 ```
 
-Prism syntax colours (applied via CSS classes in index.css):
+Prism syntax colours (hardcoded in `index.css` — not mode-switchable, code blocks always dark):
 - keywords / numbers / booleans: `#E8B84B`
 - strings: `#D4C090`
 - properties / operators: `#888888`
@@ -214,10 +237,10 @@ Prism syntax colours (applied via CSS classes in index.css):
 ### 4.10 Form Input
 
 ```
-w-full bg-[#111111] border rounded-lg px-4 py-3 text-white placeholder-[#555555]
+w-full bg-[var(--bg)] border rounded-lg px-4 py-3 text-[var(--text-1)] placeholder-[var(--text-3)]
 focus:outline-none transition-colors
 
-default:   border-[#2A2A2A] focus:border-[#E8B84B]
+default:   border-[var(--border)] focus:border-[var(--accent)]
 error:     border-red-500 focus:border-red-400
 ```
 
@@ -229,79 +252,87 @@ Success feedback: `text-green-400 text-sm text-center`
 
 ```
 fixed top-0 left-0 w-full z-50 transition-all duration-300
-scrolled:     bg-[#111111]/95 backdrop-blur-sm border-b border-[#2A2A2A]
+scrolled:     bg-[var(--bg-95)] backdrop-blur-sm border-b border-[var(--border)]
 transparent:  bg-transparent
 ```
 
-Logo: `font-syne font-bold text-white text-lg hover:text-[#E8B84B] transition-colors`
+Logo: `font-syne font-bold text-[var(--text-1)] text-lg hover:text-[var(--accent)] transition-colors`
+
+Nav links (shorter labels, in page order):
+```
+About · Experience · Projects · Blog · Games · Skills · Contact
+```
 
 Search button (inline):
 ```
-flex items-center gap-2 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg px-3 py-1.5
-font-mono text-[11px] text-[#888888]
-hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors duration-150
+flex items-center gap-2 bg-[var(--surface)] border border-[var(--border)] rounded-lg px-3 py-1.5
+font-mono text-[11px] text-[var(--text-2)]
+hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors duration-150
 ```
 
-Mobile drawer: `bg-[#1A1A1A] border-t border-[#2A2A2A] px-6 py-6 flex flex-col gap-5`
+Mobile drawer: `bg-[var(--surface)] border-t border-[var(--border)] px-6 py-6 flex flex-col gap-5`
 
-**Scroll progress bar** — `absolute top-0 left-0 right-0 h-[2px] bg-[#E8B84B]` inside the header, driven by Framer Motion `useScroll` + `useSpring`:
+**Scroll progress bar** — `absolute top-0 left-0 right-0 h-[2px] bg-[var(--accent)]` inside the header, driven by Framer Motion `useScroll` + `useSpring`:
 ```js
 const { scrollYProgress } = useScroll();
 const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40, restDelta: 0.001 });
-// <motion.div style={{ scaleX }} className="absolute top-0 left-0 right-0 h-[2px] bg-[#E8B84B] origin-left" />
+// <motion.div style={{ scaleX }} className="absolute top-0 left-0 right-0 h-[2px] bg-[var(--accent)] origin-left" />
 ```
+
+**Theme/mode controls are NOT in the header** — they live in the Footer (see 4.19).
 
 ### 4.12 Blog Post Card (grid layout)
 
-Card styling and hover glow live on the `motion.div` — **not** on an inner `article` — so box-shadow renders against the rounded, backgrounded element:
+Card styling and hover glow live on the `motion.div` — **not** on an inner `article` — so box-shadow renders against the rounded, backgrounded element. Glow strings come from `theme.r0` / `theme.r45` (ThemeContext) so they switch colour with the theme:
 
 ```jsx
+const { theme } = useTheme();
 <motion.div
-  className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
-  initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
-  whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+  className="relative h-full bg-[var(--surface)] border border-[var(--border)] rounded-xl"
+  initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
+  whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
   transition={{ duration: 0.2 }}
 >
   <Link className="group flex flex-col gap-3 p-6 h-full">…</Link>
 </motion.div>
 ```
 
-- Tag badge: `font-mono text-[10px] uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[#E8B84B]/25 bg-[#E8B84B]/10 text-[#E8B84B]`
+- Tag badge: `font-mono text-[10px] uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)]`
 - Featured badge: `font-mono text-[10px] uppercase tracking-[0.06em] text-[#d60039]` (no border/bg — text only)
-- Title: `font-syne font-bold text-base text-white group-hover:text-[#E8B84B] transition-colors`
-- Summary: `text-sm text-[#888888] leading-relaxed`
-- Footer meta: `font-mono text-[11px] text-[#555555]` — date left, read time right
-- Footer divider: `border-t border-[#2A2A2A] pt-3 mt-auto`
+- Title: `font-syne font-bold text-base text-[var(--text-1)] group-hover:text-[var(--accent)] transition-colors`
+- Summary: `text-sm text-[var(--text-2)] leading-relaxed`
+- Footer meta: `font-mono text-[11px] text-[var(--text-3)]` — date left, read time right
+- Footer divider: `border-t border-[var(--border)] pt-3 mt-auto`
 
 ### 4.13 Blog Post Row (list layout)
 
 ```
-py-7 border-b border-[#2A2A2A] grid grid-cols-[1fr_auto] gap-5 items-start
+py-7 border-b border-[var(--border)] grid grid-cols-[1fr_auto] gap-5 items-start
 group-hover:pl-1.5 transition-all duration-150
 ```
 
 - Featured title: `font-syne font-bold text-[22px]`
 - Default title: `font-syne font-bold text-[18px]`
-- Meta (date + read time): `font-mono text-xs text-[#555555]` right-aligned
+- Meta (date + read time): `font-mono text-xs text-[var(--text-3)]` right-aligned
 
 ### 4.14 Blog Tag Filter Button
 
 ```
 font-mono text-[11px] uppercase tracking-[0.06em] px-3 py-1 rounded border transition-all duration-150
 
-active:   border-[#E8B84B] bg-[#E8B84B]/10 text-[#E8B84B]
-inactive: border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]
+active:   border-[var(--accent)] bg-[var(--accent-10)] text-[var(--accent)]
+inactive: border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)]
 ```
 
 ### 4.15 Blog Search Bar
 
 ```
-bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg pl-9 pr-4 py-2
-font-sans text-sm text-white placeholder-[#555555]
-focus:border-[#E8B84B] transition-colors duration-200
+bg-[var(--surface)] border border-[var(--border)] rounded-lg pl-9 pr-4 py-2
+font-sans text-sm text-[var(--text-1)] placeholder-[var(--text-3)]
+focus:border-[var(--accent)] transition-colors duration-200
 ```
 
-Search icon: `absolute left-3 top-1/2 -translate-y-1/2 text-[#555555]` 14×14px
+Search icon: `absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-3)]` 14×14px
 
 ### 4.16 Blog Empty State
 
@@ -309,20 +340,21 @@ Search icon: `absolute left-3 top-1/2 -translate-y-1/2 text-[#555555]` 14×14px
 flex flex-col items-center justify-center py-24 text-center
 ```
 
-- Icon: 40×40px search SVG, `text-[#2A2A2A]`, `mb-5`
-- Headline: `font-syne font-bold text-lg text-white mb-2`
-- Message: `font-sans text-sm text-[#555555] mb-6 max-w-xs` — context-aware (search vs tag)
-- Clear button: ghost style — `font-mono text-[11px] uppercase px-4 py-2 border border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]`
+- Icon: 40×40px search SVG, `text-[var(--border)]`, `mb-5`
+- Headline: `font-syne font-bold text-lg text-[var(--text-1)] mb-2`
+- Message: `font-sans text-sm text-[var(--text-3)] mb-6 max-w-xs` — context-aware (search vs tag)
+- Clear button: ghost style — `font-mono text-[11px] uppercase px-4 py-2 border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)]`
 
 ### 4.17 Landing Page Preview Cards (FieldNotesSection / SideQuestsSection)
 
 Same gold glow pattern as the blog grid card (4.12). The `motion.div` IS the card:
 
 ```jsx
+const { theme } = useTheme();
 <motion.div
-  className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
-  initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
-  whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+  className="relative h-full bg-[var(--surface)] border border-[var(--border)] rounded-xl"
+  initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
+  whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
   transition={{ duration: 0.2 }}
 >
 ```
@@ -349,32 +381,40 @@ Infinite horizontal scroll. Duplicated array creates seamless loop; `translateX(
 Edge fades (left/right):
 ```jsx
 <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-  style={{ background: "linear-gradient(to right, #111111, transparent)" }} />
+  style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
 ```
 
-Testimonial card: `motion.div` with gold glow (same as 4.17). Initials avatar: `w-9 h-9 rounded-full bg-[#E8B84B]/10 border border-[#E8B84B]/30`. Attribution: `font-syne font-bold text-sm text-white` name + `font-mono text-[10px] text-[#555555]` role · company.
+Testimonial card: `motion.div` with gold glow (same as 4.17). Initials avatar: `w-9 h-9 rounded-full bg-[var(--accent-10)] border border-[var(--accent-30)]`. Attribution: `font-syne font-bold text-sm text-[var(--text-1)]` name + `font-mono text-[10px] text-[var(--text-3)]` role · company.
 
 ### 4.19 Footer
 
 Rendered on `/`, `/blog`, `/blog/:slug`, `/games`. Not rendered on individual game pages or `/draw`.
 
 ```
-bg-[#0D0D0D] border-t border-[#2A2A2A]
+bg-[var(--bg-deep)] border-t border-[var(--border)]
 ```
 
 Gold gradient top accent (visual transition from page content):
 ```jsx
-<div className="h-[1px] bg-gradient-to-r from-transparent via-[#E8B84B]/40 to-transparent" />
+<div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-40)] to-transparent" />
 ```
 
 Three-column layout (stacks on mobile):
-- **Brand** — `font-syne font-bold text-white` name + `text-[#555555] text-sm` tagline
-- **Nav links** — `text-sm text-[#555555] hover:text-[#E8B84B] transition-colors`
-- **Social icons** — `w-9 h-9 rounded-lg bg-[#1A1A1A] border border-[#2A2A2A]` icon buttons, hover gold border + text
+- **Brand** — `font-syne font-bold text-[var(--text-1)]` name + `text-[var(--text-3)] text-sm` tagline
+- **Nav links** — `text-sm text-[var(--text-3)] hover:text-[var(--accent)] transition-colors`
+- **Social icons** — `w-9 h-9 rounded-lg bg-[var(--surface)] border border-[var(--border)]` icon buttons, hover gold border + text
 
-Bottom row (inside `border-t border-[#2A2A2A] pt-6`):
-- Copyright: `font-mono text-[11px] text-[#444444]`
-- "Built with" stack: same class, tech names in `text-[#E8B84B]/70`
+Bottom row (inside `border-t border-[var(--border)] pt-6`):
+- Left: Copyright — `font-mono text-[11px] text-[var(--text-4)]`
+- Center: **ThemeSwitcher + ModeToggle** — accent colour dots + sun/moon icon. These controls live exclusively in the Footer (not in Header).
+  ```jsx
+  <div className="flex items-center gap-2">
+    <ThemeSwitcher />  {/* accent-colour dot buttons */}
+    <div className="w-px h-4 bg-[var(--border)]" />
+    <ModeToggle />     {/* Sun (dark mode) / Moon (light mode) */}
+  </div>
+  ```
+- Right: "Built with" stack — `font-mono text-[11px] text-[var(--text-4)]`, tech names in `text-[var(--accent-70)]`
 
 Entrance: `whileInView opacity 0→1, y 20→0, duration 0.5`.
 
@@ -383,14 +423,14 @@ Entrance: `whileInView opacity 0→1, y 20→0, duration 0.5`.
 A narrow surface band between Hero and Experience showing key metrics with counting animations. Currently **commented out** in `App.jsx` — uncomment `<StatsStrip />` to activate.
 
 ```
-bg-[#1A1A1A] border-y border-[#2A2A2A] py-10 px-6 lg:px-12
+bg-[var(--surface)] border-y border-[var(--border)] py-10 px-6 lg:px-12
 ```
 
 Layout: `grid grid-cols-2 md:grid-cols-4 gap-8 text-center`
 
 Each stat cell:
-- Number: `font-syne font-bold text-3xl lg:text-4xl text-white` with gold suffix (`text-[#E8B84B]`)
-- Label: `text-[#888888] text-sm tracking-wide`
+- Number: `font-syne font-bold text-3xl lg:text-4xl text-[var(--text-1)]` with gold suffix (`text-[var(--accent)]`)
+- Label: `text-[var(--text-2)] text-sm tracking-wide`
 
 Counting animation — driven by Framer Motion `useMotionValue` + `useTransform` + `useInView`:
 ```js
@@ -460,12 +500,15 @@ const FADE_UP = [0.1, 0.2, 0.3, 0.4, 0.5].map((delay) => ({
 
 ### 5.5 Hover states
 
+Use `theme.r35` / `theme.r45` / `theme.r50` from `useTheme()` for accent glows so they switch colour with the theme.
+
 | Element | whileHover |
 |---|---|
-| Content card | `{ scale: 1.03, boxShadow: "0 0 24px rgba(232,184,75,0.35)" }` |
+| Content card | `{ scale: 1.03, boxShadow: \`0 0 24px ${theme.r35}\` }` |
+| Blog / preview card | `{ scale: 1.03, boxShadow: \`0 0 28px ${theme.r45}\`, zIndex: 10 }` |
 | Large image / form / code window | `{ scale: 1.04, boxShadow: "0 0 40px rgba(0,98,255,0.2), 0 0 80px rgba(0,255,251,0.1)" }` |
 | Photo (profile) | `{ scale: 1.05, boxShadow: "0 0 40px rgba(0,98,255,0.2), 0 0 80px rgba(0,255,251,0.15)" }` |
-| Skill pill | `{ scale: 1.1, boxShadow: "0 0 14px rgba(232,184,75,0.45)", borderColor: "rgba(232,184,75,0.5)" }` |
+| Skill pill | `{ scale: 1.1, boxShadow: \`0 0 14px ${theme.r45}\`, borderColor: theme.r50 }` |
 | Availability badge | `{ boxShadow: "0 0 40px rgba(0,98,255,0.2), 0 0 80px rgba(0,255,251,0.15)" }` |
 
 Hover transition: `{ duration: 0.3 }` (default), `{ type: "spring", stiffness: 400, damping: 25 }` for pills.
@@ -522,8 +565,8 @@ Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
 
 ## 8. Image Conventions
 
-- Profile photo: `rounded-2xl ring-2 ring-[#E8B84B] ring-offset-4 ring-offset-[#111111]`
-- Project preview thumbnail: `h-44 overflow-hidden border-b border-[#2A2A2A]` container, `object-cover object-top` image
+- Profile photo: `rounded-2xl ring-2 ring-[var(--accent)] ring-offset-4 ring-offset-[var(--bg)]`
+- Project preview thumbnail: `h-44 overflow-hidden border-b border-[var(--border)]` container, `object-cover object-top` image
 - Alt text always descriptive; decorative images use `aria-hidden`
 
 ---
@@ -594,15 +637,16 @@ All API calls go through `client/src/lib/api.ts`. It reads `VITE_API_URL` (falls
 
 ## 11. Extending the System — Rules for New Sections / Pages
 
-1. **Background is always `#111111`.** Never use white or light backgrounds.
-2. **Section heading follows the numbered pattern** (`09 — <Name>` for the next new section). Number in gold, em-dash, name in white. Current highest: `08 — Contact`.
+1. **Use CSS vars for all background, text, and border values.** Never hardcode dark-mode hex values like `#111111`, `#1A1A1A`, `#2A2A2A` in new code — use `var(--bg)`, `var(--surface)`, `var(--border)` etc. so light mode works automatically. Exception: button text stays `text-[#111111]` (intentionally dark in both modes).
+2. **Section heading follows the numbered pattern** (`09 — <Name>` for the next new section). Number in `text-[var(--accent)]`, em-dash, name in `text-[var(--text-1)]`. Current highest: `08 — Contact`.
 3. **Section vertical padding is `py-24`.** Don't reduce to less than `py-16`.
 4. **Cards use the three-part recipe** (surface bg + border + gold left-border inline style). Don't invent new card styles.
 5. **All animations at module scope.** No inline Framer Motion objects.
-6. **Hover glows use one of two palettes:** gold (`rgba(232,184,75,...)`) for content, blue-teal (`rgba(0,98,255,...)` + `rgba(0,255,251,...)`) for featured/hero elements.
+6. **Hover glows use one of two palettes:** theme-switchable via `theme.r35` / `theme.r45` (from `useTheme()`) for content cards; blue-teal (`rgba(0,98,255,...)` + `rgba(0,255,251,...)`) for featured/hero elements.
 7. **New content pages inherit the Header, GoldenCursor, and Footer** components. Fullscreen tool/game pages (individual game routes, /draw) omit the Footer.
 8. **Font for any heading or button: `font-syne font-bold`.** Body text defaults to DM Sans (`font-sans`). Code always `font-mono`.
-9. **Muted label pattern:** `text-xs uppercase tracking-widest text-[#555555]`
-10. **Dividers inside cards:** `border-t border-[#2A2A2A]` — never a full horizontal rule (`<hr>`).
+9. **Muted label pattern:** `text-xs uppercase tracking-widest text-[var(--text-3)]`
+10. **Dividers inside cards:** `border-t border-[var(--border)]` — never a full horizontal rule (`<hr>`).
 11. **Blog tag filters never change when a tag is active** — `allTags` is derived from the unfiltered response only.
 12. **Empty states follow pattern 4.16** — icon, headline, context-aware message, clear-filters button.
+13. **Admin panel stays permanently dark.** Never apply `var(--bg)` or mode vars to anything in `client/src/admin/`. Admin files use hardcoded hex values by design.

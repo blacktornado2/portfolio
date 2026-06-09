@@ -28,9 +28,11 @@ Named constants follow `SCREAMING_SNAKE_CASE`. Reused constants (e.g., `VIEWPORT
 
 Every content card uses the same three-part recipe. See `Skills.jsx`, `Experience.jsx`, `Projects.jsx`.
 
-1. **Tailwind classes** on the `motion.div`: `bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6`
-2. **Inline style** for the gold left accent: `style={CARD_BORDER}` → `{ borderLeft: "3px solid #E8B84B" }` — done as inline style (not a Tailwind class) to avoid specificity conflicts with Tailwind's `border` shorthand
-3. **Hover**: `whileHover={CARD_HOVER}` — the glow is shared (`boxShadow: "0 0 24px rgba(232,184,75,0.35)"`), but the scale differs per section: `1.03` for Skills/Projects, `1.05` for Experience.
+1. **Tailwind classes** on the `motion.div`: `bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6`
+2. **Inline style** for the gold left accent: `style={CARD_BORDER}` → `{ borderLeft: "3px solid var(--accent)" }` — done as inline style (not a Tailwind class) to avoid specificity conflicts with Tailwind's `border` shorthand
+3. **Hover**: `whileHover={CARD_HOVER}` — uses `theme.r35` from `useTheme()` so the glow colour switches with the active theme. Scale differs per section: `1.03` for Skills/Projects, `1.05` for Experience.
+
+All hardcoded hex values (`#1A1A1A`, `#2A2A2A`, `#888888`, `#FFFFFF`, etc.) in section components were replaced with CSS custom property equivalents (`var(--surface)`, `var(--border)`, `var(--text-2)`, `var(--text-1)`, etc.) as part of the dark/light mode implementation. **Admin panel files (`client/src/admin/`) retain hardcoded hex and are permanently dark — do not apply CSS vars there.**
 
 ---
 
@@ -135,6 +137,23 @@ Key points:
 - The `margin` option pre-triggers the animation slightly before the element is fully visible
 
 ---
+
+## 10. Mode & Theme System
+
+`client/src/lib/ThemeContext.jsx` manages two orthogonal axes:
+
+| Axis | `localStorage` key | `<html>` attribute | Controls |
+|---|---|---|---|
+| **Accent theme** | `portfolio-theme` | `data-theme` | Which accent colour (gold / blue / purple). CSS vars `--accent`, `--accent-dark`, `--accent-05..70` |
+| **Light/dark mode** | `portfolio-mode` | `data-mode` | Which surface/text palette (dark default / light). CSS vars `--bg`, `--surface`, `--border`, `--text-1..4`, `--bg-95`, `--bg-deep` |
+
+Both are set on `document.documentElement` (the `<html>` element) and persisted to `localStorage`.
+
+The context exposes `{ theme, setTheme, mode, setMode }`. Components that need theme-coloured glows (`theme.r35`, `theme.r45`, `theme.r50`) call `useTheme()` and use those pre-computed rgba strings in Framer Motion `boxShadow` values.
+
+**Toggle controls live in Footer only** — `ThemeSwitcher` (accent dots) and `ModeToggle` (sun/moon icon) are sub-components of `Footer.jsx`. They are not in the Header.
+
+**Tailwind opacity modifier incompatibility** — `bg-[#111111]/95` uses Tailwind's built-in opacity modifier which is computed at build time and cannot be combined with CSS variables. The pre-computed `--bg-95` var sidesteps this. When adding new opacity variants, define a pre-computed var in `index.css` rather than using the `/opacity` modifier with a CSS var.
 
 ## Note on `Education.jsx`
 
