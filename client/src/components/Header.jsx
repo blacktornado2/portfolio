@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { Menu, X } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import CommandPalette from "./CommandPalette";
 
 export default function Header() {
@@ -9,6 +10,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [paletteOpen, setPaletteOpen] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40, restDelta: 0.001 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -69,6 +73,12 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
+        {/* Scroll progress bar */}
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-[2px] bg-[#E8B84B] origin-left z-50"
+          style={{ scaleX }}
+        />
+
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <HashLink

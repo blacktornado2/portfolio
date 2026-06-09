@@ -93,7 +93,7 @@ export default function Contact() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
           <h2 id="contact-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">05</span> — Contact
+            <span className="text-[#E8B84B]">08</span> — Contact
           </h2>
         </motion.div>
 
