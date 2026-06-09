@@ -13,23 +13,8 @@ import { BsFileEarmarkCode, BsGrid1X2 } from "react-icons/bs";
 import { FcWorkflow } from "react-icons/fc";
 import IconCloudDemo from "./globe";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-};
+import { HEADER_ANIM, CARD_BORDER, VIEWPORT_ONCE, cardVariants } from "../lib/animations";
 
-const HEADER_ANIM = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 },
-};
-
-const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
 const CARD_HOVER = { scale: 1.03, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
 
 const skillCategories = [
@@ -114,7 +99,7 @@ export default function SkillsSection() {
               custom={i}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={VIEWPORT_ONCE}
               variants={cardVariants}
               whileHover={CARD_HOVER}
               className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6"

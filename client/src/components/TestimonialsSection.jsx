@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { HEADER_ANIM, SUBHEADER_ANIM } from "../lib/animations";
 
 const testimonials = [
   {
@@ -67,13 +68,7 @@ export default function TestimonialsSection() {
     >
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-4"
-        >
+        <motion.div {...HEADER_ANIM} className="mb-4">
           <h2
             id="testimonials-heading"
             className="font-syne font-bold text-4xl lg:text-5xl text-white"
@@ -81,13 +76,7 @@ export default function TestimonialsSection() {
             <span className="text-[#E8B84B]">07</span> — Testimonials
           </h2>
         </motion.div>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-[#888888] italic"
-        >
+        <motion.p {...SUBHEADER_ANIM} className="text-[#888888] italic">
           &ldquo;Kind words from people I&apos;ve had the pleasure of working with.&rdquo;
         </motion.p>
       </div>

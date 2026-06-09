@@ -1,31 +1,7 @@
 import { motion } from "framer-motion";
+import { HEADER_ANIM, SUBHEADER_ANIM, CARD_BORDER, VIEWPORT_ONCE, cardVariants } from "../lib/animations";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-};
-
-const HEADER_ANIM = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 },
-};
-
-const SUBHEADER_ANIM = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5, delay: 0.1 },
-};
-
-const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
 const CARD_HOVER = { scale: 1.05, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
-const VIEWPORT_ONCE = { once: true };
 
 const experiences = [
   {

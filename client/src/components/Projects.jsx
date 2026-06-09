@@ -4,31 +4,8 @@ import { FaGithub } from "react-icons/fa";
 import vitanoPreview from "../assets/images/vitano-preview.png";
 import utkarshPreview from "../assets/images/utkarsh-portfolio.png";
 import { myGithub } from "../constants";
+import { HEADER_ANIM, SUBHEADER_ANIM, CARD_BORDER, VIEWPORT_ONCE, cardVariantsSlow } from "../lib/animations";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.15 },
-  }),
-};
-
-const HEADER_ANIM = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5 },
-};
-
-const SUBHEADER_ANIM = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5, delay: 0.1 },
-};
-
-const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
 const CARD_HOVER = { scale: 1.03, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
 
 const projects = [
@@ -90,8 +67,8 @@ export default function Projects() {
               custom={i}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
-              variants={cardVariants}
+              viewport={VIEWPORT_ONCE}
+              variants={cardVariantsSlow}
               whileHover={CARD_HOVER}
               className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] flex flex-col overflow-hidden"
               style={CARD_BORDER}
