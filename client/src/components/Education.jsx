@@ -63,17 +63,17 @@ const educationData = [
 
 export default function EducationSection() {
   return (
-    <section aria-labelledby="education-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="education-heading" className="bg-[var(--bg)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-4">
-          <h2 id="education-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="education-heading" className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">04</span> — Education
           </h2>
         </motion.div>
 
-        <motion.p {...SUBHEADER_ANIM} className="text-[#888888] mb-16">
+        <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] mb-16">
           Discover how academic excellence shapes innovative thinking and
           professional growth.
         </motion.p>
@@ -89,7 +89,7 @@ export default function EducationSection() {
               viewport={VIEWPORT_ONCE}
               variants={cardVariants}
               whileHover={CARD_HOVER}
-              className={`bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6 ${
+              className={`bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6 ${
                 i === educationData.length - 1 && educationData.length % 2 !== 0
                   ? "md:col-span-2 md:max-w-lg md:mx-auto md:w-full"
                   : ""
@@ -100,10 +100,10 @@ export default function EducationSection() {
               <div className="flex items-start gap-3 mb-2">
                 <span className="text-2xl" aria-hidden="true">{mascot}</span>
                 <div>
-                  <h3 className="font-syne font-bold text-white text-xl leading-tight">
+                  <h3 className="font-syne font-bold text-[var(--text-1)] text-xl leading-tight">
                     {degree}
                   </h3>
-                  <span className="text-[#888888] text-sm flex items-center gap-1.5 mt-1">
+                  <span className="text-[var(--text-2)] text-sm flex items-center gap-1.5 mt-1">
                     <BookOpen className="w-4 h-4 text-[var(--accent)] flex-shrink-0" aria-hidden="true" />
                     {school}
                   </span>
@@ -111,14 +111,14 @@ export default function EducationSection() {
               </div>
 
               {/* Year */}
-              <p className="text-[#888888] text-xs flex items-center gap-1.5 mb-4">
+              <p className="text-[var(--text-2)] text-xs flex items-center gap-1.5 mb-4">
                 <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
                 {year}
               </p>
 
-              <div className="border-t border-[#2A2A2A] pt-4 space-y-3">
+              <div className="border-t border-[var(--border)] pt-4 space-y-3">
                 {/* Description */}
-                <p className="text-[#888888] text-sm italic border-l-2 border-[#2A2A2A] pl-3">
+                <p className="text-[var(--text-2)] text-sm italic border-l-2 border-[var(--border)] pl-3">
                   {description}
                 </p>
 
@@ -140,7 +140,7 @@ export default function EducationSection() {
                   {subjects.map((s) => (
                     <span
                       key={s}
-                      className="text-xs bg-[#111111] border border-[#2A2A2A] text-[#666666] px-2 py-1 rounded"
+                      className="text-xs bg-[var(--bg)] border border-[var(--border)] text-[#666666] px-2 py-1 rounded"
                     >
                       {s}
                     </span>

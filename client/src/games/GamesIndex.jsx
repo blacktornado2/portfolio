@@ -6,7 +6,7 @@ function GameCard({ href, tag, title, description, preview, previewBg }) {
   return (
     <Link
       to={href}
-      className="group block bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl overflow-hidden no-underline transition-all duration-200 hover:border-[var(--accent)] hover:-translate-y-0.5"
+      className="group block bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden no-underline transition-all duration-200 hover:border-[var(--accent)] hover:-translate-y-0.5"
     >
       <div
         className="h-[180px] flex items-center justify-center overflow-hidden"
@@ -20,10 +20,10 @@ function GameCard({ href, tag, title, description, preview, previewBg }) {
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)] inline-block mb-2.5">
           {tag}
         </span>
-        <h2 className="font-syne font-bold text-xl text-white mb-2 tracking-tight group-hover:text-[var(--accent)] transition-colors duration-150">
+        <h2 className="font-syne font-bold text-xl text-[var(--text-1)] mb-2 tracking-tight group-hover:text-[var(--accent)] transition-colors duration-150">
           {title}
         </h2>
-        <p className="text-sm text-[#888888] leading-relaxed mb-4">{description}</p>
+        <p className="text-sm text-[var(--text-2)] leading-relaxed mb-4">{description}</p>
         <span className="font-mono text-xs text-[var(--accent)] group-hover:tracking-wider transition-all duration-150">
           Play now →
         </span>
@@ -111,12 +111,12 @@ const GAMES = [
 
 export default function GamesIndex() {
   return (
-    <main className="bg-[#111111] min-h-screen text-white">
-      <header className="fixed top-0 left-0 w-full z-50 bg-[#111111]/95 backdrop-blur-sm border-b border-[#2A2A2A]">
+    <main className="bg-[var(--bg)] min-h-screen text-[var(--text-1)]">
+      <header className="fixed top-0 left-0 w-full z-50 bg-[var(--bg-95)] backdrop-blur-sm border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
+            className="inline-flex items-center gap-2 font-syne font-bold text-[var(--text-2)] hover:text-[var(--accent)] transition-colors text-sm"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12" />
@@ -129,14 +129,14 @@ export default function GamesIndex() {
 
       <div className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         <div className="mb-12">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#555555] mb-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--text-3)] mb-3">
             Mini Games
           </p>
           <h1 className="font-syne font-extrabold text-[clamp(32px,6vw,52px)] leading-[1.1] tracking-[-0.04em] mb-4">
             Play something.<br />
             <span className="text-[var(--accent)]">Take a break.</span>
           </h1>
-          <p className="text-base text-[#888888] max-w-md leading-relaxed">
+          <p className="text-base text-[var(--text-2)] max-w-md leading-relaxed">
             A few games built entirely in the browser — no installs, no accounts. Just pure JavaScript fun.
           </p>
         </div>

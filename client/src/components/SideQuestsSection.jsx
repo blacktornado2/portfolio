@@ -33,22 +33,22 @@ export default function SideQuestsSection() {
   const { theme } = useTheme();
 
   return (
-    <section aria-labelledby="side-quests-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="side-quests-heading" className="bg-[var(--bg)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         <motion.div {...HEADER_ANIM} className="mb-4 flex items-end justify-between">
-          <h2 id="side-quests-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="side-quests-heading" className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">05</span> — Side Quests
           </h2>
           <Link
             to="/games"
-            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[var(--accent)] transition-colors duration-150"
+            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
           >
             All games <ArrowRight className="w-3 h-3" />
           </Link>
         </motion.div>
 
-        <motion.p {...SUBHEADER_ANIM} className="text-[#888888] italic mb-16">
+        <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
           "Weekend builds that got out of hand."
         </motion.p>
 
@@ -63,7 +63,7 @@ export default function SideQuestsSection() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <motion.div
-                className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
+                className="relative h-full bg-[var(--surface)] border border-[var(--border)] rounded-xl"
                 initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
                 whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
                 transition={{ duration: 0.2 }}
@@ -72,13 +72,13 @@ export default function SideQuestsSection() {
                   <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)] self-start">
                     {tag}
                   </span>
-                  <h3 className="font-syne font-bold text-2xl text-[var(--accent)] tracking-tight group-hover:text-white transition-colors duration-150">
+                  <h3 className="font-syne font-bold text-2xl text-[var(--accent)] tracking-tight group-hover:text-[var(--text-1)] transition-colors duration-150">
                     {title}
                   </h3>
-                  <p className="text-sm text-[#888888] leading-relaxed flex-1">
+                  <p className="text-sm text-[var(--text-2)] leading-relaxed flex-1">
                     {description}
                   </p>
-                  <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#555555] group-hover:text-[var(--accent)] transition-colors duration-150 pt-3 border-t border-[#2A2A2A]">
+                  <div className="flex items-center gap-1.5 font-mono text-[11px] text-[var(--text-3)] group-hover:text-[var(--accent)] transition-colors duration-150 pt-3 border-t border-[var(--border)]">
                     Play now <ArrowRight className="w-3 h-3" />
                   </div>
                 </Link>
@@ -96,7 +96,7 @@ export default function SideQuestsSection() {
         >
           <Link
             to="/games"
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[var(--accent)] transition-colors duration-150"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
           >
             All games <ArrowRight className="w-3 h-3" />
           </Link>

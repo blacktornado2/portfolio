@@ -18,12 +18,12 @@ const PHOTO_ANIM = {
 
 export default function PortfolioPage() {
   return (
-    <section className="bg-[#111111] border-t border-[#2A2A2A] py-24 px-6 lg:px-12">
+    <section className="bg-[var(--bg)] border-t border-[var(--border)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
-          <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">01</span> — About Me
           </h2>
         </motion.div>
@@ -37,18 +37,18 @@ export default function PortfolioPage() {
               alt="Ankit Bhardwaj"
               whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[var(--accent)] ring-offset-4 ring-offset-[#111111]"
+              className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[var(--accent)] ring-offset-4 ring-offset-[var(--bg)]"
             />
           </motion.div>
 
           {/* Right: Bio */}
-          <motion.div {...BIO_ANIM} className="space-y-5 text-[#888888] text-lg leading-relaxed">
+          <motion.div {...BIO_ANIM} className="space-y-5 text-[var(--text-2)] text-lg leading-relaxed">
             <p>
               Hey, I'm{" "}
               <span className="text-[var(--accent)] font-semibold">Ankit</span> — a
               full-stack and mobile developer with 4+ years of experience
               building products that people actually use. Currently at{" "}
-              <span className="text-white font-medium">BetterWorks</span>,
+              <span className="text-[var(--text-1)] font-medium">BetterWorks</span>,
               working on enterprise performance management software.
             </p>
             <p>

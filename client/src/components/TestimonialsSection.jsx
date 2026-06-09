@@ -36,22 +36,22 @@ function TestimonialCard({ quote, name, role, company }) {
   const { theme } = useTheme();
   return (
     <motion.div
-      className="w-[340px] shrink-0 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-6 flex flex-col gap-4 mx-3"
+      className="w-[340px] shrink-0 bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6 flex flex-col gap-4 mx-3"
       initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
       whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
       transition={{ duration: 0.2 }}
     >
       <span className="font-serif text-5xl leading-none text-[var(--accent)] select-none">&ldquo;</span>
-      <p className="text-sm text-[#888888] leading-relaxed flex-1">{quote}</p>
-      <div className="flex items-center gap-3 pt-4 border-t border-[#2A2A2A]">
+      <p className="text-sm text-[var(--text-2)] leading-relaxed flex-1">{quote}</p>
+      <div className="flex items-center gap-3 pt-4 border-t border-[var(--border)]">
         <div className="w-9 h-9 rounded-full bg-[var(--accent-10)] border border-[var(--accent-20)] flex items-center justify-center shrink-0">
           <span className="font-mono text-[11px] font-bold text-[var(--accent)]">
             {getInitials(name)}
           </span>
         </div>
         <div>
-          <div className="font-syne font-bold text-sm text-white leading-tight">{name}</div>
-          <div className="font-mono text-[10px] text-[#555555]">
+          <div className="font-syne font-bold text-sm text-[var(--text-1)] leading-tight">{name}</div>
+          <div className="font-mono text-[10px] text-[var(--text-3)]">
             {role} · {company}
           </div>
         </div>
@@ -66,19 +66,19 @@ export default function TestimonialsSection() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="bg-[#111111] py-24 overflow-hidden"
+      className="bg-[var(--bg)] py-24 overflow-hidden"
     >
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-16">
         <motion.div {...HEADER_ANIM} className="mb-4">
           <h2
             id="testimonials-heading"
-            className="font-syne font-bold text-4xl lg:text-5xl text-white"
+            className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]"
           >
             <span className="text-[var(--accent)]">07</span> — Testimonials
           </h2>
         </motion.div>
-        <motion.p {...SUBHEADER_ANIM} className="text-[#888888] italic">
+        <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic">
           &ldquo;Kind words from people I&apos;ve had the pleasure of working with.&rdquo;
         </motion.p>
       </div>

@@ -20,19 +20,19 @@ const RIGHT_ANIM = {
 };
 
 const inputClass = (error) =>
-  `w-full bg-[#111111] border rounded-lg px-4 py-3 text-white placeholder-[#555555] focus:outline-none transition-colors ${error
+  `w-full bg-[var(--bg)] border rounded-lg px-4 py-3 text-[var(--text-1)] placeholder-[var(--text-3)] focus:outline-none transition-colors ${error
     ? "border-red-500 focus:border-red-400"
-    : "border-[#2A2A2A] focus:border-[var(--accent)]"
+    : "border-[var(--border)] focus:border-[var(--accent)]"
   }`;
 
 function ContactRow({ icon: Icon, label, children }) {
   return (
     <div className="flex items-center gap-4">
-      <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
+      <div className="bg-[var(--surface)] border border-[var(--border)] p-3 rounded-lg flex-shrink-0">
         <Icon className="w-5 h-5 text-[var(--accent)]" aria-hidden="true" />
       </div>
       <div>
-        <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">{label}</p>
+        <p className="text-xs text-[var(--text-3)] uppercase tracking-widest mb-0.5">{label}</p>
         {children}
       </div>
     </div>
@@ -95,12 +95,12 @@ export default function Contact() {
   };
 
   return (
-    <section aria-labelledby="contact-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="contact-heading" className="bg-[var(--bg)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
-          <h2 id="contact-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="contact-heading" className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">08</span> — Contact
           </h2>
         </motion.div>
@@ -110,10 +110,10 @@ export default function Contact() {
           {/* Left: Info */}
           <motion.div {...LEFT_ANIM} className="space-y-8">
             <div>
-              <h3 className="font-syne font-bold text-3xl text-white mb-4">
+              <h3 className="font-syne font-bold text-3xl text-[var(--text-1)] mb-4">
                 Let's build something.
               </h3>
-              <p className="text-[#888888] leading-relaxed">
+              <p className="text-[var(--text-2)] leading-relaxed">
                 Have a project in mind or want to work together? <br /> Please feel free to
                 reach out — I'm always open to new connections and conversations.
               </p>
@@ -123,14 +123,14 @@ export default function Contact() {
               <ContactRow icon={Mail} label="Email">
                 <a
                   href={`mailto:${myEmail}`}
-                  className="text-[#888888] hover:text-[var(--accent)] transition-colors font-mono text-sm break-all"
+                  className="text-[var(--text-2)] hover:text-[var(--accent)] transition-colors font-mono text-sm break-all"
                 >
                   {myEmail}
                 </a>
               </ContactRow>
 
               <ContactRow icon={MapPin} label="Location">
-                <p className="text-[#888888] text-sm">{myLocation}, {myPincode}</p>
+                <p className="text-[var(--text-2)] text-sm">{myLocation}, {myPincode}</p>
               </ContactRow>
 
               <ContactRow icon={FaGithub} label="GitHub">
@@ -138,7 +138,7 @@ export default function Contact() {
                   href={myGithub}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
+                  className="text-[var(--text-2)] hover:text-[var(--accent)] transition-colors text-sm"
                 >
                   {myGithub.replace("https://", "")}
                 </a>
@@ -149,7 +149,7 @@ export default function Contact() {
                   href={myLinkedIn}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
+                  className="text-[var(--text-2)] hover:text-[var(--accent)] transition-colors text-sm"
                 >
                   {myLinkedIn.replace("https://www.", "").replace(/\/$/, "")}
                 </a>
@@ -159,7 +159,7 @@ export default function Contact() {
 
           {/* Right: Form */}
           <motion.div {...RIGHT_ANIM} whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }} transition={{ duration: 0.3 }}>
-            <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-8">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <input type="text" name="name" aria-label="Your name" placeholder="Your Name"

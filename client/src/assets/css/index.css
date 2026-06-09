@@ -15,6 +15,30 @@
   --accent-30:  rgba(232,184,75,0.30);
   --accent-40:  rgba(232,184,75,0.40);
   --accent-70:  rgba(232,184,75,0.70);
+
+  /* ---- Mode tokens (dark default) ---- */
+  --bg:         #111111;
+  --bg-deep:    #0D0D0D;
+  --bg-95:      rgba(17,17,17,0.95);
+  --surface:    #1A1A1A;
+  --border:     #2A2A2A;
+  --text-1:     #FFFFFF;
+  --text-2:     #888888;
+  --text-3:     #555555;
+  --text-4:     #444444;
+}
+
+/* ---- Light mode overrides ---- */
+[data-mode="light"] {
+  --bg:         #F5F5F5;
+  --bg-deep:    #E8E8E8;
+  --bg-95:      rgba(245,245,245,0.95);
+  --surface:    #FFFFFF;
+  --border:     #D8D8D8;
+  --text-1:     #111111;
+  --text-2:     #555555;
+  --text-3:     #888888;
+  --text-4:     #AAAAAA;
 }
 
 [data-theme="blue"] {
@@ -134,7 +158,7 @@ pre[class*="language-"] {
 /* ---- Command palette scrollbar ---- */
 .cmd-palette-results::-webkit-scrollbar { width: 4px; }
 .cmd-palette-results::-webkit-scrollbar-track { background: transparent; }
-.cmd-palette-results::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 2px; }
+.cmd-palette-results::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 /* ---- shadcn/ui CSS variables (kept for component compatibility) ---- */
 @layer base {
@@ -189,8 +213,8 @@ pre[class*="language-"] {
   }
   html,
   body {
-    background-color: #111111;
-    color: #ffffff;
+    background-color: var(--bg);
+    color: var(--text-1);
     font-family: 'DM Sans', sans-serif;
   }
 }

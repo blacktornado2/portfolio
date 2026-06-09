@@ -32,15 +32,15 @@ export default function DrawToolbar({ engine }) {
   } = engine;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 h-[54px] bg-[#1A1A1A] border-b border-[#2A2A2A] flex items-center gap-4 px-4 overflow-x-auto">
+    <header className="fixed top-0 left-0 w-full z-50 h-[54px] bg-[var(--surface)] border-b border-[var(--border)] flex items-center gap-4 px-4 overflow-x-auto">
       <Link
         to="/"
-        className="font-mono text-xs text-[#888888] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 whitespace-nowrap"
+        className="font-mono text-xs text-[var(--text-2)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 whitespace-nowrap"
       >
         ← portfolio
       </Link>
 
-      <div className="w-px h-6 bg-[#2A2A2A] shrink-0" />
+      <div className="w-px h-6 bg-[var(--border)] shrink-0" />
 
       <div className="flex gap-1.5 shrink-0">
         {TOOL_BUTTONS.map(({ id, Icon, label }) => (
@@ -54,7 +54,7 @@ export default function DrawToolbar({ engine }) {
             className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors ${
               tool === id
                 ? "bg-[var(--accent)] text-[#111111]"
-                : "bg-[#2A2A2A] text-[#888888] hover:text-white"
+                : "bg-[var(--border)] text-[var(--text-2)] hover:text-[var(--text-1)]"
             }`}
           >
             <Icon size={16} aria-hidden="true" />
@@ -68,7 +68,7 @@ export default function DrawToolbar({ engine }) {
         </span>
       )}
 
-      <div className="w-px h-6 bg-[#2A2A2A] shrink-0" />
+      <div className="w-px h-6 bg-[var(--border)] shrink-0" />
 
       <div className="flex gap-1.5 items-center shrink-0">
         {palette.map((c, i) => (
@@ -87,7 +87,7 @@ export default function DrawToolbar({ engine }) {
           />
         ))}
         <label
-          className="w-5 h-5 rounded-md overflow-hidden border border-[#2A2A2A] cursor-pointer relative"
+          className="w-5 h-5 rounded-md overflow-hidden border border-[var(--border)] cursor-pointer relative"
           title="Custom color"
           style={{ background: "conic-gradient(red,yellow,lime,cyan,blue,magenta,red)" }}
         >
@@ -103,15 +103,15 @@ export default function DrawToolbar({ engine }) {
           type="button"
           onClick={resetPalette}
           title="Reset palette to defaults"
-          className="font-mono text-[10px] text-[#555555] hover:text-[#888888] transition-colors"
+          className="font-mono text-[10px] text-[var(--text-3)] hover:text-[var(--text-2)] transition-colors"
         >
           reset
         </button>
       </div>
 
-      <div className="w-px h-6 bg-[#2A2A2A] shrink-0" />
+      <div className="w-px h-6 bg-[var(--border)] shrink-0" />
 
-      <div className="flex items-center gap-2 text-[#888888] font-mono text-[10px] shrink-0">
+      <div className="flex items-center gap-2 text-[var(--text-2)] font-mono text-[10px] shrink-0">
         size
         <input
           type="range"
@@ -132,7 +132,7 @@ export default function DrawToolbar({ engine }) {
         disabled={!canUndo}
         title="Undo (Ctrl/Cmd+Z)"
         aria-label="Undo"
-        className="w-8 h-8 flex items-center justify-center text-[#888888] hover:text-white disabled:opacity-30 transition-colors shrink-0"
+        className="w-8 h-8 flex items-center justify-center text-[var(--text-2)] hover:text-[var(--text-1)] disabled:opacity-30 transition-colors shrink-0"
       >
         <Undo2 size={15} aria-hidden="true" />
       </button>
@@ -142,18 +142,18 @@ export default function DrawToolbar({ engine }) {
         disabled={!canRedo}
         title="Redo (Ctrl/Cmd+Shift+Z)"
         aria-label="Redo"
-        className="w-8 h-8 flex items-center justify-center text-[#888888] hover:text-white disabled:opacity-30 transition-colors shrink-0"
+        className="w-8 h-8 flex items-center justify-center text-[var(--text-2)] hover:text-[var(--text-1)] disabled:opacity-30 transition-colors shrink-0"
       >
         <Redo2 size={15} aria-hidden="true" />
       </button>
 
-      <div className="w-px h-6 bg-[#2A2A2A] shrink-0" />
+      <div className="w-px h-6 bg-[var(--border)] shrink-0" />
 
       <button
         type="button"
         onClick={clear}
         title="Clear canvas"
-        className="font-mono text-[10px] text-[#888888] border border-[#2A2A2A] rounded-md px-2.5 py-1.5 hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 shrink-0"
+        className="font-mono text-[10px] text-[var(--text-2)] border border-[var(--border)] rounded-md px-2.5 py-1.5 hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 shrink-0"
       >
         <Trash2 size={12} aria-hidden="true" />
         clear

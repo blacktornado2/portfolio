@@ -20,7 +20,7 @@ function TagFilter({ label, active, onClick }) {
       className={`font-mono text-[11px] font-medium uppercase tracking-[0.06em] px-3 py-1 rounded border transition-all duration-150 ${
         active
           ? "border-[var(--accent)] bg-[var(--accent-10)] text-[var(--accent)]"
-          : "border-[#2A2A2A] text-[#888888] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          : "border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
       }`}
     >
       {label}
@@ -32,7 +32,7 @@ function SearchBar({ value, onChange }) {
   return (
     <div className="relative">
       <svg
-        className="absolute left-3 top-1/2 -translate-y-1/2 text-[#555555]"
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-3)]"
         width="14" height="14" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" strokeWidth="2"
         strokeLinecap="round" strokeLinejoin="round"
@@ -45,7 +45,7 @@ function SearchBar({ value, onChange }) {
         placeholder="Search posts…"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg pl-9 pr-4 py-2 font-sans text-sm text-white placeholder-[#555555] outline-none focus:border-[var(--accent)] transition-colors duration-200"
+        className="w-full bg-[var(--surface)] border border-[var(--border)] rounded-lg pl-9 pr-4 py-2 font-sans text-sm text-[var(--text-1)] placeholder-[var(--text-3)] outline-none focus:border-[var(--accent)] transition-colors duration-200"
       />
     </div>
   );
@@ -55,7 +55,7 @@ function PostCard({ post }) {
   const { theme } = useTheme();
   return (
     <motion.div
-      className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
+      className="relative h-full bg-[var(--surface)] border border-[var(--border)] rounded-xl"
       initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
       whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
       transition={{ duration: 0.2 }}
@@ -69,15 +69,15 @@ function PostCard({ post }) {
             </span>
           )}
         </div>
-        <h2 className="font-syne font-bold text-base leading-snug tracking-tight text-white flex-1 group-hover:text-[var(--accent)] transition-colors duration-150">
+        <h2 className="font-syne font-bold text-base leading-snug tracking-tight text-[var(--text-1)] flex-1 group-hover:text-[var(--accent)] transition-colors duration-150">
           {post.title}
         </h2>
-        <p className="text-sm text-[#888888] leading-relaxed" style={{ textWrap: "pretty" }}>
+        <p className="text-sm text-[var(--text-2)] leading-relaxed" style={{ textWrap: "pretty" }}>
           {post.summary}
         </p>
-        <div className="flex justify-between items-center pt-3 border-t border-[#2A2A2A] mt-auto">
-          <span className="font-mono text-[11px] text-[#555555]">{new Date(post.publishedAt).toLocaleDateString()}</span>
-          <span className="font-mono text-[11px] text-[#555555]">{post.readTime}</span>
+        <div className="flex justify-between items-center pt-3 border-t border-[var(--border)] mt-auto">
+          <span className="font-mono text-[11px] text-[var(--text-3)]">{new Date(post.publishedAt).toLocaleDateString()}</span>
+          <span className="font-mono text-[11px] text-[var(--text-3)]">{post.readTime}</span>
         </div>
       </Link>
     </motion.div>
@@ -87,7 +87,7 @@ function PostCard({ post }) {
 function PostRow({ post }) {
   return (
     <Link to={`/blog/${post.slug}`} className="group block">
-      <article className="py-7 border-b border-[#2A2A2A] grid grid-cols-[1fr_auto] gap-5 items-start transition-all duration-150 group-hover:pl-1.5">
+      <article className="py-7 border-b border-[var(--border)] grid grid-cols-[1fr_auto] gap-5 items-start transition-all duration-150 group-hover:pl-1.5">
         <div>
           <div className="flex items-center gap-2 mb-2.5">
             <PostTag label={post.tags[0]} />
@@ -98,19 +98,19 @@ function PostRow({ post }) {
             )}
           </div>
           <h2
-            className={`font-syne font-bold leading-tight tracking-tight text-white mb-2 group-hover:text-[var(--accent)] transition-colors duration-150 ${
+            className={`font-syne font-bold leading-tight tracking-tight text-[var(--text-1)] mb-2 group-hover:text-[var(--accent)] transition-colors duration-150 ${
               post.featured ? "text-[22px]" : "text-[18px]"
             }`}
           >
             {post.title}
           </h2>
-          <p className="text-sm text-[#888888] leading-relaxed max-w-xl" style={{ textWrap: "pretty" }}>
+          <p className="text-sm text-[var(--text-2)] leading-relaxed max-w-xl" style={{ textWrap: "pretty" }}>
             {post.summary}
           </p>
         </div>
         <div className="text-right shrink-0">
-          <div className="font-mono text-xs text-[#555555] mb-1">{new Date(post.publishedAt).toLocaleDateString()}</div>
-          <div className="font-mono text-[11px] text-[#555555]">{post.readTime}</div>
+          <div className="font-mono text-xs text-[var(--text-3)] mb-1">{new Date(post.publishedAt).toLocaleDateString()}</div>
+          <div className="font-mono text-[11px] text-[var(--text-3)]">{post.readTime}</div>
         </div>
       </article>
     </Link>
@@ -161,12 +161,12 @@ export default function BlogIndex() {
   }, [search, posts]);
 
   return (
-    <main className="bg-[#111111] min-h-screen text-white">
-      <header className="fixed top-0 left-0 w-full z-50 bg-[#111111]/95 backdrop-blur-sm border-b border-[#2A2A2A]">
+    <main className="bg-[var(--bg)] min-h-screen text-[var(--text-1)]">
+      <header className="fixed top-0 left-0 w-full z-50 bg-[var(--bg-95)] backdrop-blur-sm border-b border-[var(--border)]">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
+            className="inline-flex items-center gap-2 font-syne font-bold text-[var(--text-2)] hover:text-[var(--accent)] transition-colors text-sm"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -178,14 +178,14 @@ export default function BlogIndex() {
 
       <div className="max-w-5xl mx-auto px-6 pt-28 pb-20">
         <div className="mb-12">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#555555] mb-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--text-3)] mb-3">
             Writing
           </p>
           <h1 className="font-syne font-extrabold text-[clamp(32px,6vw,52px)] leading-[1.1] tracking-[-0.04em] mb-4">
             Notes from the{" "}
             <span className="text-[var(--accent)]">trenches.</span>
           </h1>
-          <p className="text-base text-[#888888] max-w-md leading-relaxed" style={{ textWrap: "pretty" }}>
+          <p className="text-base text-[var(--text-2)] max-w-md leading-relaxed" style={{ textWrap: "pretty" }}>
             Practical articles on full-stack development, architecture decisions,
             and the tools I use every day.
           </p>
@@ -206,7 +206,7 @@ export default function BlogIndex() {
         </div>
 
         <div className="flex items-center justify-between mb-6">
-          <span className="font-mono text-[11px] text-[#555555]">
+          <span className="font-mono text-[11px] text-[var(--text-3)]">
             {loading ? "Loading…" : `${filtered.length} ${filtered.length === 1 ? "post" : "posts"}`}
           </span>
           <div className="flex gap-1">
@@ -216,7 +216,7 @@ export default function BlogIndex() {
               className={`p-1.5 rounded border transition-colors duration-150 ${
                 layout === "grid"
                   ? "border-[var(--accent)] text-[var(--accent)]"
-                  : "border-[#2A2A2A] text-[#555555] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                  : "border-[var(--border)] text-[var(--text-3)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               }`}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -230,7 +230,7 @@ export default function BlogIndex() {
               className={`p-1.5 rounded border transition-colors duration-150 ${
                 layout === "list"
                   ? "border-[var(--accent)] text-[var(--accent)]"
-                  : "border-[#2A2A2A] text-[#555555] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                  : "border-[var(--border)] text-[var(--text-3)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               }`}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -241,7 +241,7 @@ export default function BlogIndex() {
         </div>
 
         {loading ? (
-          <div className="text-center py-20 font-mono text-sm text-[#555555]">
+          <div className="text-center py-20 font-mono text-sm text-[var(--text-3)]">
             Loading posts…
           </div>
         ) : filtered.length === 0 ? (
@@ -256,17 +256,17 @@ export default function BlogIndex() {
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
               <line x1="8" y1="11" x2="14" y2="11" />
             </svg>
-            <p className="font-syne font-bold text-lg text-white mb-2">
+            <p className="font-syne font-bold text-lg text-[var(--text-1)] mb-2">
               No posts found
             </p>
-            <p className="font-sans text-sm text-[#555555] mb-6 max-w-xs">
+            <p className="font-sans text-sm text-[var(--text-3)] mb-6 max-w-xs">
               {search
                 ? `No results for "${search}"${activeTag !== "All" ? ` in ${activeTag}` : ""}.`
                 : `No posts tagged "${activeTag}" yet.`}
             </p>
             <button
               onClick={() => { setSearch(""); setActiveTag("All"); }}
-              className="font-mono text-[11px] uppercase tracking-[0.06em] px-4 py-2 rounded border border-[#2A2A2A] text-[#888888] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-150"
+              className="font-mono text-[11px] uppercase tracking-[0.06em] px-4 py-2 rounded border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-150"
             >
               Clear filters
             </button>

@@ -228,10 +228,10 @@ export default function CommandPalette({ isOpen, onClose }) {
               {/* Glow border */}
               <div className="absolute inset-[-1px] rounded-[13px] bg-gradient-to-br from-[var(--accent-20)] to-transparent pointer-events-none" />
 
-              <div className="bg-[#141414] border border-[#2A2A2A] rounded-xl overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6),0_0_0_0.5px_rgba(255,255,255,0.04)_inset]">
+              <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6),0_0_0_0.5px_rgba(255,255,255,0.04)_inset]">
                 {/* Search row */}
-                <div className="flex items-center gap-3 px-4 border-b border-[#2A2A2A]">
-                  <svg className="text-[#555555] shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="flex items-center gap-3 px-4 border-b border-[var(--border)]">
+                  <svg className="text-[var(--text-3)] shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
                   <input
@@ -240,11 +240,11 @@ export default function CommandPalette({ isOpen, onClose }) {
                     placeholder="Type a command or search…"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="flex-1 bg-transparent border-none outline-none font-sans text-[15px] text-white py-4 placeholder-[#555555]"
+                    className="flex-1 bg-transparent border-none outline-none font-sans text-[15px] text-[var(--text-1)] py-4 placeholder-[var(--text-3)]"
                     autoComplete="off"
                     spellCheck={false}
                   />
-                  <span className="font-mono text-[10px] text-[#555555] border border-[#2A2A2A] rounded px-[6px] py-[2px] shrink-0">
+                  <span className="font-mono text-[10px] text-[var(--text-3)] border border-[var(--border)] rounded px-[6px] py-[2px] shrink-0">
                     esc
                   </span>
                 </div>
@@ -252,13 +252,13 @@ export default function CommandPalette({ isOpen, onClose }) {
                 {/* Results */}
                 <div ref={listRef} className="cmd-palette-results max-h-[360px] overflow-y-auto py-2">
                   {flatItems.length === 0 ? (
-                    <div className="py-10 text-center font-mono text-[13px] text-[#555555]">
+                    <div className="py-10 text-center font-mono text-[13px] text-[var(--text-3)]">
                       No results for &ldquo;{query}&rdquo;
                     </div>
                   ) : (
                     filtered.map((group) => (
                       <div key={group.group}>
-                        <div className="px-4 pt-2 pb-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[#555555]">
+                        <div className="px-4 pt-2 pb-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--text-3)]">
                           {group.group}
                         </div>
                         {group.items.map((item) => {
@@ -272,15 +272,15 @@ export default function CommandPalette({ isOpen, onClose }) {
                               onMouseEnter={() => setActiveIdx(idx)}
                               className={`flex items-center gap-3 w-full px-4 py-2.5 text-left border-0 cursor-pointer transition-colors duration-75 ${isActive
                                 ? "bg-[var(--accent-10)] text-[var(--accent)]"
-                                : "bg-transparent text-[#cccccc]"
+                                : "bg-transparent text-[var(--text-2)]"
                                 }`}
                             >
-                              <span className={`w-4 flex items-center shrink-0 ${isActive ? "text-[var(--accent)]" : "text-[#555555]"}`}>
+                              <span className={`w-4 flex items-center shrink-0 ${isActive ? "text-[var(--accent)]" : "text-[var(--text-3)]"}`}>
                                 {ICON_MAP[item.icon]}
                               </span>
                               <span className="font-sans text-[14px] flex-1">{item.label}</span>
                               {item.hint && (
-                                <span className="font-mono text-[12px] text-[#555555]">{item.hint}</span>
+                                <span className="font-mono text-[12px] text-[var(--text-3)]">{item.hint}</span>
                               )}
                             </button>
                           );
@@ -291,10 +291,10 @@ export default function CommandPalette({ isOpen, onClose }) {
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center gap-4 px-4 py-2.5 border-t border-[#2A2A2A]">
+                <div className="flex items-center gap-4 px-4 py-2.5 border-t border-[var(--border)]">
                   {[["↑↓", "navigate"], ["↵", "open"], ["esc", "close"]].map(([key, label]) => (
-                    <span key={label} className="flex items-center gap-1.5 font-mono text-[10px] text-[#555555]">
-                      <kbd className="border border-[#2A2A2A] rounded px-[5px] py-[1px] text-[10px] font-mono">
+                    <span key={label} className="flex items-center gap-1.5 font-mono text-[10px] text-[var(--text-3)]">
+                      <kbd className="border border-[var(--border)] rounded px-[5px] py-[1px] text-[10px] font-mono">
                         {key}
                       </kbd>
                       {label}
@@ -311,7 +311,7 @@ export default function CommandPalette({ isOpen, onClose }) {
       <AnimatePresence>
         {toast && (
           <motion.div
-            className="fixed bottom-6 z-[300] bg-[#1A1A1A] border border-[var(--accent)] text-[var(--accent)] font-mono text-[12px] px-5 py-2.5 rounded-lg whitespace-nowrap"
+            className="fixed bottom-6 z-[300] bg-[var(--surface)] border border-[var(--accent)] text-[var(--accent)] font-mono text-[12px] px-5 py-2.5 rounded-lg whitespace-nowrap"
             style={{ left: "50%" }}
             initial={{ opacity: 0, y: 8, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}

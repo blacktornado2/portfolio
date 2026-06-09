@@ -28,7 +28,7 @@ function Counter({ value, suffix }) {
   }, [inView]);
 
   return (
-    <span ref={ref} className="font-syne font-bold text-3xl lg:text-4xl text-white">
+    <span ref={ref} className="font-syne font-bold text-3xl lg:text-4xl text-[var(--text-1)]">
       <motion.span>{rounded}</motion.span>
       <span className="text-[var(--accent)]">{suffix}</span>
     </span>
@@ -37,7 +37,7 @@ function Counter({ value, suffix }) {
 
 export default function StatsStrip() {
   return (
-    <motion.section {...STRIP_ANIM} className="bg-[#1A1A1A] border-y border-[#2A2A2A] py-10 px-6 lg:px-12">
+    <motion.section {...STRIP_ANIM} className="bg-[var(--surface)] border-y border-[var(--border)] py-10 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         {STATS.map(({ value, suffix, label }, i) => (
           <motion.div
@@ -49,7 +49,7 @@ export default function StatsStrip() {
             className="flex flex-col items-center gap-1.5"
           >
             <Counter value={value} suffix={suffix} />
-            <span className="text-[#888888] text-sm tracking-wide">{label}</span>
+            <span className="text-[var(--text-2)] text-sm tracking-wide">{label}</span>
           </motion.div>
         ))}
       </div>

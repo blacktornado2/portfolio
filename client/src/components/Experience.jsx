@@ -31,17 +31,17 @@ export default function ExperienceSection() {
   const cardHover = { scale: 1.05, boxShadow: `0 0 24px ${theme.r35}` };
 
   return (
-    <section aria-labelledby="experience-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="experience-heading" className="bg-[var(--bg)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-4">
-          <h2 id="experience-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="experience-heading" className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">02</span> — Professional Journey
           </h2>
         </motion.div>
 
-        <motion.p {...SUBHEADER_ANIM} className="text-[#888888] italic mb-16">
+        <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
           "Transforming ideas into digital reality, one project at a time"
         </motion.p>
 
@@ -56,20 +56,20 @@ export default function ExperienceSection() {
               viewport={VIEWPORT_ONCE}
               variants={cardVariants}
               whileHover={cardHover}
-              className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6"
+              className="bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6"
               style={CARD_BORDER}
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-1">
-                <h3 className="font-syne font-bold text-white text-xl leading-snug">
+                <h3 className="font-syne font-bold text-[var(--text-1)] text-xl leading-snug">
                   {title}
                 </h3>
-                <span className="text-xs text-[#888888] bg-[#111111] border border-[#2A2A2A] px-3 py-1 rounded-md whitespace-nowrap self-start">
+                <span className="text-xs text-[var(--text-2)] bg-[var(--bg)] border border-[var(--border)] px-3 py-1 rounded-md whitespace-nowrap self-start">
                   {period}
                 </span>
               </div>
               <p className="text-[var(--accent)] text-sm font-medium mb-4">{company}</p>
-              <div className="border-t border-[#2A2A2A] pt-4">
-                <p className="text-[#888888] text-sm leading-relaxed">{description}</p>
+              <div className="border-t border-[var(--border)] pt-4">
+                <p className="text-[var(--text-2)] text-sm leading-relaxed">{description}</p>
               </div>
             </motion.div>
           ))}

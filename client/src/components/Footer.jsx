@@ -1,8 +1,23 @@
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
+import { Mail, Sun, Moon } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { myEmail, myGithub, myLinkedIn } from "../constants";
 import { useTheme, THEMES } from "../lib/ThemeContext";
+
+function ModeToggle() {
+  const { mode, setMode } = useTheme();
+  const isDark = mode === "dark";
+  return (
+    <button
+      onClick={() => setMode(isDark ? "light" : "dark")}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      title={`${isDark ? "Light" : "Dark"} mode`}
+      className="w-7 h-7 flex items-center justify-center rounded-lg text-[var(--text-3)] hover:text-[var(--text-1)] hover:bg-[var(--border)] transition-colors"
+    >
+      {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+    </button>
+  );
+}
 
 function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -16,7 +31,7 @@ function ThemeSwitcher() {
           title={`${t.label} theme`}
           className={`w-3.5 h-3.5 rounded-full transition-all duration-150 ${
             theme.name === t.name
-              ? "ring-2 ring-offset-1 ring-offset-[#0D0D0D] scale-110"
+              ? "ring-2 ring-offset-1 ring-offset-[var(--bg-deep)] scale-110"
               : "opacity-40 hover:opacity-80"
           }`}
           style={{ backgroundColor: t.accent }}
@@ -42,7 +57,7 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0D0D0D] border-t border-[#2A2A2A]">
+    <footer className="bg-[var(--bg-deep)] border-t border-[var(--border)]">
       <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-40)] to-transparent" />
 
       <motion.div
@@ -57,8 +72,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="text-center md:text-left">
-            <p className="font-syne font-bold text-white text-lg">Ankit Bhardwaj</p>
-            <p className="text-[#555555] text-sm mt-1">Full-Stack · Mobile Developer</p>
+            <p className="font-syne font-bold text-[var(--text-1)] text-lg">Ankit Bhardwaj</p>
+            <p className="text-[var(--text-3)] text-sm mt-1">Full-Stack · Mobile Developer</p>
           </div>
 
           {/* Nav */}
@@ -67,7 +82,7 @@ export default function Footer() {
               <a
                 key={label}
                 href={href}
-                className="text-sm text-[#555555] hover:text-[var(--accent)] transition-colors"
+                className="text-sm text-[var(--text-3)] hover:text-[var(--accent)] transition-colors"
               >
                 {label}
               </a>
@@ -83,7 +98,7 @@ export default function Footer() {
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] text-[#555555] hover:text-[var(--accent)] hover:border-[var(--accent-40)] transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text-3)] hover:text-[var(--accent)] hover:border-[var(--accent-40)] transition-colors"
               >
                 <Icon className="w-4 h-4" aria-hidden="true" />
               </a>
@@ -92,12 +107,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="border-t border-[#2A2A2A] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-mono text-[11px] text-[#444444]">
+        <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="font-mono text-[11px] text-[var(--text-4)]">
             © {new Date().getFullYear()} Ankit Bhardwaj. All rights reserved.
           </p>
-          <ThemeSwitcher />
-          <p className="font-mono text-[11px] text-[#444444]">
+          <div className="flex items-center gap-2">
+            <ThemeSwitcher />
+            <div className="w-px h-4 bg-[var(--border)]" />
+            <ModeToggle />
+          </div>
+          <p className="font-mono text-[11px] text-[var(--text-4)]">
             Built with{" "}
             <span className="text-[var(--accent-70)]">React</span>
             {" · "}

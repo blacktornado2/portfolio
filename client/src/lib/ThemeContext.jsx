@@ -30,11 +30,19 @@ export const THEMES = {
   },
 };
 
-const ThemeContext = createContext({ theme: THEMES.gold, setTheme: () => {} });
+const ThemeContext = createContext({
+  theme: THEMES.gold,
+  setTheme: () => {},
+  mode: "dark",
+  setMode: () => {},
+});
 
 export function ThemeProvider({ children }) {
   const [themeName, setThemeName] = useState(
     () => localStorage.getItem("portfolio-theme") || "gold"
+  );
+  const [mode, setModeState] = useState(
+    () => localStorage.getItem("portfolio-mode") || "dark"
   );
 
   const theme = THEMES[themeName] ?? THEMES.gold;
@@ -44,8 +52,17 @@ export function ThemeProvider({ children }) {
     localStorage.setItem("portfolio-theme", theme.name);
   }, [theme.name]);
 
+  useEffect(() => {
+    document.documentElement.dataset.mode = mode;
+    localStorage.setItem("portfolio-mode", mode);
+  }, [mode]);
+
+  function setMode(m) {
+    setModeState(m === "light" ? "light" : "dark");
+  }
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme: setThemeName }}>
+    <ThemeContext.Provider value={{ theme, setTheme: setThemeName, mode, setMode }}>
       {children}
     </ThemeContext.Provider>
   );

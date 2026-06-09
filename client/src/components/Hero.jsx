@@ -35,7 +35,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <main className="bg-[#111111] text-white">
+    <main className="bg-[var(--bg)] text-[var(--text-1)]">
       {/* ── Hero section ── */}
       <section className="min-h-screen flex items-center px-6 lg:px-12 pt-20">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center py-16">
@@ -47,7 +47,7 @@ export default function Hero() {
               <motion.span
                 whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
                 transition={{ duration: 0.3 }}
-                className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] border border-[#2A2A2A] text-sm text-[#888888]"
+                className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]"
               >
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
                 Available for work
@@ -56,7 +56,7 @@ export default function Hero() {
 
             {/* Name */}
             <motion.div {...FADE_UP[1]}>
-              <p className="text-[#888888] text-lg mb-1">Hello, I'm</p>
+              <p className="text-[var(--text-2)] text-lg mb-1">Hello, I'm</p>
               <h1 className="font-syne font-bold text-5xl lg:text-7xl leading-tight">
                 Ankit{" "}
                 <span className="text-[var(--accent)]">Bhardwaj</span>
@@ -64,12 +64,12 @@ export default function Hero() {
             </motion.div>
 
             {/* Role */}
-            <motion.p {...FADE_UP[2]} className="text-[#888888] text-xl">
+            <motion.p {...FADE_UP[2]} className="text-[var(--text-2)] text-xl">
               Full-Stack Developer · Mobile Developer
             </motion.p>
 
             {/* Bio */}
-            <motion.p {...FADE_UP[3]} className="text-[#888888] leading-relaxed max-w-md">
+            <motion.p {...FADE_UP[3]} className="text-[var(--text-2)] leading-relaxed max-w-md">
               4+ years building web and mobile products at scale. Clean code,
               scalable architecture, and a focus on performance.
             </motion.p>
@@ -91,9 +91,9 @@ export default function Hero() {
             whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.1)" }}
             transition={{ duration: 0.3 }}
           >
-            <div className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] overflow-hidden">
+            <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden">
               {/* Window chrome */}
-              <div className="bg-[#161616] px-5 py-4 flex items-center gap-2 border-b border-[#2A2A2A]">
+              <div className="bg-[#161616] px-5 py-4 flex items-center gap-2 border-b border-[var(--border)]">
                 <span className="w-3 h-3 rounded-full bg-[#EF4444] flex items-center justify-center">
                   <IoIosClose color="#1A0000" className="w-2.5 h-2.5" aria-hidden="true" />
                 </span>

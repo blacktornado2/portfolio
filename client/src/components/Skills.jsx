@@ -23,7 +23,7 @@ const skillCategories = [
       { name: "React", SkillIcon: FaReact, color: "text-[#61DAFB]" },
       { name: "Vue.js", SkillIcon: SiVuedotjs, color: "text-[#4FC08D]" },
       { name: "React Native", SkillIcon: FaReact, color: "text-[#61DAFB]" },
-      { name: "Next.js", SkillIcon: SiNextdotjs, color: "text-white" },
+      { name: "Next.js", SkillIcon: SiNextdotjs, color: "text-[var(--text-1)]" },
       { name: "TypeScript", SkillIcon: SiTypescript, color: "text-[#3178C6]" },
       { name: "Tailwind CSS", SkillIcon: SiTailwindcss, color: "text-[#38B2AC]" },
       { name: "CSS", SkillIcon: BsFileEarmarkCode, color: "text-[#1572B6]" },
@@ -36,7 +36,7 @@ const skillCategories = [
     skills: [
       { name: "Node.js", SkillIcon: FaNodeJs, color: "text-[#339933]" },
       { name: "Nest.js", SkillIcon: SiNestjs, color: "text-[#E0234E]" },
-      { name: "Express", SkillIcon: SiExpress, color: "text-white" },
+      { name: "Express", SkillIcon: SiExpress, color: "text-[var(--text-1)]" },
       { name: "PostgreSQL", SkillIcon: SiPostgresql, color: "text-[#336791]" },
       { name: "MongoDB", SkillIcon: SiMongodb, color: "text-[#47A248]" },
       { name: "CockroachDB", SkillIcon: SiCockroachlabs, color: "text-[#6933FF]" },
@@ -51,7 +51,7 @@ const skillCategories = [
       { name: "CI/CD", SkillIcon: FcWorkflow, color: "" },
       { name: "Git", SkillIcon: FaGitAlt, color: "text-[#F05032]" },
       { name: "Linux", SkillIcon: FaLinux, color: "text-[#FCC624]" },
-      { name: "GitHub", SkillIcon: FaGithub, color: "text-white" },
+      { name: "GitHub", SkillIcon: FaGithub, color: "text-[var(--text-1)]" },
       { name: "GitLab", SkillIcon: FaGitlab, color: "text-orange-500" },
     ],
   },
@@ -61,7 +61,7 @@ const skillCategories = [
     skills: [
       { name: "VS Code", SkillIcon: TbBrandVscode, color: "text-[#007ACC]" },
       { name: "Firebase", SkillIcon: SiFirebase, color: "text-[#FFCA28]" },
-      { name: "Vercel", SkillIcon: SiVercel, color: "text-white" },
+      { name: "Vercel", SkillIcon: SiVercel, color: "text-[var(--text-1)]" },
       { name: "Vite", SkillIcon: SiVite, color: "text-[#646CFF]" },
       { name: "Webpack", SkillIcon: SiWebpack, color: "text-[#8DD6F9]" },
       { name: "Redux", SkillIcon: SiRedux, color: "text-[#764ABC]" },
@@ -75,12 +75,12 @@ export default function SkillsSection() {
   const cardHover = { scale: 1.03, boxShadow: `0 0 24px ${theme.r35}` };
 
   return (
-    <section aria-labelledby="skills-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="skills-heading" className="bg-[var(--bg)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
-          <h2 id="skills-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="skills-heading" className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">06</span> — Skills
           </h2>
         </motion.div>
@@ -103,14 +103,14 @@ export default function SkillsSection() {
               viewport={VIEWPORT_ONCE}
               variants={cardVariants}
               whileHover={cardHover}
-              className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6"
+              className="bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6"
               style={CARD_BORDER}
             >
               <div className="flex items-center gap-3 mb-4">
                 <Icon className="w-6 h-6 text-[var(--accent)]" aria-hidden="true" />
-                <h3 className="font-syne font-bold text-white text-xl">{title}</h3>
+                <h3 className="font-syne font-bold text-[var(--text-1)] text-xl">{title}</h3>
               </div>
-              <div className="border-t border-[#2A2A2A] pt-4 flex flex-wrap gap-2">
+              <div className="border-t border-[var(--border)] pt-4 flex flex-wrap gap-2">
                 {skills.map(({ name, SkillIcon, color }) => (
                   <motion.span
                     key={name}
@@ -120,7 +120,7 @@ export default function SkillsSection() {
                       borderColor: theme.r50,
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className="relative flex items-center gap-1.5 bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1.5 text-sm overflow-hidden cursor-default group"
+                    className="relative flex items-center gap-1.5 bg-[var(--bg)] border border-[var(--border)] text-[var(--text-2)] rounded-md px-3 py-1.5 text-sm overflow-hidden cursor-default group"
                   >
                     <SkillIcon className={`w-4 h-4 ${color} relative z-10`} aria-hidden="true" />
                     <span className="relative z-10">{name}</span>
