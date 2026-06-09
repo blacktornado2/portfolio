@@ -10,7 +10,7 @@ Patterns observed across the portfolio **section components** (`client/src/compo
 
 All Framer Motion prop objects are declared at module scope, never inline in JSX. Inline object literals create a new reference every render, which prevents Framer Motion from bailing out.
 
-**Where:** Every section component — `Skills.jsx:16-33`, `Experience.jsx:3-28`, `Projects.jsx:7-31`, `Contact.jsx:7-34`, `PortfolioPage.jsx:4-23`.
+**Where:** Every section component — `Skills.jsx`, `Experience.jsx`, `Projects.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`, `TestimonialsSection.jsx`, `PortfolioPage.jsx`.
 
 ```
 // Module level — correct
@@ -26,7 +26,7 @@ Named constants follow `SCREAMING_SNAKE_CASE`. Reused constants (e.g., `VIEWPORT
 
 ## 2. Card Convention
 
-Every content card uses the same three-part recipe. See `Skills.jsx:110-130`, `Experience.jsx:70-95`, `Projects.jsx:85-97`.
+Every content card uses the same three-part recipe. See `Skills.jsx`, `Experience.jsx`, `Projects.jsx`.
 
 1. **Tailwind classes** on the `motion.div`: `bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6`
 2. **Inline style** for the gold left accent: `style={CARD_BORDER}` → `{ borderLeft: "3px solid #E8B84B" }` — done as inline style (not a Tailwind class) to avoid specificity conflicts with Tailwind's `border` shorthand
@@ -38,7 +38,7 @@ Every content card uses the same three-part recipe. See `Skills.jsx:110-130`, `E
 
 Cards in a list use a custom variant with a per-index delay, not individual `transition` props.
 
-**Where:** `Skills.jsx:16-23`, `Experience.jsx:3-10`, `Projects.jsx:7-14`.
+**Where:** `Skills.jsx`, `Experience.jsx`, `Projects.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`.
 
 ```js
 const cardVariants = {
@@ -60,7 +60,7 @@ Delay step is `0.1s` per card; Projects uses `0.15s` (`Projects.jsx:12`) because
 
 Section content (skill categories, experiences, projects) is declared as module-level `const` arrays, not inline in JSX. Components map over the array — no hardcoded repetition.
 
-**Where:** `Skills.jsx:35-88` (`skillCategories`), `Experience.jsx:30-52` (`experiences`), `Projects.jsx:33-68` (`projects`).
+**Where:** `Skills.jsx` (`skillCategories`), `Experience.jsx` (`experiences`), `Projects.jsx` (`projects`), `SideQuestsSection.jsx` (`games`), `TestimonialsSection.jsx` (`testimonials`).
 
 Icon components in data arrays are stored as component references (`SkillIcon: FaReact`), not as pre-instantiated JSX elements (`<FaReact />`). This allows passing props (like `aria-hidden`) at render time. See the `{ name, SkillIcon, color }` shape at `Skills.jsx:40-47`.
 
@@ -75,9 +75,9 @@ The intended pattern for every section:
   <h2 id="[section]-heading" ...>
 ```
 
-**Currently applied in:** `Experience.jsx:56,61` and `Contact.jsx:90,95`.
+**Currently applied in:** `Experience.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`, `TestimonialsSection.jsx`.
 
-> **Inconsistency to fix:** `Skills.jsx:92` and `Projects.jsx:72` do **not** yet set `aria-labelledby` / matching `h2 id`. When editing those sections, add them to bring them in line.
+> **Inconsistency to fix:** `Skills.jsx` and `Projects.jsx` do **not** yet set `aria-labelledby` / matching `h2 id`. When editing those sections, add them to bring them in line.
 
 Decorative icons always carry `aria-hidden="true"` (e.g. `Skills.jsx`, `Contact.jsx:118`).
 
@@ -109,4 +109,16 @@ Conditional Tailwind classes use `cn()` from `client/src/lib/utils.js` (clsx + t
 
 ## Note on `Education.jsx`
 
-`Education.jsx` still exists in `client/src/components/` and follows these same patterns, but it is **orphaned** — `App.jsx` renders `Projects.jsx` at section `04`, not Education. Treat Education as dead code unless deliberately reintroduced.
+`Education.jsx` still exists in `client/src/components/` and follows these same patterns, but it is **orphaned** — it is not rendered anywhere in `App.jsx`. Treat it as dead code unless deliberately reintroduced.
+
+## New Section Components (added 2026-06)
+
+Three new sections live between Projects and Skills:
+
+| Component | Section ID | Number | Notes |
+|---|---|---|---|
+| `FieldNotesSection.jsx` | `#blog` | 04 | Fetches 3 latest posts via `getPosts(1)` from the API; falls back gracefully on error |
+| `SideQuestsSection.jsx` | `#games` | 05 | Static data — no API call; links to `/games/2048`, `/games/wordle`, `/games/typeracer` |
+| `TestimonialsSection.jsx` | `#testimonials` | 07 | Infinite CSS marquee; NOT in Header nav or scroll-spy; pauses on hover |
+
+The gold glow card pattern for `FieldNotesSection` and `SideQuestsSection` differs from the standard content card (4.1 in design-system.md): there is **no gold left border** and box-shadow is `0 0 28px rgba(232,184,75,0.45)` (stronger than the standard `0.35`). The `motion.div` carries the card background/border/radius so the shadow renders correctly against the rounded shape.

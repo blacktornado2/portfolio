@@ -71,13 +71,16 @@ accent      →  #E8B84B
 
 ```
 <span class="text-[#E8B84B]">01</span> — About Me
-<span class="text-[#E8B84B]">02</span> — Skills
-<span class="text-[#E8B84B]">03</span> — Professional Journey
-<span class="text-[#E8B84B]">04</span> — Projects
-<span class="text-[#E8B84B]">05</span> — Contact
+<span class="text-[#E8B84B]">02</span> — Professional Journey
+<span class="text-[#E8B84B]">03</span> — Projects
+<span class="text-[#E8B84B]">04</span> — Dev Notes
+<span class="text-[#E8B84B]">05</span> — Side Quests
+<span class="text-[#E8B84B]">06</span> — Skills
+<span class="text-[#E8B84B]">07</span> — Testimonials
+<span class="text-[#E8B84B]">08</span> — Contact
 ```
 
-New sections follow: `06`, `07`, etc.
+New sections follow: `09`, `10`, etc.
 
 ---
 
@@ -243,12 +246,21 @@ Mobile drawer: `bg-[#1A1A1A] border-t border-[#2A2A2A] px-6 py-6 flex flex-col g
 
 ### 4.12 Blog Post Card (grid layout)
 
-```
-bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-6
-group-hover:border-[#E8B84B] group-hover:-translate-y-0.5 transition-all duration-200
+Card styling and hover glow live on the `motion.div` — **not** on an inner `article` — so box-shadow renders against the rounded, backgrounded element:
+
+```jsx
+<motion.div
+  className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
+  initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
+  whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+  transition={{ duration: 0.2 }}
+>
+  <Link className="group flex flex-col gap-3 p-6 h-full">…</Link>
+</motion.div>
 ```
 
 - Tag badge: `font-mono text-[10px] uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[#E8B84B]/25 bg-[#E8B84B]/10 text-[#E8B84B]`
+- Featured badge: `font-mono text-[10px] uppercase tracking-[0.06em] text-[#d60039]` (no border/bg — text only)
 - Title: `font-syne font-bold text-base text-white group-hover:text-[#E8B84B] transition-colors`
 - Summary: `text-sm text-[#888888] leading-relaxed`
 - Footer meta: `font-mono text-[11px] text-[#555555]` — date left, read time right
@@ -294,6 +306,46 @@ flex flex-col items-center justify-center py-24 text-center
 - Headline: `font-syne font-bold text-lg text-white mb-2`
 - Message: `font-sans text-sm text-[#555555] mb-6 max-w-xs` — context-aware (search vs tag)
 - Clear button: ghost style — `font-mono text-[11px] uppercase px-4 py-2 border border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]`
+
+### 4.17 Landing Page Preview Cards (FieldNotesSection / SideQuestsSection)
+
+Same gold glow pattern as the blog grid card (4.12). The `motion.div` IS the card:
+
+```jsx
+<motion.div
+  className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
+  initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
+  whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+  transition={{ duration: 0.2 }}
+>
+```
+
+Outer entrance animation wraps the hover `motion.div` in a separate `motion.div` with `whileInView` stagger (see pattern 5.2).
+
+### 4.18 Testimonials Marquee
+
+Infinite horizontal scroll. Duplicated array creates seamless loop; `translateX(-50%)` returns to start.
+
+```css
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+```
+
+Edge fades (left/right):
+```jsx
+<div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+  style={{ background: "linear-gradient(to right, #111111, transparent)" }} />
+```
+
+Testimonial card: `motion.div` with gold glow (same as 4.17). Initials avatar: `w-9 h-9 rounded-full bg-[#E8B84B]/10 border border-[#E8B84B]/30`. Attribution: `font-syne font-bold text-sm text-white` name + `font-mono text-[10px] text-[#555555]` role · company.
 
 ---
 
@@ -419,14 +471,18 @@ Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
 
 ```
 / (SPA)
-  #home       → Hero + code window
-  #skills     → icon cloud + 2×2 skill cards        (02 — Skills)
-  #experience → experience cards                     (03 — Professional Journey)
-  #projects   → 2-col project cards                  (04 — Projects)
-  #contact    → info panel + form                    (05 — Contact)
+  #home          → Hero + code window
+  #experience    → experience cards                          (02 — Professional Journey)
+  #projects      → 2-col project cards                       (03 — Projects)
+  #blog          → 3 latest posts preview, CTA to /blog      (04 — Dev Notes)
+  #games         → 3 game cards (2048, Wordle, TypeRacer)    (05 — Side Quests)
+  #skills        → icon cloud + 2×2 skill cards              (06 — Skills)
+  #testimonials  → infinite marquee, 3 testimonial cards     (07 — Testimonials)
+  #contact       → info panel + form                         (08 — Contact)
 
   About Me (01) lives inside Hero.jsx → renders PortfolioPage.jsx internally
   No top-level #about or #education anchor
+  Testimonials is NOT in the Header nav or scroll-spy
 
 /blog             → BlogIndex — search, tag filters, grid/list toggle
 /blog/:slug       → BlogPost — full post, comments, likes
@@ -477,7 +533,7 @@ All API calls go through `client/src/lib/api.ts`. It reads `VITE_API_URL` (falls
 ## 11. Extending the System — Rules for New Sections / Pages
 
 1. **Background is always `#111111`.** Never use white or light backgrounds.
-2. **Section heading follows the numbered pattern** (`06 — <Name>`). Number in gold, em-dash, name in white.
+2. **Section heading follows the numbered pattern** (`09 — <Name>` for the next new section). Number in gold, em-dash, name in white. Current highest: `08 — Contact`.
 3. **Section vertical padding is `py-24`.** Don't reduce to less than `py-16`.
 4. **Cards use the three-part recipe** (surface bg + border + gold left-border inline style). Don't invent new card styles.
 5. **All animations at module scope.** No inline Framer Motion objects.

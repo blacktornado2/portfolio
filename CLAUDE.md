@@ -40,6 +40,9 @@ Root scripts run both halves together via `concurrently`.
 | Path | Purpose |
 |---|---|
 | `client/src/components/` | One file per portfolio section + `globe.jsx` (icon cloud wrapper) |
+| `client/src/components/FieldNotesSection.jsx` | 04 — Dev Notes: fetches 3 latest posts from API, gold glow cards |
+| `client/src/components/SideQuestsSection.jsx` | 05 — Side Quests: static cards for 2048, Wordle, TypeRacer |
+| `client/src/components/TestimonialsSection.jsx` | 07 — Testimonials: infinite marquee, gold glow on hover, NOT in navbar |
 | `client/src/components/ui/` | shadcn/ui primitives — read-only vendor code |
 | `client/src/blog/` | Blog index, post view, markdown content |
 | `client/src/games/` | Games index + individual games (2048, Wordle, Typeracer) |
@@ -57,8 +60,15 @@ Root scripts run both halves together via `concurrently`.
 ## Routes (`client/src/App.jsx`)
 
 ```
-/ (portfolio SPA)   home → skills → experience → projects → contact
-                    About (01) renders inside Hero.jsx via PortfolioPage.jsx
+/ (portfolio SPA)   #home        → Hero (01 — About Me lives inside Hero.jsx)
+                    #experience  → 02 — Professional Journey
+                    #projects    → 03 — Projects
+                    #blog        → 04 — Dev Notes    (FieldNotesSection — 3 latest posts preview)
+                    #games       → 05 — Side Quests  (SideQuestsSection — 3 games cards)
+                    #skills      → 06 — Skills
+                    #testimonials→ 07 — Testimonials (infinite marquee, NOT in navbar)
+                    #contact     → 08 — Contact
+
 /blog               BlogIndex — search, tag filters, grid/list toggle
 /blog/:slug         BlogPost — full post + comments + likes
 /games              GamesIndex
@@ -68,7 +78,7 @@ Root scripts run both halves together via `concurrently`.
 /draw               DrawPage — canvas drawing tool
 ```
 
-> Note: `Education.jsx` exists in `components/` but is **orphaned** — the live render tree uses `Projects.jsx` at section 04. Don't reintroduce Education without intent.
+> Note: `Education.jsx` exists in `components/` but is **orphaned** — it is not rendered anywhere in the live tree. Don't reintroduce Education without intent.
 
 ## API Endpoints (`server/`)
 
@@ -118,7 +128,7 @@ Tokens defined in `client/src/assets/css/index.css`. Full reference in `docs/des
 - Background `#111111` · Surface `#1A1A1A` · Border `#2A2A2A`
 - Gold accent `#E8B84B` · Secondary text `#888888`
 - Section headings: `font-syne font-bold text-4xl lg:text-5xl`
-- Section numbering: `01 — About Me`, `02 — Skills`, … (gold number, em-dash, white name)
+- Section numbering: `01 — About Me`, `02 — Professional Journey`, `03 — Projects`, `04 — Dev Notes`, `05 — Side Quests`, `06 — Skills`, `07 — Testimonials`, `08 — Contact` (gold number, em-dash, white name)
 
 ## Personal Data
 Edit `client/src/constants/index.js` for email, location, pincode.
