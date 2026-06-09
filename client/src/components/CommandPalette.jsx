@@ -23,6 +23,12 @@ const IBriefcase = () => (
   </svg>
 );
 
+const IFolder = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+  </svg>
+);
+
 const IBook = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />
@@ -39,6 +45,27 @@ const IFile = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
     <polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" />
+  </svg>
+);
+
+const IGamepad = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="6" y1="12" x2="10" y2="12" /><line x1="8" y1="10" x2="8" y2="14" />
+    <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none" /><circle cx="17" cy="13" r="1" fill="currentColor" stroke="none" />
+    <path d="M6 8h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z" />
+  </svg>
+);
+
+const IQuote = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+    <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+  </svg>
+);
+
+const IPen = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
   </svg>
 );
 
@@ -62,7 +89,8 @@ const ICopy = () => (
 
 const ICON_MAP = {
   home: <IHome />, code: <ICode />, briefcase: <IBriefcase />,
-  book: <IBook />, mail: <IMail />, file: <IFile />,
+  folder: <IFolder />, book: <IBook />, mail: <IMail />, file: <IFile />,
+  gamepad: <IGamepad />, quote: <IQuote />, pen: <IPen />,
   github: <IGithub />, linkedin: <ILinkedin />, copy: <ICopy />,
 };
 
@@ -95,20 +123,30 @@ export default function CommandPalette({ isOpen, onClose }) {
 
   const COMMANDS = useMemo(() => [
     {
-      group: "Navigation",
+      group: "Sections",
       items: [
-        { id: "home", label: "Go to Home", icon: "home", action: () => scrollToSection("home") },
-        { id: "skills", label: "Go to Skills", icon: "code", action: () => scrollToSection("skills") },
-        { id: "experience", label: "Go to Experience", icon: "briefcase", action: () => scrollToSection("experience") },
-        { id: "education", label: "Go to Education", icon: "book", action: () => scrollToSection("education") },
-        { id: "contact", label: "Go to Contact", icon: "mail", action: () => scrollToSection("contact") },
-        { id: "blog", label: "Open Blog", icon: "file", action: () => { onClose(); navigate("/blog"); } },
+        { id: "home",         label: "Go to Home",           icon: "home",      action: () => scrollToSection("home") },
+        { id: "experience",   label: "Go to Experience",     icon: "briefcase", action: () => scrollToSection("experience") },
+        { id: "projects",     label: "Go to Projects",       icon: "folder",    action: () => scrollToSection("projects") },
+        { id: "dev-notes",    label: "Go to Dev Notes",      icon: "file",      action: () => scrollToSection("blog") },
+        { id: "side-quests",  label: "Go to Side Quests",    icon: "gamepad",   action: () => scrollToSection("games") },
+        { id: "skills",       label: "Go to Skills",         icon: "code",      action: () => scrollToSection("skills") },
+        { id: "testimonials", label: "Go to Testimonials",   icon: "quote",     action: () => scrollToSection("testimonials") },
+        { id: "contact",      label: "Go to Contact",        icon: "mail",      action: () => scrollToSection("contact") },
+      ],
+    },
+    {
+      group: "Pages",
+      items: [
+        { id: "blog",   label: "Open Blog",       icon: "book", hint: "↗", action: () => { onClose(); navigate("/blog"); } },
+        { id: "games",  label: "Open Games",      icon: "gamepad", hint: "↗", action: () => { onClose(); navigate("/games"); } },
+        { id: "draw",   label: "Open Draw Tool",  icon: "pen",  hint: "↗", action: () => { onClose(); navigate("/draw"); } },
       ],
     },
     {
       group: "Social",
       items: [
-        { id: "github", label: "Open GitHub", icon: "github", hint: "↗", action: () => { window.open("https://github.com/blacktornado2", "_blank"); onClose(); } },
+        { id: "github",   label: "Open GitHub",   icon: "github",   hint: "↗", action: () => { window.open("https://github.com/blacktornado2", "_blank"); onClose(); } },
         { id: "linkedin", label: "Open LinkedIn", icon: "linkedin", hint: "↗", action: () => { window.open("https://linkedin.com/in/bhardwaj--ankit", "_blank"); onClose(); } },
       ],
     },

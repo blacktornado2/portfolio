@@ -10,6 +10,7 @@ import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import FieldNotesSection from "./components/FieldNotesSection";
 import SideQuestsSection from "./components/SideQuestsSection";
+import TestimonialsSection from "./components/TestimonialsSection";
 import Contact from "./components/Contact";
 import BlogIndex from "./blog/BlogIndex";
 import BlogPost from "./blog/BlogPost";
@@ -41,6 +42,9 @@ function PortfolioHome() {
       </div>
       <div id="skills">
         <Skills />
+      </div>
+      <div id="testimonials">
+        <TestimonialsSection />
       </div>
       <div id="contact">
         <Contact />
