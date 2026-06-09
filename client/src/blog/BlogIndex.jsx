@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { getPosts } from "@/lib/api";
 
 function PostTag({ label }) {
@@ -50,12 +51,17 @@ function SearchBar({ value, onChange }) {
 
 function PostCard({ post }) {
   return (
-    <Link to={`/blog/${post.slug}`} className="group block h-full">
-      <article className="h-full flex flex-col gap-3 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-6 transition-all duration-200 group-hover:border-[#E8B84B] group-hover:-translate-y-0.5">
+    <motion.div
+      className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
+      initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
+      whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+      transition={{ duration: 0.2 }}
+    >
+      <Link to={`/blog/${post.slug}`} className="group flex flex-col gap-3 p-6 h-full">
         <div className="flex items-center gap-2">
           <PostTag label={post.tags[0]} />
           {post.featured && (
-            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#555555]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#d60039]">
               Featured
             </span>
           )}
@@ -70,8 +76,8 @@ function PostCard({ post }) {
           <span className="font-mono text-[11px] text-[#555555]">{new Date(post.publishedAt).toLocaleDateString()}</span>
           <span className="font-mono text-[11px] text-[#555555]">{post.readTime}</span>
         </div>
-      </article>
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -83,7 +89,7 @@ function PostRow({ post }) {
           <div className="flex items-center gap-2 mb-2.5">
             <PostTag label={post.tags[0]} />
             {post.featured && (
-              <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#555555]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#d60039]">
                 Featured
               </span>
             )}
