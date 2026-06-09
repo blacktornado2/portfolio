@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getPosts } from "@/lib/api";
+import Footer from "@/components/Footer";
 
 function PostTag({ label }) {
   return (
@@ -282,6 +283,7 @@ export default function BlogIndex() {
           </div>
         )}
       </div>
+      <Footer />
     </main>
   );
 }

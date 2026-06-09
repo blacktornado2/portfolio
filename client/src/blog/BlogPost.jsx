@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Prism from "prismjs";
@@ -389,6 +390,7 @@ export default function BlogPost() {
 
         <TableOfContents />
       </div>
+      <Footer />
     </main>
   );
 }

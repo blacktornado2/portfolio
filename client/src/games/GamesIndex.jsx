@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 function GameCard({ href, tag, title, description, preview, previewBg }) {
   return (
@@ -146,6 +147,7 @@ export default function GamesIndex() {
           ))}
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
