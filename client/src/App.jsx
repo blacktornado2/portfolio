@@ -7,6 +7,7 @@ import GoldenCursor from "./components/GoldenCursor";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
+import StatsStrip from "./components/StatsStrip";
 import Projects from "./components/Projects";
 import FieldNotesSection from "./components/FieldNotesSection";
 import SideQuestsSection from "./components/SideQuestsSection";
@@ -29,6 +30,7 @@ function PortfolioHome() {
       <div id="home">
         <Hero />
       </div>
+      {/* <StatsStrip /> */}
       <div id="experience">
         <Experience />
       </div>
