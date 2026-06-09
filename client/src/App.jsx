@@ -12,6 +12,7 @@ import FieldNotesSection from "./components/FieldNotesSection";
 import SideQuestsSection from "./components/SideQuestsSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import BlogIndex from "./blog/BlogIndex";
 import BlogPost from "./blog/BlogPost";
 import GamesIndex from "./games/GamesIndex";
@@ -49,6 +50,7 @@ function PortfolioHome() {
       <div id="contact">
         <Contact />
       </div>
+      <Footer />
     </>
   );
 }
