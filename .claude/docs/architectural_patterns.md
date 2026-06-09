@@ -97,7 +97,11 @@ Decorative icons always carry `aria-hidden="true"` (e.g. `Skills.jsx`, `Contact.
 
 ## 7. Personal Data Indirection
 
-Contact details that appear in the UI are imported from `client/src/constants/index.js`, not hardcoded in components (`Contact.jsx:5` → `myEmail`, `myLocation`, `myPincode`). Hard-coded exceptions (URLs unlikely to change) live in `Contact.jsx` directly: Web3Forms access key (`Contact.jsx:65`), GitHub URL, LinkedIn URL.
+All personal URLs and contact details are imported from `client/src/constants/index.js`:
+- `myEmail`, `myLocation`, `myPincode` — used in `Contact.jsx`
+- `myGithub`, `myLinkedIn` — used in `Contact.jsx`, `Footer.jsx`, `CommandPalette.jsx`, and `Projects.jsx` (project repo URLs derived as `` `${myGithub}/repo-name` ``)
+
+The only remaining hardcoded value is the Web3Forms access key in `Contact.jsx` — it is not a personal URL and is intentionally left there.
 
 ---
 

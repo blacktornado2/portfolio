@@ -49,18 +49,21 @@ A personal portfolio built with React 18 + Vite on the frontend and NestJS + Pri
 
 | Route | Description |
 |---|---|
-| `/` `#home` | Hero — intro, syntax-highlighted code window |
-| `/` `#about` | About — 3D profile photo + bio |
-| `/` `#skills` | Skill grid with icon cloud |
-| `/` `#experience` | Professional journey cards |
-| `/` `#projects` | Project showcase with preview images |
-| `/` `#contact` | Web3Forms-powered contact form |
-| `/blog` | Blog index |
-| `/blog/:slug` | Individual blog post (react-markdown) |
+| `/` `#home` | 01 — Hero: intro, availability badge, syntax-highlighted code window |
+| `/` `#experience` | 02 — Professional Journey: experience cards |
+| `/` `#projects` | 03 — Projects: project cards with preview images |
+| `/` `#blog` | 04 — Dev Notes: 3 latest posts preview, CTA to /blog |
+| `/` `#games` | 05 — Side Quests: 3 game cards (2048, Wordle, TypeRacer) |
+| `/` `#skills` | 06 — Skills: icon cloud + skill category cards |
+| `/` `#testimonials` | 07 — Testimonials: infinite marquee (not in navbar) |
+| `/` `#contact` | 08 — Contact: info panel + Web3Forms contact form |
+| `/blog` | Blog index — search, tag filters, grid/list toggle |
+| `/blog/:slug` | Individual blog post — react-markdown, comments, likes |
 | `/games` | Games hub |
 | `/games/2048` | 2048 |
 | `/games/wordle` | Wordle |
-| `/games/typeracer` | Typeracer |
+| `/games/typeracer` | TypeRacer |
+| `/draw` | Canvas drawing tool |
 
 ---
 
@@ -96,23 +99,29 @@ portfolio/                          # Monorepo root
 │   │   │   ├── posts.js
 │   │   │   └── content/            # Markdown articles
 │   │   ├── components/
-│   │   │   ├── Header.jsx
-│   │   │   ├── Hero.jsx
+│   │   │   ├── Header.jsx          # Fixed nav + scroll progress bar (⌘K palette)
+│   │   │   ├── Hero.jsx            # 01 — Hero + availability badge
 │   │   │   ├── PortfolioPage.jsx   # About — rendered inside Hero
-│   │   │   ├── Skills.jsx
-│   │   │   ├── Experience.jsx
-│   │   │   ├── Projects.jsx
-│   │   │   ├── Contact.jsx
+│   │   │   ├── Experience.jsx      # 02 — Professional Journey
+│   │   │   ├── Projects.jsx        # 03 — Projects
+│   │   │   ├── FieldNotesSection.jsx  # 04 — Dev Notes (fetches API)
+│   │   │   ├── SideQuestsSection.jsx  # 05 — Side Quests (static)
+│   │   │   ├── Skills.jsx          # 06 — Skills
+│   │   │   ├── TestimonialsSection.jsx  # 07 — Testimonials (marquee)
+│   │   │   ├── Contact.jsx         # 08 — Contact
+│   │   │   ├── Footer.jsx          # Global footer (/, /blog, /games)
 │   │   │   ├── CommandPalette.jsx  # ⌘K search
 │   │   │   ├── GoldenCursor.jsx
 │   │   │   ├── globe.jsx
-│   │   │   └── ui/                 # shadcn/ui primitives
+│   │   │   └── ui/                 # shadcn/ui primitives — read-only
 │   │   ├── games/
 │   │   │   ├── GamesIndex.jsx
 │   │   │   ├── Game2048.jsx
 │   │   │   ├── GameWordle.jsx
 │   │   │   └── GameTyperacer.jsx
-│   │   ├── constants/index.js      # Email, location, pincode
+│   │   ├── draw/
+│   │   │   └── DrawPage.jsx
+│   │   ├── constants/index.js      # Email, location, pincode, GitHub URL, LinkedIn URL
 │   │   └── lib/utils.js            # cn() — Tailwind class merger
 │   ├── tailwind.config.js
 │   └── vite.config.js
@@ -141,7 +150,7 @@ Defined in `client/src/assets/css/index.css`:
 - Background `#111111` · Surface `#1A1A1A` · Border `#2A2A2A`
 - Gold accent `#E8B84B` · Secondary text `#888888`
 - Headings: `font-syne font-bold text-4xl lg:text-5xl`
-- Section numbering: `01 — About Me`, `02 — Skills`, …
+- Section numbering: `01 — About Me` … `08 — Contact` (gold number, em-dash, white name)
 
 ---
 
@@ -184,8 +193,8 @@ npm run start:dev  # http://localhost:3000
 
 ## Customization
 
-- **Personal info** (email, location, pincode) — edit `client/src/constants/index.js`
-- **GitHub, LinkedIn URLs & Web3Forms key** — edit `client/src/components/Contact.jsx`
+- **Personal info** (email, location, pincode, GitHub URL, LinkedIn URL) — edit `client/src/constants/index.js`
+- **Web3Forms key** — edit `client/src/components/Contact.jsx` (only remaining hardcoded value)
 - **Skills, experience** — edit the data arrays at the top of each section component
 - **Projects** — add an entry to the `projects` array in `Projects.jsx`; include an `image` import for a card thumbnail
 - **Blog posts** — add a Markdown file to `client/src/blog/content/` and register it in `client/src/blog/posts.js`

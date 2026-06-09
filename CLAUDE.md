@@ -43,6 +43,7 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/components/FieldNotesSection.jsx` | 04 — Dev Notes: fetches 3 latest posts from API, gold glow cards |
 | `client/src/components/SideQuestsSection.jsx` | 05 — Side Quests: static cards for 2048, Wordle, TypeRacer |
 | `client/src/components/TestimonialsSection.jsx` | 07 — Testimonials: infinite marquee, gold glow on hover, NOT in navbar |
+| `client/src/components/Footer.jsx` | Global footer — rendered on `/`, `/blog`, `/blog/:slug`, `/games`; not on game/draw pages |
 | `client/src/components/ui/` | shadcn/ui primitives — read-only vendor code |
 | `client/src/blog/` | Blog index, post view, markdown content |
 | `client/src/games/` | Games index + individual games (2048, Wordle, Typeracer) |
@@ -50,7 +51,7 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/lib/api.ts` | API client — reads `VITE_API_URL`, injects JWT from localStorage |
 | `client/src/lib/utils.js` | `cn()` helper — Tailwind class merge (clsx + tailwind-merge) |
 | `client/src/assets/css/index.css` | Design tokens, Google Fonts, Prism theme, shadcn CSS vars |
-| `client/src/constants/index.js` | Personal data (email, location, pincode) — edit here, not in components |
+| `client/src/constants/index.js` | Personal data (email, location, pincode, GitHub URL, LinkedIn URL) — edit here, not in components |
 | `client/tailwind.config.js` | Font families + shadcn color tokens |
 | `server/src/` | NestJS modules (one folder per feature) |
 | `server/prisma/` | Prisma schema, migrations, seed |
@@ -131,8 +132,8 @@ Tokens defined in `client/src/assets/css/index.css`. Full reference in `docs/des
 - Section numbering: `01 — About Me`, `02 — Professional Journey`, `03 — Projects`, `04 — Dev Notes`, `05 — Side Quests`, `06 — Skills`, `07 — Testimonials`, `08 — Contact` (gold number, em-dash, white name)
 
 ## Personal Data
-Edit `client/src/constants/index.js` for email, location, pincode.
-Hard-coded values (GitHub URL, LinkedIn URL, Web3Forms key) live in `client/src/components/Contact.jsx`.
+Edit `client/src/constants/index.js` for email, location, pincode, GitHub profile URL (`myGithub`), and LinkedIn URL (`myLinkedIn`). All components import from here.
+The Web3Forms access key is the only remaining hardcoded value — it lives in `client/src/components/Contact.jsx`.
 
 ## Additional Documentation
 - **[docs/design-system.md](docs/design-system.md)** — Complete design system: color, typography, component patterns (incl. blog), animation, backend stack, API reference. Read before adding UI.

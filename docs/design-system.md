@@ -244,6 +244,13 @@ hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors duration-150
 
 Mobile drawer: `bg-[#1A1A1A] border-t border-[#2A2A2A] px-6 py-6 flex flex-col gap-5`
 
+**Scroll progress bar** — `absolute top-0 left-0 right-0 h-[2px] bg-[#E8B84B]` inside the header, driven by Framer Motion `useScroll` + `useSpring`:
+```js
+const { scrollYProgress } = useScroll();
+const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40, restDelta: 0.001 });
+// <motion.div style={{ scaleX }} className="absolute top-0 left-0 right-0 h-[2px] bg-[#E8B84B] origin-left" />
+```
+
 ### 4.12 Blog Post Card (grid layout)
 
 Card styling and hover glow live on the `motion.div` — **not** on an inner `article` — so box-shadow renders against the rounded, backgrounded element:
@@ -346,6 +353,30 @@ Edge fades (left/right):
 ```
 
 Testimonial card: `motion.div` with gold glow (same as 4.17). Initials avatar: `w-9 h-9 rounded-full bg-[#E8B84B]/10 border border-[#E8B84B]/30`. Attribution: `font-syne font-bold text-sm text-white` name + `font-mono text-[10px] text-[#555555]` role · company.
+
+### 4.19 Footer
+
+Rendered on `/`, `/blog`, `/blog/:slug`, `/games`. Not rendered on individual game pages or `/draw`.
+
+```
+bg-[#0D0D0D] border-t border-[#2A2A2A]
+```
+
+Gold gradient top accent (visual transition from page content):
+```jsx
+<div className="h-[1px] bg-gradient-to-r from-transparent via-[#E8B84B]/40 to-transparent" />
+```
+
+Three-column layout (stacks on mobile):
+- **Brand** — `font-syne font-bold text-white` name + `text-[#555555] text-sm` tagline
+- **Nav links** — `text-sm text-[#555555] hover:text-[#E8B84B] transition-colors`
+- **Social icons** — `w-9 h-9 rounded-lg bg-[#1A1A1A] border border-[#2A2A2A]` icon buttons, hover gold border + text
+
+Bottom row (inside `border-t border-[#2A2A2A] pt-6`):
+- Copyright: `font-mono text-[11px] text-[#444444]`
+- "Built with" stack: same class, tech names in `text-[#E8B84B]/70`
+
+Entrance: `whileInView opacity 0→1, y 20→0, duration 0.5`.
 
 ---
 
@@ -538,7 +569,7 @@ All API calls go through `client/src/lib/api.ts`. It reads `VITE_API_URL` (falls
 4. **Cards use the three-part recipe** (surface bg + border + gold left-border inline style). Don't invent new card styles.
 5. **All animations at module scope.** No inline Framer Motion objects.
 6. **Hover glows use one of two palettes:** gold (`rgba(232,184,75,...)`) for content, blue-teal (`rgba(0,98,255,...)` + `rgba(0,255,251,...)`) for featured/hero elements.
-7. **New pages inherit the Header and GoldenCursor** components from the portfolio shell.
+7. **New content pages inherit the Header, GoldenCursor, and Footer** components. Fullscreen tool/game pages (individual game routes, /draw) omit the Footer.
 8. **Font for any heading or button: `font-syne font-bold`.** Body text defaults to DM Sans (`font-sans`). Code always `font-mono`.
 9. **Muted label pattern:** `text-xs uppercase tracking-widest text-[#555555]`
 10. **Dividers inside cards:** `border-t border-[#2A2A2A]` — never a full horizontal rule (`<hr>`).
