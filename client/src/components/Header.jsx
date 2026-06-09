@@ -54,12 +54,12 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { id: "about", label: "About Me" },
-    { id: "skills", label: "Skills" },
-    { id: "experience", label: "Professional Journey" },
+    { id: "about", label: "About" },
+    { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
-    { id: "blog", label: "Dev Notes" },
-    { id: "games", label: "Side Quests" },
+    { id: "blog", label: "Blog" },
+    { id: "games", label: "Games" },
+    { id: "skills", label: "Skills" },
     { id: "contact", label: "Contact" },
   ];
 
