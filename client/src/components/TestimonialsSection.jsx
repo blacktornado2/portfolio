@@ -65,21 +65,6 @@ export default function TestimonialsSection() {
       aria-labelledby="testimonials-heading"
       className="bg-[#111111] py-24 overflow-hidden"
     >
-      <style>{`
-        @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .marquee-track {
-          display: flex;
-          width: max-content;
-          animation: marquee 40s linear infinite;
-        }
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-16">
         <motion.div

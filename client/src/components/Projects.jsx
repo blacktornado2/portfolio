@@ -70,11 +70,11 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="projects-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         <motion.div {...HEADER_ANIM} className="mb-4">
-          <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="projects-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
             <span className="text-[#E8B84B]">03</span> — Projects
           </h2>
         </motion.div>

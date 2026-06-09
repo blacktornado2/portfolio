@@ -31,6 +31,20 @@ const inputClass = (error) =>
     : "border-[#2A2A2A] focus:border-[#E8B84B]"
   }`;
 
+function ContactRow({ icon: Icon, label, children }) {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
+        <Icon className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
+      </div>
+      <div>
+        <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">{label}</p>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 const EMPTY_FORM = { name: "", email: "", subject: "", message: "" };
 
 function validateForm(data) {
@@ -112,70 +126,40 @@ export default function Contact() {
             </div>
 
             <div className="space-y-5">
-              {/* Email */}
-              <div className="flex items-center gap-4">
-                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
-                  <Mail className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">Email</p>
-                  <a
-                    href={`mailto:${myEmail}`}
-                    className="text-[#888888] hover:text-[#E8B84B] transition-colors font-mono text-sm break-all"
-                  >
-                    {myEmail}
-                  </a>
-                </div>
-              </div>
+              <ContactRow icon={Mail} label="Email">
+                <a
+                  href={`mailto:${myEmail}`}
+                  className="text-[#888888] hover:text-[#E8B84B] transition-colors font-mono text-sm break-all"
+                >
+                  {myEmail}
+                </a>
+              </ContactRow>
 
-              {/* Location */}
-              <div className="flex items-center gap-4">
-                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">Location</p>
-                  <p className="text-[#888888] text-sm">
-                    {myLocation}, {myPincode}
-                  </p>
-                </div>
-              </div>
+              <ContactRow icon={MapPin} label="Location">
+                <p className="text-[#888888] text-sm">{myLocation}, {myPincode}</p>
+              </ContactRow>
 
-              {/* GitHub */}
-              <div className="flex items-center gap-4">
-                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
-                  <FaGithub className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">GitHub</p>
-                  <a
-                    href={myGithub}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
-                  >
-                    {myGithub.replace("https://", "")}
-                  </a>
-                </div>
-              </div>
+              <ContactRow icon={FaGithub} label="GitHub">
+                <a
+                  href={myGithub}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+                >
+                  {myGithub.replace("https://", "")}
+                </a>
+              </ContactRow>
 
-              {/* LinkedIn */}
-              <div className="flex items-center gap-4">
-                <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
-                  <FaLinkedin className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">LinkedIn</p>
-                  <a
-                    href={myLinkedIn}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
-                  >
-                    {myLinkedIn.replace("https://www.", "").replace(/\/$/, "")}
-                  </a>
-                </div>
-              </div>
+              <ContactRow icon={FaLinkedin} label="LinkedIn">
+                <a
+                  href={myLinkedIn}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+                >
+                  {myLinkedIn.replace("https://www.", "").replace(/\/$/, "")}
+                </a>
+              </ContactRow>
             </div>
           </motion.div>
 

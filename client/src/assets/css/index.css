@@ -82,6 +82,18 @@ pre[class*="language-"] {
 .token.comment { color: #444444 !important; font-style: italic; }
 .token.function { color: #FFFFFF !important; }
 
+/* ---- Testimonials marquee ---- */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
 /* ---- Command palette scrollbar ---- */
 .cmd-palette-results::-webkit-scrollbar { width: 4px; }
 .cmd-palette-results::-webkit-scrollbar-track { background: transparent; }

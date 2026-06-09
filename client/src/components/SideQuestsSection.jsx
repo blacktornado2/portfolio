@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const HEADER_ANIM = {
   initial: { opacity: 0, y: 20 },
@@ -15,11 +16,6 @@ const SUBHEADER_ANIM = {
   transition: { duration: 0.5, delay: 0.1 },
 };
 
-const ARROW_ICON = (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-  </svg>
-);
 
 const games = [
   {
@@ -58,7 +54,7 @@ export default function SideQuestsSection() {
             to="/games"
             className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[#E8B84B] transition-colors duration-150"
           >
-            All games {ARROW_ICON}
+            All games <ArrowRight className="w-3 h-3" />
           </Link>
         </motion.div>
 
@@ -93,7 +89,7 @@ export default function SideQuestsSection() {
                     {description}
                   </p>
                   <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#555555] group-hover:text-[#E8B84B] transition-colors duration-150 pt-3 border-t border-[#2A2A2A]">
-                    Play now {ARROW_ICON}
+                    Play now <ArrowRight className="w-3 h-3" />
                   </div>
                 </Link>
               </motion.div>
@@ -112,7 +108,7 @@ export default function SideQuestsSection() {
             to="/games"
             className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[#E8B84B] transition-colors duration-150"
           >
-            All games {ARROW_ICON}
+            All games <ArrowRight className="w-3 h-3" />
           </Link>
         </motion.div>
 

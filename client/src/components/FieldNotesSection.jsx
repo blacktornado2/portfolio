@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { getPosts } from "@/lib/api";
 
 const HEADER_ANIM = {
@@ -17,11 +18,6 @@ const SUBHEADER_ANIM = {
   transition: { duration: 0.5, delay: 0.1 },
 };
 
-const ARROW_ICON = (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-  </svg>
-);
 
 function PostCard({ post, index }) {
   return (
@@ -92,7 +88,7 @@ export default function FieldNotesSection() {
             to="/blog"
             className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[#E8B84B] transition-colors duration-150"
           >
-            View all posts {ARROW_ICON}
+            View all posts <ArrowRight className="w-3 h-3" />
           </Link>
         </motion.div>
 
@@ -120,7 +116,7 @@ export default function FieldNotesSection() {
                 to="/blog"
                 className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[#E8B84B] transition-colors duration-150"
               >
-                View all posts {ARROW_ICON}
+                View all posts <ArrowRight className="w-3 h-3" />
               </Link>
             </motion.div>
           </>

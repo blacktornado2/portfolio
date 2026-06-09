@@ -89,12 +89,12 @@ const skillCategories = [
 
 export default function SkillsSection() {
   return (
-    <section className="bg-[#111111] py-24 px-6 lg:px-12">
+    <section aria-labelledby="skills-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
-          <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
+          <h2 id="skills-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
             <span className="text-[#E8B84B]">06</span> — Skills
           </h2>
         </motion.div>
