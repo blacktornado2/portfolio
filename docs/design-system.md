@@ -378,6 +378,36 @@ Bottom row (inside `border-t border-[#2A2A2A] pt-6`):
 
 Entrance: `whileInView opacity 0→1, y 20→0, duration 0.5`.
 
+### 4.20 Stats Strip
+
+A narrow surface band between Hero and Experience showing key metrics with counting animations. Currently **commented out** in `App.jsx` — uncomment `<StatsStrip />` to activate.
+
+```
+bg-[#1A1A1A] border-y border-[#2A2A2A] py-10 px-6 lg:px-12
+```
+
+Layout: `grid grid-cols-2 md:grid-cols-4 gap-8 text-center`
+
+Each stat cell:
+- Number: `font-syne font-bold text-3xl lg:text-4xl text-white` with gold suffix (`text-[#E8B84B]`)
+- Label: `text-[#888888] text-sm tracking-wide`
+
+Counting animation — driven by Framer Motion `useMotionValue` + `useTransform` + `useInView`:
+```js
+const count = useMotionValue(0);
+const rounded = useTransform(count, Math.round);
+const inView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+
+useEffect(() => {
+  if (!inView) return;
+  const controls = animate(count, targetValue, { duration: 1.5, ease: "easeOut" });
+  return controls.stop;
+}, [inView]);
+// render: <motion.span>{rounded}</motion.span>
+```
+
+Strip entrance: `whileInView opacity 0→1, y 12→0, duration 0.5`. Items stagger at `0.1s` per cell.
+
 ---
 
 ## 5. Animation & Motion
@@ -503,6 +533,7 @@ Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
 ```
 / (SPA)
   #home          → Hero + code window
+               → StatsStrip (between Hero and Experience — currently commented out)
   #experience    → experience cards                          (02 — Professional Journey)
   #projects      → 2-col project cards                       (03 — Projects)
   #blog          → 3 latest posts preview, CTA to /blog      (04 — Dev Notes)

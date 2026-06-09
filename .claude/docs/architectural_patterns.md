@@ -111,6 +111,31 @@ Conditional Tailwind classes use `cn()` from `client/src/lib/utils.js` (clsx + t
 
 ---
 
+## 9. Animated Counter Pattern (`StatsStrip.jsx`)
+
+`StatsStrip.jsx` (currently commented out in `App.jsx`) uses a `Counter` sub-component that animates a number from 0 to a target value when scrolled into view.
+
+```js
+const count = useMotionValue(0);
+const rounded = useTransform(count, Math.round);
+const inView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
+
+useEffect(() => {
+  if (!inView) return;
+  const controls = animate(count, targetValue, { duration: 1.5, ease: "easeOut" });
+  return controls.stop;
+}, [inView]);
+// render: <motion.span>{rounded}</motion.span>
+```
+
+Key points:
+- `useMotionValue` holds the raw (fractional) count; `useTransform(count, Math.round)` produces an integer for display
+- `animate(count, value, ...)` drives the motion value directly — no React state, no re-render loop
+- `useInView` with `once: true` fires the animation exactly once on first scroll-into-view
+- The `margin` option pre-triggers the animation slightly before the element is fully visible
+
+---
+
 ## Note on `Education.jsx`
 
 `Education.jsx` still exists in `client/src/components/` and follows these same patterns, but it is **orphaned** — it is not rendered anywhere in `App.jsx`. Treat it as dead code unless deliberately reintroduced.

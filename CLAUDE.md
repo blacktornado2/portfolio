@@ -44,6 +44,7 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/components/SideQuestsSection.jsx` | 05 — Side Quests: static cards for 2048, Wordle, TypeRacer |
 | `client/src/components/TestimonialsSection.jsx` | 07 — Testimonials: infinite marquee, gold glow on hover, NOT in navbar |
 | `client/src/components/Footer.jsx` | Global footer — rendered on `/`, `/blog`, `/blog/:slug`, `/games`; not on game/draw pages |
+| `client/src/components/StatsStrip.jsx` | Animated stats strip (Years Experience, Projects, Technologies, Clients) — **currently commented out** in App.jsx, pending integration |
 | `client/src/components/ui/` | shadcn/ui primitives — read-only vendor code |
 | `client/src/blog/` | Blog index, post view, markdown content |
 | `client/src/games/` | Games index + individual games (2048, Wordle, Typeracer) |
