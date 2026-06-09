@@ -82,7 +82,7 @@ accent      →  var(--accent)
 | Sub-heading (h3 large) | `font-syne font-bold text-3xl` |
 | Body large | `text-lg leading-relaxed` |
 | Body default | `text-sm leading-relaxed` (most card copy) |
-| Label / meta | `text-xs uppercase tracking-widest text-[#555555]` |
+| Label / meta | `text-xs uppercase tracking-widest text-[var(--text-3)]` |
 | Skill pill / badge | `text-sm` |
 | Code | `font-mono text-sm` (14px) / `!text-[15px]` in Prism block |
 | Nav link | `text-sm font-medium` |
@@ -91,14 +91,14 @@ accent      →  var(--accent)
 ### Section heading pattern
 
 ```
-<span class="text-[#E8B84B]">01</span> — About Me
-<span class="text-[#E8B84B]">02</span> — Professional Journey
-<span class="text-[#E8B84B]">03</span> — Projects
-<span class="text-[#E8B84B]">04</span> — Dev Notes
-<span class="text-[#E8B84B]">05</span> — Side Quests
-<span class="text-[#E8B84B]">06</span> — Skills
-<span class="text-[#E8B84B]">07</span> — Testimonials
-<span class="text-[#E8B84B]">08</span> — Contact
+<span class="text-[var(--accent)]">01</span> — About Me
+<span class="text-[var(--accent)]">02</span> — Professional Journey
+<span class="text-[var(--accent)]">03</span> — Projects
+<span class="text-[var(--accent)]">04</span> — Dev Notes
+<span class="text-[var(--accent)]">05</span> — Side Quests
+<span class="text-[var(--accent)]">06</span> — Skills
+<span class="text-[var(--accent)]">07</span> — Testimonials
+<span class="text-[var(--accent)]">08</span> — Contact
 ```
 
 New sections follow: `09`, `10`, etc.
@@ -558,7 +558,7 @@ Hover transition: `{ duration: 0.3 }` (default), `{ type: "spring", stiffness: 4
 | `react-icons/fc` | Full-colour icons (FcWorkflow) |
 
 Icon sizes: `w-6 h-6` (card category header), `w-5 h-5` (contact info rows), `w-4 h-4` (pills, link icons).
-Icon colour in cards/containers: `text-[#E8B84B]`.
+Icon colour in cards/containers: `text-[var(--accent)]`.
 Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
 
 ---
@@ -598,7 +598,7 @@ Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
 /draw             → DrawPage — canvas drawing tool
 ```
 
-Sections use `border-t border-[#2A2A2A]` between them for visual separation (About section).
+Sections use `border-t border-[var(--border)]` between them for visual separation (About section).
 
 ---
 
