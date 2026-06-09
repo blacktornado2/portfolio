@@ -75,6 +75,11 @@ export async function deletePost(slug: string) {
   return apiFetch(`/posts/${slug}`, { method: 'DELETE' });
 }
 
+// Admin — all comments
+export async function getAllComments() {
+  return apiFetch('/comments');
+}
+
 // Comments
 export async function getComments(slug: string) {
   return apiFetch(`/posts/${slug}/comments`);

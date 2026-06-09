@@ -3,7 +3,7 @@ export const STORAGE_KEY = "draw:canvas";
 export const PALETTE_KEY = "draw:palette";
 
 // Default preset palette (gold, white, green, blue, red) — matches portfolio accent first
-export const DEFAULT_COLORS = ["#E8B84B", "#FFFFFF", "#22C55E", "#3B82F6", "#EF4444"];
+export const DEFAULT_COLORS = ["var(--accent)", "#FFFFFF", "#22C55E", "#3B82F6", "#EF4444"];
 
 // Stroke/shape size slider bounds (px line width)
 export const MIN_SIZE = 1;

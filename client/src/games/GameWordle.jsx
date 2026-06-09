@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CSS = `
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  :root{--bg:#111111;--bg2:#1A1A1A;--border:#2A2A2A;--text:#fff;--muted:#888;--muted2:#555;--accent:#E8B84B;--green:#22C55E;--yellow:#E8B84B;--gray:#3A3A3A;}
+  :root{--bg:#111111;--bg2:#1A1A1A;--border:#2A2A2A;--text:#fff;--muted:#888;--muted2:#555;--accent:var(--accent);--green:#22C55E;--yellow:var(--accent);--gray:#3A3A3A;}
   html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
   header{position:sticky;top:0;z-index:50;background:rgba(17,17,17,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
   .g-header-inner{max-width:480px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;}
@@ -39,7 +39,7 @@ const CSS = `
   .key:active{transform:scale(0.95);}
   .divider{width:100%;border:none;border-top:1px solid var(--border);margin:20px 0;}
   .play-again{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;background:var(--accent);color:#111;padding:10px 28px;border-radius:8px;border:none;cursor:pointer;}
-  .play-again:hover{background:#d4a83e;}
+  .play-again:hover{background:var(--accent-dark);}
   .streak-row{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted2);margin-bottom:16px;}
 `;
 

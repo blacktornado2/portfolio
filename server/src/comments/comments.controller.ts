@@ -30,6 +30,12 @@ export class CommentsController {
 export class AdminCommentsController {
   constructor(private commentsService: CommentsService) {}
 
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  findAll() {
+    return this.commentsService.findAll();
+  }
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   delete(@Param('id', ParseIntPipe) id: number) {

@@ -12,10 +12,8 @@ import { TbBrandVscode } from "react-icons/tb";
 import { BsFileEarmarkCode, BsGrid1X2 } from "react-icons/bs";
 import { FcWorkflow } from "react-icons/fc";
 import IconCloudDemo from "./globe";
-
 import { HEADER_ANIM, CARD_BORDER, VIEWPORT_ONCE, cardVariants } from "../lib/animations";
-
-const CARD_HOVER = { scale: 1.03, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
+import { useTheme } from "../lib/ThemeContext";
 
 const skillCategories = [
   {
@@ -73,6 +71,9 @@ const skillCategories = [
 ];
 
 export default function SkillsSection() {
+  const { theme } = useTheme();
+  const cardHover = { scale: 1.03, boxShadow: `0 0 24px ${theme.r35}` };
+
   return (
     <section aria-labelledby="skills-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
@@ -80,7 +81,7 @@ export default function SkillsSection() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
           <h2 id="skills-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">06</span> — Skills
+            <span className="text-[var(--accent)]">06</span> — Skills
           </h2>
         </motion.div>
 
@@ -101,12 +102,12 @@ export default function SkillsSection() {
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
               variants={cardVariants}
-              whileHover={CARD_HOVER}
+              whileHover={cardHover}
               className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] p-6"
               style={CARD_BORDER}
             >
               <div className="flex items-center gap-3 mb-4">
-                <Icon className="w-6 h-6 text-[#E8B84B]" aria-hidden="true" />
+                <Icon className="w-6 h-6 text-[var(--accent)]" aria-hidden="true" />
                 <h3 className="font-syne font-bold text-white text-xl">{title}</h3>
               </div>
               <div className="border-t border-[#2A2A2A] pt-4 flex flex-wrap gap-2">
@@ -115,8 +116,8 @@ export default function SkillsSection() {
                     key={name}
                     whileHover={{
                       scale: 1.1,
-                      boxShadow: "0 0 14px rgba(232, 184, 75, 0.45)",
-                      borderColor: "rgba(232, 184, 75, 0.5)",
+                      boxShadow: `0 0 14px ${theme.r45}`,
+                      borderColor: theme.r50,
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     className="relative flex items-center gap-1.5 bg-[#111111] border border-[#2A2A2A] text-[#888888] rounded-md px-3 py-1.5 text-sm overflow-hidden cursor-default group"

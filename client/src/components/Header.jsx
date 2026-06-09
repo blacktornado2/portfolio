@@ -42,7 +42,6 @@ export default function Header() {
     return () => observers.forEach((obs) => obs?.disconnect());
   }, []);
 
-  // ⌘K / Ctrl+K global shortcut
   useEffect(() => {
     const onKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -75,7 +74,7 @@ export default function Header() {
       >
         {/* Scroll progress bar */}
         <motion.div
-          className="absolute top-0 left-0 right-0 h-[2px] bg-[#E8B84B] origin-left z-50"
+          className="absolute top-0 left-0 right-0 h-[2px] bg-[var(--accent)] origin-left z-50"
           style={{ scaleX }}
         />
 
@@ -84,7 +83,7 @@ export default function Header() {
           <HashLink
             to="/#home"
             smooth
-            className="font-syne font-bold text-white text-lg hover:text-[#E8B84B] transition-colors"
+            className="font-syne font-bold text-white text-lg hover:text-[var(--accent)] transition-colors"
           >
             Ankit Bhardwaj
           </HashLink>
@@ -96,7 +95,7 @@ export default function Header() {
                 <Link
                   key={id}
                   to={href}
-                  className="text-sm font-medium text-[#888888] hover:text-[#E8B84B] transition-colors"
+                  className="text-sm font-medium text-[#888888] hover:text-[var(--accent)] transition-colors"
                 >
                   {label}
                 </Link>
@@ -106,8 +105,8 @@ export default function Header() {
                   to={`/#${id}`}
                   smooth
                   onClick={() => setMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors hover:text-[#E8B84B] ${
-                    activeSection === id ? "text-[#E8B84B]" : "text-[#888888]"
+                  className={`text-sm font-medium transition-colors hover:text-[var(--accent)] ${
+                    activeSection === id ? "text-[var(--accent)]" : "text-[#888888]"
                   }`}
                 >
                   {label}
@@ -119,13 +118,13 @@ export default function Header() {
             <button
               onClick={() => setPaletteOpen(true)}
               aria-label="Open command palette"
-              className="flex items-center gap-2 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg px-3 py-1.5 font-mono text-[11px] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors duration-150 group"
+              className="flex items-center gap-2 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg px-3 py-1.5 font-mono text-[11px] text-[#888888] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors duration-150 group"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
               Search
-              <span className="border border-[#2A2A2A] rounded px-[5px] py-[1px] text-[10px] text-[#555555] group-hover:border-[#E8B84B]/40 transition-colors">
+              <span className="border border-[#2A2A2A] rounded px-[5px] py-[1px] text-[10px] text-[#555555] group-hover:border-[var(--accent-40)] transition-colors">
                 ⌘K
               </span>
             </button>
@@ -133,18 +132,18 @@ export default function Header() {
             <HashLink
               to="/#contact"
               smooth
-              className="font-syne font-bold text-sm bg-[#E8B84B] text-[#111111] px-4 py-2 rounded-md hover:bg-[#d4a83e] transition-colors"
+              className="font-syne font-bold text-sm bg-[var(--accent)] text-[#111111] px-4 py-2 rounded-md hover:bg-[var(--accent-dark)] transition-colors"
             >
               Hire Me
             </HashLink>
           </nav>
 
           {/* Mobile — search icon + hamburger */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-3">
             <button
               onClick={() => setPaletteOpen(true)}
               aria-label="Open command palette"
-              className="text-[#888888] hover:text-[#E8B84B] transition-colors p-1"
+              className="text-[#888888] hover:text-[var(--accent)] transition-colors p-1"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -170,7 +169,7 @@ export default function Header() {
                   key={id}
                   to={href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-[#888888] hover:text-[#E8B84B] transition-colors font-medium"
+                  className="text-[#888888] hover:text-[var(--accent)] transition-colors font-medium"
                 >
                   {label}
                 </Link>
@@ -180,7 +179,7 @@ export default function Header() {
                   to={`/#${id}`}
                   smooth
                   onClick={() => setMenuOpen(false)}
-                  className="text-[#888888] hover:text-[#E8B84B] transition-colors font-medium"
+                  className="text-[#888888] hover:text-[var(--accent)] transition-colors font-medium"
                 >
                   {label}
                 </HashLink>
@@ -190,7 +189,7 @@ export default function Header() {
               to="/#contact"
               smooth
               onClick={() => setMenuOpen(false)}
-              className="font-syne font-bold text-sm bg-[#E8B84B] text-[#111111] px-4 py-3 rounded-md text-center hover:bg-[#d4a83e] transition-colors"
+              className="font-syne font-bold text-sm bg-[var(--accent)] text-[#111111] px-4 py-3 rounded-md text-center hover:bg-[var(--accent-dark)] transition-colors"
             >
               Hire Me
             </HashLink>

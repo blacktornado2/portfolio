@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./assets/css/index.css";
 
 import Header from "./components/Header";
@@ -21,6 +21,11 @@ import Game2048 from "./games/Game2048";
 import GameWordle from "./games/GameWordle";
 import GameTyperacer from "./games/GameTyperacer";
 import DrawPage from "./draw/DrawPage";
+import AdminLayout from "./admin/AdminLayout";
+import AdminLogin from "./admin/AdminLogin";
+import AdminPosts from "./admin/AdminPosts";
+import AdminPostEditor from "./admin/AdminPostEditor";
+import AdminComments from "./admin/AdminComments";
 
 function PortfolioHome() {
   return (
@@ -68,6 +73,16 @@ export default function App() {
       <Route path="/games/wordle" element={<GameWordle />} />
       <Route path="/games/typeracer" element={<GameTyperacer />} />
       <Route path="/draw" element={<DrawPage />} />
+
+      {/* Admin */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Navigate to="/admin/posts" replace />} />
+        <Route path="posts" element={<AdminPosts />} />
+        <Route path="posts/new" element={<AdminPostEditor />} />
+        <Route path="posts/:slug/edit" element={<AdminPostEditor />} />
+        <Route path="comments" element={<AdminComments />} />
+      </Route>
     </Routes>
   );
 }

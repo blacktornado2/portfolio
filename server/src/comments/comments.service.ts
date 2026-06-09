@@ -27,6 +27,21 @@ export class CommentsService {
     });
   }
 
+  async findAll() {
+    return this.prisma.comment.findMany({
+      where: { deleted: false },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        authorName: true,
+        authorEmail: true,
+        body: true,
+        createdAt: true,
+        post: { select: { title: true, slug: true } },
+      },
+    });
+  }
+
   async delete(commentId: number) {
     const comment = await this.prisma.comment.findUnique({ where: { id: commentId } });
     if (!comment) throw new NotFoundException(`Comment ${commentId} not found`);

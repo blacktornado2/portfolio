@@ -226,7 +226,7 @@ export default function CommandPalette({ isOpen, onClose }) {
               transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Glow border */}
-              <div className="absolute inset-[-1px] rounded-[13px] bg-gradient-to-br from-[#E8B84B]/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-[-1px] rounded-[13px] bg-gradient-to-br from-[var(--accent-20)] to-transparent pointer-events-none" />
 
               <div className="bg-[#141414] border border-[#2A2A2A] rounded-xl overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6),0_0_0_0.5px_rgba(255,255,255,0.04)_inset]">
                 {/* Search row */}
@@ -271,11 +271,11 @@ export default function CommandPalette({ isOpen, onClose }) {
                               onClick={() => item.action()}
                               onMouseEnter={() => setActiveIdx(idx)}
                               className={`flex items-center gap-3 w-full px-4 py-2.5 text-left border-0 cursor-pointer transition-colors duration-75 ${isActive
-                                ? "bg-[#E8B84B]/10 text-[#E8B84B]"
+                                ? "bg-[var(--accent-10)] text-[var(--accent)]"
                                 : "bg-transparent text-[#cccccc]"
                                 }`}
                             >
-                              <span className={`w-4 flex items-center shrink-0 ${isActive ? "text-[#E8B84B]" : "text-[#555555]"}`}>
+                              <span className={`w-4 flex items-center shrink-0 ${isActive ? "text-[var(--accent)]" : "text-[#555555]"}`}>
                                 {ICON_MAP[item.icon]}
                               </span>
                               <span className="font-sans text-[14px] flex-1">{item.label}</span>
@@ -311,7 +311,7 @@ export default function CommandPalette({ isOpen, onClose }) {
       <AnimatePresence>
         {toast && (
           <motion.div
-            className="fixed bottom-6 z-[300] bg-[#1A1A1A] border border-[#E8B84B] text-[#E8B84B] font-mono text-[12px] px-5 py-2.5 rounded-lg whitespace-nowrap"
+            className="fixed bottom-6 z-[300] bg-[#1A1A1A] border border-[var(--accent)] text-[var(--accent)] font-mono text-[12px] px-5 py-2.5 rounded-lg whitespace-nowrap"
             style={{ left: "50%" }}
             initial={{ opacity: 0, y: 8, x: "-50%" }}
             animate={{ opacity: 1, y: 0, x: "-50%" }}

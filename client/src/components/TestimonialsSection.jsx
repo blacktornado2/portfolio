@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { HEADER_ANIM, SUBHEADER_ANIM } from "../lib/animations";
+import { useTheme } from "../lib/ThemeContext";
 
 const testimonials = [
   {
@@ -32,18 +33,19 @@ function getInitials(name) {
 }
 
 function TestimonialCard({ quote, name, role, company }) {
+  const { theme } = useTheme();
   return (
     <motion.div
       className="w-[340px] shrink-0 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-6 flex flex-col gap-4 mx-3"
-      initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
-      whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+      initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
+      whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
       transition={{ duration: 0.2 }}
     >
-      <span className="font-serif text-5xl leading-none text-[#E8B84B] select-none">&ldquo;</span>
+      <span className="font-serif text-5xl leading-none text-[var(--accent)] select-none">&ldquo;</span>
       <p className="text-sm text-[#888888] leading-relaxed flex-1">{quote}</p>
       <div className="flex items-center gap-3 pt-4 border-t border-[#2A2A2A]">
-        <div className="w-9 h-9 rounded-full bg-[#E8B84B]/10 border border-[#E8B84B]/30 flex items-center justify-center shrink-0">
-          <span className="font-mono text-[11px] font-bold text-[#E8B84B]">
+        <div className="w-9 h-9 rounded-full bg-[var(--accent-10)] border border-[var(--accent-20)] flex items-center justify-center shrink-0">
+          <span className="font-mono text-[11px] font-bold text-[var(--accent)]">
             {getInitials(name)}
           </span>
         </div>
@@ -73,7 +75,7 @@ export default function TestimonialsSection() {
             id="testimonials-heading"
             className="font-syne font-bold text-4xl lg:text-5xl text-white"
           >
-            <span className="text-[#E8B84B]">07</span> — Testimonials
+            <span className="text-[var(--accent)]">07</span> — Testimonials
           </h2>
         </motion.div>
         <motion.p {...SUBHEADER_ANIM} className="text-[#888888] italic">

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CSS = `
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  :root{--bg:#111111;--bg2:#1A1A1A;--bg3:#161616;--border:#2A2A2A;--text:#fff;--muted:#888;--muted2:#555;--accent:#E8B84B;--green:#22C55E;--red:#EF4444;}
+  :root{--bg:#111111;--bg2:#1A1A1A;--bg3:#161616;--border:#2A2A2A;--text:#fff;--muted:#888;--muted2:#555;--accent:var(--accent);--green:#22C55E;--red:#EF4444;}
   html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
   header{position:sticky;top:0;z-index:50;background:rgba(17,17,17,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
   .g-header-inner{max-width:800px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;}
@@ -41,7 +41,7 @@ const CSS = `
   .btn-row{display:flex;justify-content:center;gap:12px;margin-bottom:32px;}
   .btn{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;padding:10px 28px;border-radius:8px;cursor:pointer;border:none;transition:all 0.15s;}
   .btn-primary{background:var(--accent);color:#111;}
-  .btn-primary:hover{background:#d4a83e;}
+  .btn-primary:hover{background:var(--accent-dark);}
   .btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;}
   .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
   .result-screen{text-align:center;padding:40px 0;}

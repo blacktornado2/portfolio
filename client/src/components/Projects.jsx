@@ -5,8 +5,7 @@ import vitanoPreview from "../assets/images/vitano-preview.png";
 import utkarshPreview from "../assets/images/utkarsh-portfolio.png";
 import { myGithub } from "../constants";
 import { HEADER_ANIM, SUBHEADER_ANIM, CARD_BORDER, VIEWPORT_ONCE, cardVariantsSlow } from "../lib/animations";
-
-const CARD_HOVER = { scale: 1.03, boxShadow: "0 0 24px rgba(232, 184, 75, 0.35)" };
+import { useTheme } from "../lib/ThemeContext";
 
 const projects = [
   {
@@ -46,13 +45,16 @@ const projects = [
 ];
 
 export default function Projects() {
+  const { theme } = useTheme();
+  const cardHover = { scale: 1.03, boxShadow: `0 0 24px ${theme.r35}` };
+
   return (
     <section aria-labelledby="projects-heading" className="bg-[#111111] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
         <motion.div {...HEADER_ANIM} className="mb-4">
           <h2 id="projects-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">03</span> — Projects
+            <span className="text-[var(--accent)]">03</span> — Projects
           </h2>
         </motion.div>
 
@@ -69,7 +71,7 @@ export default function Projects() {
               whileInView="visible"
               viewport={VIEWPORT_ONCE}
               variants={cardVariantsSlow}
-              whileHover={CARD_HOVER}
+              whileHover={cardHover}
               className="bg-[#1A1A1A] rounded-xl border border-[#2A2A2A] flex flex-col overflow-hidden"
               style={CARD_BORDER}
             >
@@ -104,7 +106,7 @@ export default function Projects() {
                     href={github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
+                    className="flex items-center gap-2 text-sm text-[#888888] hover:text-[var(--accent)] transition-colors"
                   >
                     <FaGithub className="w-4 h-4" />
                     GitHub
@@ -113,7 +115,7 @@ export default function Projects() {
                     href={live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-[#888888] hover:text-[#E8B84B] transition-colors"
+                    className="flex items-center gap-2 text-sm text-[#888888] hover:text-[var(--accent)] transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Live Demo

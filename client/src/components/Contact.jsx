@@ -22,14 +22,14 @@ const RIGHT_ANIM = {
 const inputClass = (error) =>
   `w-full bg-[#111111] border rounded-lg px-4 py-3 text-white placeholder-[#555555] focus:outline-none transition-colors ${error
     ? "border-red-500 focus:border-red-400"
-    : "border-[#2A2A2A] focus:border-[#E8B84B]"
+    : "border-[#2A2A2A] focus:border-[var(--accent)]"
   }`;
 
 function ContactRow({ icon: Icon, label, children }) {
   return (
     <div className="flex items-center gap-4">
       <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-3 rounded-lg flex-shrink-0">
-        <Icon className="w-5 h-5 text-[#E8B84B]" aria-hidden="true" />
+        <Icon className="w-5 h-5 text-[var(--accent)]" aria-hidden="true" />
       </div>
       <div>
         <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">{label}</p>
@@ -101,7 +101,7 @@ export default function Contact() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
           <h2 id="contact-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">08</span> — Contact
+            <span className="text-[var(--accent)]">08</span> — Contact
           </h2>
         </motion.div>
 
@@ -123,7 +123,7 @@ export default function Contact() {
               <ContactRow icon={Mail} label="Email">
                 <a
                   href={`mailto:${myEmail}`}
-                  className="text-[#888888] hover:text-[#E8B84B] transition-colors font-mono text-sm break-all"
+                  className="text-[#888888] hover:text-[var(--accent)] transition-colors font-mono text-sm break-all"
                 >
                   {myEmail}
                 </a>
@@ -138,7 +138,7 @@ export default function Contact() {
                   href={myGithub}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+                  className="text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
                 >
                   {myGithub.replace("https://", "")}
                 </a>
@@ -149,7 +149,7 @@ export default function Contact() {
                   href={myLinkedIn}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+                  className="text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
                 >
                   {myLinkedIn.replace("https://www.", "").replace(/\/$/, "")}
                 </a>
@@ -189,7 +189,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full font-syne font-bold bg-[#E8B84B] text-[#111111] py-3 px-6 rounded-lg hover:bg-[#d4a83e] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full font-syne font-bold bg-[var(--accent)] text-[#111111] py-3 px-6 rounded-lg hover:bg-[var(--accent-dark)] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {loading ? "Sending…" : "Send Message"}
                   {!loading && <Send className="w-4 h-4" aria-hidden="true" />}

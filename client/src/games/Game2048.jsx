@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --bg:#111111;--bg2:#1A1A1A;--border:#2A2A2A;--text:#fff;--muted:#888;--muted2:#555;--accent:#E8B84B; }
+  :root { --bg:#111111;--bg2:#1A1A1A;--border:#2A2A2A;--text:#fff;--muted:#888;--muted2:#555;--accent:var(--accent); }
   html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;user-select:none;}
   header{position:sticky;top:0;z-index:50;background:rgba(17,17,17,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
   .g-header-inner{max-width:520px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;}
@@ -21,7 +21,7 @@ const CSS = `
   .controls{display:flex;gap:8px;margin-bottom:16px;}
   .btn{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;padding:8px 20px;border-radius:8px;cursor:pointer;border:none;transition:all 0.15s;}
   .btn-primary{background:var(--accent);color:#111;}
-  .btn-primary:hover{background:#d4a83e;}
+  .btn-primary:hover{background:var(--accent-dark);}
   .btn-secondary{background:var(--bg2);color:var(--muted);border:1px solid var(--border);}
   .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
   .hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted2);margin-bottom:16px;}
@@ -30,7 +30,7 @@ const CSS = `
   .cell{border-radius:6px;background:#222;border:1px solid #2A2A2A;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;aspect-ratio:1;transition:all 0.1s ease;position:relative;overflow:hidden;}
   .cell-inner{font-size:clamp(14px,3.5vw,28px);line-height:1;}
   .t2{background:#2A2A2A;color:#ccc;border-color:#333;}
-  .t4{background:#3A2E10;color:#E8B84B;border-color:#4A3A14;}
+  .t4{background:#3A2E10;color:var(--accent);border-color:#4A3A14;}
   .t8{background:#5C3A00;color:#FFD080;border-color:#7A4D00;}
   .t16{background:#7A2C00;color:#FFA060;border-color:#992E00;}
   .t32{background:#8B1E1E;color:#FFB0B0;border-color:#AA2222;}
@@ -39,7 +39,7 @@ const CSS = `
   .t256{background:#1A4D1A;color:#66FF66;border-color:#1E601E;}
   .t512{background:#0F3C4A;color:#66EEFF;border-color:#125560;}
   .t1024{background:#0A2A38;color:#44DDFF;border-color:#0E3F55;}
-  .t2048{background:#E8B84B;color:#111;border-color:#FFD080;}
+  .t2048{background:var(--accent);color:#111;border-color:#FFD080;}
   .tbig{background:#CC44CC;color:#fff;border-color:#DD66DD;}
   .overlay{position:absolute;inset:0;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:10;background:rgba(17,17,17,0.88);backdrop-filter:blur(4px);}
   .overlay.hidden{display:none;}

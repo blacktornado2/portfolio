@@ -6,7 +6,7 @@ function GameCard({ href, tag, title, description, preview, previewBg }) {
   return (
     <Link
       to={href}
-      className="group block bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl overflow-hidden no-underline transition-all duration-200 hover:border-[#E8B84B] hover:-translate-y-0.5"
+      className="group block bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl overflow-hidden no-underline transition-all duration-200 hover:border-[var(--accent)] hover:-translate-y-0.5"
     >
       <div
         className="h-[180px] flex items-center justify-center overflow-hidden"
@@ -17,14 +17,14 @@ function GameCard({ href, tag, title, description, preview, previewBg }) {
         </div>
       </div>
       <div className="p-6">
-        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[#E8B84B]/25 bg-[#E8B84B]/10 text-[#E8B84B] inline-block mb-2.5">
+        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)] inline-block mb-2.5">
           {tag}
         </span>
-        <h2 className="font-syne font-bold text-xl text-white mb-2 tracking-tight group-hover:text-[#E8B84B] transition-colors duration-150">
+        <h2 className="font-syne font-bold text-xl text-white mb-2 tracking-tight group-hover:text-[var(--accent)] transition-colors duration-150">
           {title}
         </h2>
         <p className="text-sm text-[#888888] leading-relaxed mb-4">{description}</p>
-        <span className="font-mono text-xs text-[#E8B84B] group-hover:tracking-wider transition-all duration-150">
+        <span className="font-mono text-xs text-[var(--accent)] group-hover:tracking-wider transition-all duration-150">
           Play now →
         </span>
       </div>
@@ -43,13 +43,13 @@ const GAMES = [
     preview: (
       <svg width="200" height="100" viewBox="0 0 200 100">
         <rect x="10" y="38" width="80" height="10" rx="2" fill="#2A2A2A" />
-        <rect x="10" y="38" width="55" height="10" rx="2" fill="#E8B84B" opacity="0.8" />
+        <rect x="10" y="38" width="55" height="10" rx="2" fill="var(--accent)" opacity="0.8" />
         <rect x="10" y="54" width="180" height="8" rx="2" fill="#222" />
         <rect x="10" y="66" width="130" height="8" rx="2" fill="#222" />
         <text x="10" y="30" fontFamily="JetBrains Mono" fontSize="11" fill="#555">
           const dev = &apos;ankit&apos;
         </text>
-        <rect x="68" y="25" width="1.5" height="13" fill="#E8B84B" opacity="0.9">
+        <rect x="68" y="25" width="1.5" height="13" fill="var(--accent)" opacity="0.9">
           <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite" />
         </rect>
       </svg>
@@ -67,10 +67,10 @@ const GAMES = [
         <rect x="5" y="5" width="52" height="52" rx="4" fill="#2A2A2A" />
         <rect x="63" y="5" width="52" height="52" rx="4" fill="#3A2E10" />
         <rect x="5" y="63" width="52" height="52" rx="4" fill="#2A1F00" />
-        <rect x="63" y="63" width="52" height="52" rx="4" fill="#E8B84B" />
-        <text x="89" y="35" fontFamily="Syne,sans-serif" fontSize="18" fontWeight="800" fill="#E8B84B" textAnchor="middle">64</text>
+        <rect x="63" y="63" width="52" height="52" rx="4" fill="var(--accent)" />
+        <text x="89" y="35" fontFamily="Syne,sans-serif" fontSize="18" fontWeight="800" fill="var(--accent)" textAnchor="middle">64</text>
         <text x="31" y="35" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="700" fill="#888" textAnchor="middle">16</text>
-        <text x="31" y="93" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="700" fill="#E8B84B" opacity="0.6" textAnchor="middle">32</text>
+        <text x="31" y="93" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="700" fill="var(--accent)" opacity="0.6" textAnchor="middle">32</text>
         <text x="89" y="93" fontFamily="Syne,sans-serif" fontSize="22" fontWeight="800" fill="#111" textAnchor="middle">2048</text>
       </svg>
     ),
@@ -94,10 +94,10 @@ const GAMES = [
         <text x="92" y="30" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="800" fill="white" textAnchor="middle">D</text>
         <text x="126" y="30" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="800" fill="white" textAnchor="middle">E</text>
         <text x="160" y="30" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="800" fill="white" textAnchor="middle">D</text>
-        <rect x="10" y="44" width="28" height="28" rx="3" fill="#E8B84B" opacity="0.7" />
+        <rect x="10" y="44" width="28" height="28" rx="3" fill="var(--accent)" opacity="0.7" />
         <rect x="44" y="44" width="28" height="28" rx="3" fill="#2A2A2A" />
         <rect x="78" y="44" width="28" height="28" rx="3" fill="#2A2A2A" />
-        <rect x="112" y="44" width="28" height="28" rx="3" fill="#E8B84B" opacity="0.7" />
+        <rect x="112" y="44" width="28" height="28" rx="3" fill="var(--accent)" opacity="0.7" />
         <rect x="146" y="44" width="28" height="28" rx="3" fill="#2A2A2A" />
         <text x="24" y="64" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="800" fill="white" textAnchor="middle">B</text>
         <text x="58" y="64" fontFamily="Syne,sans-serif" fontSize="14" fontWeight="800" fill="#555" textAnchor="middle">A</text>
@@ -116,7 +116,7 @@ export default function GamesIndex() {
         <div className="max-w-5xl mx-auto px-6 py-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12" />
@@ -134,7 +134,7 @@ export default function GamesIndex() {
           </p>
           <h1 className="font-syne font-extrabold text-[clamp(32px,6vw,52px)] leading-[1.1] tracking-[-0.04em] mb-4">
             Play something.<br />
-            <span className="text-[#E8B84B]">Take a break.</span>
+            <span className="text-[var(--accent)]">Take a break.</span>
           </h1>
           <p className="text-base text-[#888888] max-w-md leading-relaxed">
             A few games built entirely in the browser — no installs, no accounts. Just pure JavaScript fun.

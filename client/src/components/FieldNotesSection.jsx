@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { getPosts } from "@/lib/api";
 import { HEADER_ANIM, SUBHEADER_ANIM } from "@/lib/animations";
+import { useTheme } from "@/lib/ThemeContext";
 
 
 function PostCard({ post, index }) {
+  const { theme } = useTheme();
   return (
     <motion.div
       className="h-full"
@@ -17,13 +19,13 @@ function PostCard({ post, index }) {
     >
       <motion.div
         className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
-        initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
-        whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+        initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
+        whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
         transition={{ duration: 0.2 }}
       >
         <Link to={`/blog/${post.slug}`} className="group flex flex-col gap-3 p-6 h-full">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[#E8B84B]/25 bg-[#E8B84B]/10 text-[#E8B84B]">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)]">
               {post.tags[0]}
             </span>
             {post.featured && (
@@ -32,7 +34,7 @@ function PostCard({ post, index }) {
               </span>
             )}
           </div>
-          <h3 className="font-syne font-bold text-base leading-snug tracking-tight text-white flex-1 group-hover:text-[#E8B84B] transition-colors duration-150">
+          <h3 className="font-syne font-bold text-base leading-snug tracking-tight text-white flex-1 group-hover:text-[var(--accent)] transition-colors duration-150">
             {post.title}
           </h3>
           <p className="text-sm text-[#888888] leading-relaxed line-clamp-2">
@@ -69,11 +71,11 @@ export default function FieldNotesSection() {
 
         <motion.div {...HEADER_ANIM} className="mb-4 flex items-end justify-between">
           <h2 id="field-notes-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">04</span> — Dev Notes
+            <span className="text-[var(--accent)]">04</span> — Dev Notes
           </h2>
           <Link
             to="/blog"
-            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[#E8B84B] transition-colors duration-150"
+            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[var(--accent)] transition-colors duration-150"
           >
             View all posts <ArrowRight className="w-3 h-3" />
           </Link>
@@ -101,7 +103,7 @@ export default function FieldNotesSection() {
             >
               <Link
                 to="/blog"
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[#E8B84B] transition-colors duration-150"
+                className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[#888888] hover:text-[var(--accent)] transition-colors duration-150"
               >
                 View all posts <ArrowRight className="w-3 h-3" />
               </Link>

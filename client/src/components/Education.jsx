@@ -24,7 +24,7 @@ const SUBHEADER_ANIM = {
   transition: { duration: 0.5, delay: 0.1 },
 };
 
-const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
+const CARD_BORDER = { borderLeft: "3px solid var(--accent)" };
 const CARD_HOVER = { scale: 1.01 };
 const VIEWPORT_ONCE = { once: true };
 
@@ -69,7 +69,7 @@ export default function EducationSection() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-4">
           <h2 id="education-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">04</span> — Education
+            <span className="text-[var(--accent)]">04</span> — Education
           </h2>
         </motion.div>
 
@@ -104,7 +104,7 @@ export default function EducationSection() {
                     {degree}
                   </h3>
                   <span className="text-[#888888] text-sm flex items-center gap-1.5 mt-1">
-                    <BookOpen className="w-4 h-4 text-[#E8B84B] flex-shrink-0" aria-hidden="true" />
+                    <BookOpen className="w-4 h-4 text-[var(--accent)] flex-shrink-0" aria-hidden="true" />
                     {school}
                   </span>
                 </div>
@@ -127,7 +127,7 @@ export default function EducationSection() {
                   {achievements.map((a) => (
                     <span
                       key={a}
-                      className="flex items-center gap-1.5 text-xs text-[#E8B84B] bg-[#E8B84B15] border border-[#E8B84B33] rounded-full px-3 py-1"
+                      className="flex items-center gap-1.5 text-xs text-[var(--accent)] bg-[var(--accent-10)] border border-[var(--accent-20)] rounded-full px-3 py-1"
                     >
                       <Award className="w-3 h-3" aria-hidden="true" />
                       {a}

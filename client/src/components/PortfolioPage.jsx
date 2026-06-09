@@ -24,7 +24,7 @@ export default function PortfolioPage() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
           <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">01</span> — About Me
+            <span className="text-[var(--accent)]">01</span> — About Me
           </h2>
         </motion.div>
 
@@ -37,7 +37,7 @@ export default function PortfolioPage() {
               alt="Ankit Bhardwaj"
               whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[#E8B84B] ring-offset-4 ring-offset-[#111111]"
+              className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[var(--accent)] ring-offset-4 ring-offset-[#111111]"
             />
           </motion.div>
 
@@ -45,7 +45,7 @@ export default function PortfolioPage() {
           <motion.div {...BIO_ANIM} className="space-y-5 text-[#888888] text-lg leading-relaxed">
             <p>
               Hey, I'm{" "}
-              <span className="text-[#E8B84B] font-semibold">Ankit</span> — a
+              <span className="text-[var(--accent)] font-semibold">Ankit</span> — a
               full-stack and mobile developer with 4+ years of experience
               building products that people actually use. Currently at{" "}
               <span className="text-white font-medium">BetterWorks</span>,

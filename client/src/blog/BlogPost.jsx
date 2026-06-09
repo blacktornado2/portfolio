@@ -39,7 +39,7 @@ function ReadProgress() {
   }, []);
   return (
     <div
-      className="fixed top-0 left-0 h-[2px] bg-[#E8B84B] z-[100] transition-[width] duration-100"
+      className="fixed top-0 left-0 h-[2px] bg-[var(--accent)] z-[100] transition-[width] duration-100"
       style={{ width: `${pct}%` }}
     />
   );
@@ -91,8 +91,8 @@ function TableOfContents() {
                 level === 3 ? "pl-5" : "pl-2.5"
               } ${
                 active === id
-                  ? "border-[#E8B84B] text-[#E8B84B]"
-                  : "border-[#2A2A2A] text-[#888888] hover:text-[#E8B84B] hover:border-[#E8B84B]"
+                  ? "border-[var(--accent)] text-[var(--accent)]"
+                  : "border-[#2A2A2A] text-[#888888] hover:text-[var(--accent)] hover:border-[var(--accent)]"
               }`}
             >
               {label}
@@ -121,7 +121,7 @@ function TableOfContents() {
       <div className="flex flex-wrap gap-1.5">
         <a
           href="#"
-          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#888888] bg-[#1A1A1A] border border-[#2A2A2A] rounded px-2.5 py-1.5 hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors duration-150"
+          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#888888] bg-[#1A1A1A] border border-[#2A2A2A] rounded px-2.5 py-1.5 hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors duration-150"
         >
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -130,7 +130,7 @@ function TableOfContents() {
         </a>
         <a
           href="#"
-          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#888888] bg-[#1A1A1A] border border-[#2A2A2A] rounded px-2.5 py-1.5 hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors duration-150"
+          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#888888] bg-[#1A1A1A] border border-[#2A2A2A] rounded px-2.5 py-1.5 hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors duration-150"
         >
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -227,7 +227,7 @@ export default function BlogPost() {
         <div className="max-w-[1100px] mx-auto px-6 py-4">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -247,7 +247,7 @@ export default function BlogPost() {
             {post.tags.slice(0, 2).map((t) => (
               <span
                 key={t}
-                className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[#E8B84B]/25 bg-[#E8B84B]/10 text-[#E8B84B]"
+                className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)]"
               >
                 {t}
               </span>
@@ -282,7 +282,7 @@ export default function BlogPost() {
                 code: ({ node, className, children, ...props }) => {
                   const match = /language-(\w+)/.exec(className || "");
                   if (!match) {
-                    return <code className="font-mono text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] px-1.5 py-0.5 rounded text-[#E8B84B]" {...props}>{children}</code>;
+                    return <code className="font-mono text-[13px] bg-[#1A1A1A] border border-[#2A2A2A] px-1.5 py-0.5 rounded text-[var(--accent)]" {...props}>{children}</code>;
                   }
                   const lang = match[1];
                   const grammar = Prism.languages[lang];
@@ -304,7 +304,7 @@ export default function BlogPost() {
                 ),
                 a: ({ node, href, ...props }) => {
                   const safe = href && (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("/"));
-                  return <a className="text-[#E8B84B] hover:underline" href={safe ? href : "#"} target="_blank" rel="noopener noreferrer" {...props} />;
+                  return <a className="text-[var(--accent)] hover:underline" href={safe ? href : "#"} target="_blank" rel="noopener noreferrer" {...props} />;
                 },
               }}
             >
@@ -319,8 +319,8 @@ export default function BlogPost() {
                 disabled={likePending}
                 className={`flex items-center gap-2 px-4 py-2 rounded border transition-colors disabled:opacity-50 ${
                   likes.liked
-                    ? "border-[#E8B84B] text-[#E8B84B]"
-                    : "border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]"
+                    ? "border-[var(--accent)] text-[var(--accent)]"
+                    : "border-[#2A2A2A] text-[#888888] hover:border-[var(--accent)] hover:text-[var(--accent)]"
                 }`}
               >
                 <span>{likes.liked ? "❤️" : "🤍"}</span>
@@ -338,20 +338,20 @@ export default function BlogPost() {
                     placeholder="Name"
                     value={commentForm.authorName}
                     onChange={(e) => setCommentForm({ ...commentForm, authorName: e.target.value })}
-                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none"
+                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[var(--accent)] outline-none"
                   />
                   <input
                     type="email"
                     placeholder="Email"
                     value={commentForm.authorEmail}
                     onChange={(e) => setCommentForm({ ...commentForm, authorEmail: e.target.value })}
-                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none"
+                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[var(--accent)] outline-none"
                   />
                   <textarea
                     placeholder="Your comment…"
                     value={commentForm.body}
                     onChange={(e) => setCommentForm({ ...commentForm, body: e.target.value })}
-                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[#E8B84B] outline-none resize-none"
+                    className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded px-3 py-2 text-sm text-white placeholder-[#555555] focus:border-[var(--accent)] outline-none resize-none"
                     rows={3}
                   />
                   {commentError && (
@@ -360,7 +360,7 @@ export default function BlogPost() {
                   <button
                     type="submit"
                     disabled={submittingComment}
-                    className="px-4 py-2 bg-[#E8B84B] text-[#111111] rounded font-mono text-sm font-bold hover:bg-[#D9A73C] disabled:opacity-50"
+                    className="px-4 py-2 bg-[var(--accent)] text-[#111111] rounded font-mono text-sm font-bold hover:bg-[#D9A73C] disabled:opacity-50"
                   >
                     {submittingComment ? "Posting…" : "Post Comment"}
                   </button>

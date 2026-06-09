@@ -40,7 +40,7 @@ export default function DrawCanvas({ engine }) {
             if (e.key === "Escape") cancelText();
           }}
           placeholder="type…"
-          className="absolute bg-transparent border border-[#E8B84B] text-white font-mono text-sm outline-none px-1 py-0.5"
+          className="absolute bg-transparent border border-[var(--accent)] text-white font-mono text-sm outline-none px-1 py-0.5"
           style={{ left: textInput.screenX, top: textInput.screenY }}
         />
       )}

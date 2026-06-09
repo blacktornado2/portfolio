@@ -12,7 +12,7 @@ export const SUBHEADER_ANIM = {
   transition: { duration: 0.5, delay: 0.1 },
 };
 
-export const CARD_BORDER = { borderLeft: "3px solid #E8B84B" };
+export const CARD_BORDER = { borderLeft: "3px solid var(--accent)" };
 
 export const VIEWPORT_ONCE = { once: true };
 

@@ -59,7 +59,7 @@ export default function Hero() {
               <p className="text-[#888888] text-lg mb-1">Hello, I'm</p>
               <h1 className="font-syne font-bold text-5xl lg:text-7xl leading-tight">
                 Ankit{" "}
-                <span className="text-[#E8B84B]">Bhardwaj</span>
+                <span className="text-[var(--accent)]">Bhardwaj</span>
               </h1>
             </motion.div>
 
@@ -78,7 +78,7 @@ export default function Hero() {
             <motion.div {...FADE_UP[4]} className="flex flex-wrap gap-4 pt-2">
               <a
                 href="#contact"
-                className="font-syne font-bold bg-[#E8B84B] text-[#111111] px-6 py-3 rounded-lg hover:bg-[#d4a83e] transition-colors"
+                className="font-syne font-bold bg-[var(--accent)] text-[#111111] px-6 py-3 rounded-lg hover:bg-[var(--accent-dark)] transition-colors"
               >
                 Hire Me
               </a>

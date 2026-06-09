@@ -30,7 +30,7 @@ function Counter({ value, suffix }) {
   return (
     <span ref={ref} className="font-syne font-bold text-3xl lg:text-4xl text-white">
       <motion.span>{rounded}</motion.span>
-      <span className="text-[#E8B84B]">{suffix}</span>
+      <span className="text-[var(--accent)]">{suffix}</span>
     </span>
   );
 }

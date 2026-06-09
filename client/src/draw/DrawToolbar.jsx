@@ -35,7 +35,7 @@ export default function DrawToolbar({ engine }) {
     <header className="fixed top-0 left-0 w-full z-50 h-[54px] bg-[#1A1A1A] border-b border-[#2A2A2A] flex items-center gap-4 px-4 overflow-x-auto">
       <Link
         to="/"
-        className="font-mono text-xs text-[#888888] hover:text-[#E8B84B] transition-colors flex items-center gap-1.5 whitespace-nowrap"
+        className="font-mono text-xs text-[#888888] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 whitespace-nowrap"
       >
         ← portfolio
       </Link>
@@ -53,7 +53,7 @@ export default function DrawToolbar({ engine }) {
             onClick={() => setTool(tool === id ? null : id)}
             className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors ${
               tool === id
-                ? "bg-[#E8B84B] text-[#111111]"
+                ? "bg-[var(--accent)] text-[#111111]"
                 : "bg-[#2A2A2A] text-[#888888] hover:text-white"
             }`}
           >
@@ -63,7 +63,7 @@ export default function DrawToolbar({ engine }) {
       </div>
 
       {tool === null && (
-        <span className="font-mono text-[10px] text-[#E8B84B] whitespace-nowrap shrink-0">
+        <span className="font-mono text-[10px] text-[var(--accent)] whitespace-nowrap shrink-0">
           select · drag to move · ⌫ delete
         </span>
       )}
@@ -119,7 +119,7 @@ export default function DrawToolbar({ engine }) {
           max={MAX_SIZE}
           value={size}
           onChange={(e) => setSize(Number(e.target.value))}
-          className="accent-[#E8B84B] w-20"
+          className="accent-[var(--accent)] w-20"
           aria-label="Brush size"
         />
       </div>
@@ -153,7 +153,7 @@ export default function DrawToolbar({ engine }) {
         type="button"
         onClick={clear}
         title="Clear canvas"
-        className="font-mono text-[10px] text-[#888888] border border-[#2A2A2A] rounded-md px-2.5 py-1.5 hover:border-[#E8B84B] hover:text-[#E8B84B] transition-colors flex items-center gap-1.5 shrink-0"
+        className="font-mono text-[10px] text-[#888888] border border-[#2A2A2A] rounded-md px-2.5 py-1.5 hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 shrink-0"
       >
         <Trash2 size={12} aria-hidden="true" />
         clear
@@ -162,7 +162,7 @@ export default function DrawToolbar({ engine }) {
         type="button"
         onClick={exportPng}
         title="Export as PNG"
-        className="font-mono text-[10px] font-bold text-[#111111] bg-[#E8B84B] rounded-md px-3 py-1.5 hover:brightness-110 transition-all flex items-center gap-1.5 shrink-0"
+        className="font-mono text-[10px] font-bold text-[#111111] bg-[var(--accent)] rounded-md px-3 py-1.5 hover:brightness-110 transition-all flex items-center gap-1.5 shrink-0"
       >
         <Download size={12} aria-hidden="true" />
         export png

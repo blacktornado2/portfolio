@@ -53,7 +53,7 @@ export function renderSelection(ctx, bounds, viewport) {
   const h = br.y - tl.y;
   ctx.save();
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.strokeStyle = "#E8B84B";
+  ctx.strokeStyle = "var(--accent)";
   ctx.lineWidth = 1;
   ctx.setLineDash([4, 3]);
   ctx.strokeRect(x, y, w, h);
@@ -65,7 +65,7 @@ export function renderSelection(ctx, bounds, viewport) {
     [x + w, midY], [x + w, y + h], [midX, y + h],
     [x, y + h], [x, midY],
   ];
-  ctx.fillStyle = "#E8B84B";
+  ctx.fillStyle = "var(--accent)";
   ctx.strokeStyle = "#111111";
   for (const [hx, hy] of points) {
     ctx.fillRect(hx - HANDLE_SIZE / 2, hy - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE);

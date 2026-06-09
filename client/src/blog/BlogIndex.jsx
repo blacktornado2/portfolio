@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getPosts } from "@/lib/api";
 import Footer from "@/components/Footer";
+import { useTheme } from "@/lib/ThemeContext";
 
 function PostTag({ label }) {
   return (
-    <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[#E8B84B]/25 bg-[#E8B84B]/10 text-[#E8B84B]">
+    <span className="font-mono text-[10px] font-medium uppercase tracking-[0.06em] px-2 py-0.5 rounded border border-[var(--accent-25)] bg-[var(--accent-10)] text-[var(--accent)]">
       {label}
     </span>
   );
@@ -18,8 +19,8 @@ function TagFilter({ label, active, onClick }) {
       onClick={onClick}
       className={`font-mono text-[11px] font-medium uppercase tracking-[0.06em] px-3 py-1 rounded border transition-all duration-150 ${
         active
-          ? "border-[#E8B84B] bg-[#E8B84B]/10 text-[#E8B84B]"
-          : "border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B]"
+          ? "border-[var(--accent)] bg-[var(--accent-10)] text-[var(--accent)]"
+          : "border-[#2A2A2A] text-[#888888] hover:border-[var(--accent)] hover:text-[var(--accent)]"
       }`}
     >
       {label}
@@ -44,18 +45,19 @@ function SearchBar({ value, onChange }) {
         placeholder="Search posts…"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg pl-9 pr-4 py-2 font-sans text-sm text-white placeholder-[#555555] outline-none focus:border-[#E8B84B] transition-colors duration-200"
+        className="w-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg pl-9 pr-4 py-2 font-sans text-sm text-white placeholder-[#555555] outline-none focus:border-[var(--accent)] transition-colors duration-200"
       />
     </div>
   );
 }
 
 function PostCard({ post }) {
+  const { theme } = useTheme();
   return (
     <motion.div
       className="relative h-full bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl"
-      initial={{ boxShadow: "0 0 0px rgba(232, 184, 75, 0)" }}
-      whileHover={{ scale: 1.03, boxShadow: "0 0 28px rgba(232, 184, 75, 0.45)", zIndex: 10 }}
+      initial={{ boxShadow: `0 0 0px ${theme.r0}` }}
+      whileHover={{ scale: 1.03, boxShadow: `0 0 28px ${theme.r45}`, zIndex: 10 }}
       transition={{ duration: 0.2 }}
     >
       <Link to={`/blog/${post.slug}`} className="group flex flex-col gap-3 p-6 h-full">
@@ -67,7 +69,7 @@ function PostCard({ post }) {
             </span>
           )}
         </div>
-        <h2 className="font-syne font-bold text-base leading-snug tracking-tight text-white flex-1 group-hover:text-[#E8B84B] transition-colors duration-150">
+        <h2 className="font-syne font-bold text-base leading-snug tracking-tight text-white flex-1 group-hover:text-[var(--accent)] transition-colors duration-150">
           {post.title}
         </h2>
         <p className="text-sm text-[#888888] leading-relaxed" style={{ textWrap: "pretty" }}>
@@ -96,7 +98,7 @@ function PostRow({ post }) {
             )}
           </div>
           <h2
-            className={`font-syne font-bold leading-tight tracking-tight text-white mb-2 group-hover:text-[#E8B84B] transition-colors duration-150 ${
+            className={`font-syne font-bold leading-tight tracking-tight text-white mb-2 group-hover:text-[var(--accent)] transition-colors duration-150 ${
               post.featured ? "text-[22px]" : "text-[18px]"
             }`}
           >
@@ -164,7 +166,7 @@ export default function BlogIndex() {
         <div className="max-w-5xl mx-auto px-6 py-4">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
+            className="inline-flex items-center gap-2 font-syne font-bold text-[#888888] hover:text-[var(--accent)] transition-colors text-sm"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -181,7 +183,7 @@ export default function BlogIndex() {
           </p>
           <h1 className="font-syne font-extrabold text-[clamp(32px,6vw,52px)] leading-[1.1] tracking-[-0.04em] mb-4">
             Notes from the{" "}
-            <span className="text-[#E8B84B]">trenches.</span>
+            <span className="text-[var(--accent)]">trenches.</span>
           </h1>
           <p className="text-base text-[#888888] max-w-md leading-relaxed" style={{ textWrap: "pretty" }}>
             Practical articles on full-stack development, architecture decisions,
@@ -213,8 +215,8 @@ export default function BlogIndex() {
               aria-label="Grid layout"
               className={`p-1.5 rounded border transition-colors duration-150 ${
                 layout === "grid"
-                  ? "border-[#E8B84B] text-[#E8B84B]"
-                  : "border-[#2A2A2A] text-[#555555] hover:border-[#E8B84B] hover:text-[#E8B84B]"
+                  ? "border-[var(--accent)] text-[var(--accent)]"
+                  : "border-[#2A2A2A] text-[#555555] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               }`}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -227,8 +229,8 @@ export default function BlogIndex() {
               aria-label="List layout"
               className={`p-1.5 rounded border transition-colors duration-150 ${
                 layout === "list"
-                  ? "border-[#E8B84B] text-[#E8B84B]"
-                  : "border-[#2A2A2A] text-[#555555] hover:border-[#E8B84B] hover:text-[#E8B84B]"
+                  ? "border-[var(--accent)] text-[var(--accent)]"
+                  : "border-[#2A2A2A] text-[#555555] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               }`}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -264,7 +266,7 @@ export default function BlogIndex() {
             </p>
             <button
               onClick={() => { setSearch(""); setActiveTag("All"); }}
-              className="font-mono text-[11px] uppercase tracking-[0.06em] px-4 py-2 rounded border border-[#2A2A2A] text-[#888888] hover:border-[#E8B84B] hover:text-[#E8B84B] transition-all duration-150"
+              className="font-mono text-[11px] uppercase tracking-[0.06em] px-4 py-2 rounded border border-[#2A2A2A] text-[#888888] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-150"
             >
               Clear filters
             </button>
