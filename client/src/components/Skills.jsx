@@ -95,7 +95,7 @@ export default function SkillsSection() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-16">
           <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">02</span> — Skills
+            <span className="text-[#E8B84B]">06</span> — Skills
           </h2>
         </motion.div>
 

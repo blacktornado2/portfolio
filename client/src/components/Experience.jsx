@@ -59,7 +59,7 @@ export default function ExperienceSection() {
         {/* Section header */}
         <motion.div {...HEADER_ANIM} className="mb-4">
           <h2 id="experience-heading" className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">03</span> — Professional Journey
+            <span className="text-[#E8B84B]">02</span> — Professional Journey
           </h2>
         </motion.div>
 

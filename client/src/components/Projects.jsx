@@ -74,7 +74,7 @@ export default function Projects() {
 
         <motion.div {...HEADER_ANIM} className="mb-4">
           <h2 className="font-syne font-bold text-4xl lg:text-5xl text-white">
-            <span className="text-[#E8B84B]">04</span> — Projects
+            <span className="text-[#E8B84B]">03</span> — Projects
           </h2>
         </motion.div>
 

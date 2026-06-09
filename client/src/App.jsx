@@ -8,6 +8,8 @@ import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
+import FieldNotesSection from "./components/FieldNotesSection";
+import SideQuestsSection from "./components/SideQuestsSection";
 import Contact from "./components/Contact";
 import BlogIndex from "./blog/BlogIndex";
 import BlogPost from "./blog/BlogPost";
@@ -25,14 +27,20 @@ function PortfolioHome() {
       <div id="home">
         <Hero />
       </div>
-      <div id="skills">
-        <Skills />
-      </div>
       <div id="experience">
         <Experience />
       </div>
       <div id="projects">
         <Projects />
+      </div>
+      <div id="blog">
+        <FieldNotesSection />
+      </div>
+      <div id="games">
+        <SideQuestsSection />
+      </div>
+      <div id="skills">
+        <Skills />
       </div>
       <div id="contact">
         <Contact />
