@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { createPortal } from "react-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { myEmail } from "@/constants";
+import { myEmail, myGithub, myLinkedIn } from "@/constants";
 
 // ── Icons ──────────────────────────────────────────────────────────────────────
 const IHome = () => (
@@ -146,8 +146,8 @@ export default function CommandPalette({ isOpen, onClose }) {
     {
       group: "Social",
       items: [
-        { id: "github",   label: "Open GitHub",   icon: "github",   hint: "↗", action: () => { window.open("https://github.com/blacktornado2", "_blank"); onClose(); } },
-        { id: "linkedin", label: "Open LinkedIn", icon: "linkedin", hint: "↗", action: () => { window.open("https://linkedin.com/in/bhardwaj--ankit", "_blank"); onClose(); } },
+        { id: "github",   label: "Open GitHub",   icon: "github",   hint: "↗", action: () => { window.open(myGithub, "_blank"); onClose(); } },
+        { id: "linkedin", label: "Open LinkedIn", icon: "linkedin", hint: "↗", action: () => { window.open(myLinkedIn, "_blank"); onClose(); } },
       ],
     },
     {

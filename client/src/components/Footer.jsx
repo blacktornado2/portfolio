@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { myEmail } from "../constants";
+import { myEmail, myGithub, myLinkedIn } from "../constants";
 
 const SOCIALS = [
-  { label: "GitHub", href: "https://github.com/blacktornado2", Icon: FaGithub },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/bhardwaj--ankit/", Icon: FaLinkedin },
+  { label: "GitHub", href: myGithub, Icon: FaGithub },
+  { label: "LinkedIn", href: myLinkedIn, Icon: FaLinkedin },
   { label: "Email", href: `mailto:${myEmail}`, Icon: Mail },
 ];
 

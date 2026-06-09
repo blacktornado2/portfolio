@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Send, MapPin, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { myEmail, myLocation, myPincode } from "../constants";
+import { myEmail, myLocation, myPincode, myGithub, myLinkedIn } from "../constants";
 
 const HEADER_ANIM = {
   initial: { opacity: 0, y: 20 },
@@ -149,12 +149,12 @@ export default function Contact() {
                 <div>
                   <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">GitHub</p>
                   <a
-                    href="https://github.com/blacktornado2"
+                    href={myGithub}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
                   >
-                    github.com/blacktornado2
+                    {myGithub.replace("https://", "")}
                   </a>
                 </div>
               </div>
@@ -167,12 +167,12 @@ export default function Contact() {
                 <div>
                   <p className="text-xs text-[#555555] uppercase tracking-widest mb-0.5">LinkedIn</p>
                   <a
-                    href="https://www.linkedin.com/in/bhardwaj--ankit/"
+                    href={myLinkedIn}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#888888] hover:text-[#E8B84B] transition-colors text-sm"
                   >
-                    linkedin.com/in/bhardwaj--ankit
+                    {myLinkedIn.replace("https://www.", "").replace(/\/$/, "")}
                   </a>
                 </div>
               </div>

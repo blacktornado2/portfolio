@@ -3,6 +3,7 @@ import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import vitanoPreview from "../assets/images/vitano-preview.png";
 import utkarshPreview from "../assets/images/utkarsh-portfolio.png";
+import { myGithub } from "../constants";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -36,7 +37,7 @@ const projects = [
     description:
       "A production business landing page built for a client selling FMCG products. Designed to convert visitors into buyers with a clean product showcase, category browsing, and a mobile-first responsive layout. Deployed live and actively used by the client.",
     tech: ["React", "TypeScript", "Tailwind CSS", "Google Reviews"],
-    github: "https://github.com/blacktornado2/vitano",
+    github: `${myGithub}/vitano`,
     live: "https://www.vitano.in",
     image: vitanoPreview,
   },
