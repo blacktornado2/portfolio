@@ -154,6 +154,18 @@ export default function GameTyperacer() {
     };
     typeInput.addEventListener("input", handleInput);
 
+    const handleKeyDown = (e) => {
+      if (state !== "running" || e.key !== "Enter") return;
+      e.preventDefault();
+      totalTyped++;
+      if (snippet.text[charIdx] === "\n") { charIdx++; }
+      else { errors++; errorPositions.add(charIdx); charIdx++; }
+      typeInput.value = "";
+      renderCode(); updateStats();
+      if (charIdx >= snippet.text.length) finish();
+    };
+    typeInput.addEventListener("keydown", handleKeyDown);
+
     function startGame() {
       state = "running"; charIdx = 0; errors = 0; totalTyped = 0;
       errorPositions.clear(); startTime = Date.now();
@@ -201,6 +213,7 @@ export default function GameTyperacer() {
     return () => {
       clearInterval(timerInterval);
       typeInput.removeEventListener("input", handleInput);
+      typeInput.removeEventListener("keydown", handleKeyDown);
       document.head.removeChild(style);
       document.title = "Ankit Bhardwaj";
     };
