@@ -1,5 +1,6 @@
 // client/src/pricing/PricingCTA.jsx
 import { motion } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
 import { HEADER_ANIM, SUBHEADER_ANIM } from "../lib/animations";
 import { myEmail } from "../constants";
 
@@ -49,9 +50,12 @@ export default function PricingCTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
           whileHover={{ scale: 1.03 }}
-          href="tel:+919650556483"
-          className="inline-block border border-[var(--border)] text-[var(--text-2)] font-syne font-bold text-sm px-8 py-3.5 rounded-lg tracking-wide hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+          href="https://wa.me/919650556483"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 border border-[var(--border)] text-[var(--text-2)] font-syne font-bold text-sm px-8 py-3.5 rounded-lg tracking-wide hover:border-[#25D366] hover:text-[#25D366] transition-colors"
         >
+          <FaWhatsapp className="w-4 h-4" />
           +91 96505 56483
         </motion.a>
       </div>
