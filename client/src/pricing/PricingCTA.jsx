@@ -30,17 +30,31 @@ export default function PricingCTA() {
         I typically respond within 24 hours.
       </motion.p>
 
-      <motion.a
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        whileHover={{ scale: 1.03 }}
-        href={`mailto:${myEmail}`}
-        className="inline-block bg-[var(--accent)] text-[#111111] font-syne font-bold text-sm px-8 py-3.5 rounded-lg tracking-wide hover:bg-[var(--accent-dark)] transition-colors"
-      >
-        Get in Touch →
-      </motion.a>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <motion.a
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          whileHover={{ scale: 1.03 }}
+          href={`mailto:${myEmail}`}
+          className="inline-block bg-[var(--accent)] text-[#111111] font-syne font-bold text-sm px-8 py-3.5 rounded-lg tracking-wide hover:bg-[var(--accent-dark)] transition-colors"
+        >
+          Get in Touch →
+        </motion.a>
+
+        <motion.a
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          whileHover={{ scale: 1.03 }}
+          href="tel:+919650556483"
+          className="inline-block border border-[var(--border)] text-[var(--text-2)] font-syne font-bold text-sm px-8 py-3.5 rounded-lg tracking-wide hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+        >
+          +91 96505 56483
+        </motion.a>
+      </div>
     </section>
   );
 }
