@@ -14,6 +14,7 @@ import SideQuestsSection from "./components/SideQuestsSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import SectionDivider from "./components/SectionDivider";
 import BlogIndex from "./blog/BlogIndex";
 import BlogPost from "./blog/BlogPost";
 import GamesIndex from "./games/GamesIndex";
@@ -37,24 +38,31 @@ function PortfolioHome() {
         <Hero />
       </div>
       {/* <StatsStrip /> */}
+      <SectionDivider />
       <div id="experience">
         <Experience />
       </div>
+      <SectionDivider />
       <div id="projects">
         <Projects />
       </div>
+      <SectionDivider />
       <div id="blog">
         <FieldNotesSection />
       </div>
+      <SectionDivider />
       <div id="games">
         <SideQuestsSection />
       </div>
+      <SectionDivider />
       <div id="skills">
         <Skills />
       </div>
+      <SectionDivider />
       <div id="testimonials">
         <TestimonialsSection />
       </div>
+      <SectionDivider />
       <div id="contact">
         <Contact />
       </div>

@@ -4,6 +4,7 @@ import "prismjs/components/prism-javascript";
 import { motion } from "framer-motion";
 import { IoIosClose } from "react-icons/io";
 import PortfolioPage from "./PortfolioPage";
+import SectionDivider from "./SectionDivider";
 
 const CODE = `const profile = {
     name: 'Ankit Bhardwaj',
@@ -110,6 +111,8 @@ export default function Hero() {
 
         </div>
       </section>
+
+      <SectionDivider />
 
       <div id="about">
         <PortfolioPage />
