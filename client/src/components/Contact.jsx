@@ -130,7 +130,7 @@ export default function Contact() {
                     key={label}
                     className={`rounded-md px-3 py-1.5 text-xs font-medium border ${
                       gold
-                        ? "bg-[rgba(232,184,75,0.08)] border-[rgba(232,184,75,0.35)] text-[var(--accent)]"
+                        ? "bg-[var(--accent-10)] border-[var(--accent-30)] text-[var(--accent)]"
                         : "bg-[var(--surface)] border-[var(--border)] text-[var(--text-2)]"
                     }`}
                   >
