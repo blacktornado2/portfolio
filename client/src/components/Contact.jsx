@@ -111,12 +111,33 @@ export default function Contact() {
           <motion.div {...LEFT_ANIM} className="space-y-8">
             <div>
               <h3 className="font-syne font-bold text-3xl text-[var(--text-1)] mb-4">
-                Let's build something.
+                Let's build something worth shipping.
               </h3>
-              <p className="text-[var(--text-2)] leading-relaxed">
-                Have a project in mind or want to work together? <br /> Please feel free to
-                reach out — I'm always open to new connections and conversations.
+              <p className="text-[var(--text-2)] leading-relaxed mb-6">
+                I work best with people who have a clear vision and want engineering that matches it.
+                Reach out if you're building something real.
               </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: "Full-Stack Dev", gold: true },
+                  { label: "Mobile Dev", gold: true },
+                  { label: "Freelance", gold: true },
+                  { label: "Tech Consultancy", gold: true },
+                  { label: "Performance optimisation", gold: true },
+                  { label: "Feature Add", gold: true },
+                ].map(({ label, gold }) => (
+                  <span
+                    key={label}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium border ${
+                      gold
+                        ? "bg-[rgba(232,184,75,0.08)] border-[rgba(232,184,75,0.35)] text-[var(--accent)]"
+                        : "bg-[var(--surface)] border-[var(--border)] text-[var(--text-2)]"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="space-y-5">
