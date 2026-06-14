@@ -74,6 +74,7 @@ A personal portfolio and blog built as an npm-workspaces monorepo: **React 18 + 
 | `/games/wordle` | Wordle |
 | `/games/typeracer` | TypeRacer |
 | `/draw` | Canvas drawing tool |
+| `/pricing` | Freelancing rate card — service tiers, sub-tiers, hourly rate; its own `PricingNav` (not the global Header/Footer) |
 
 ---
 
@@ -130,9 +131,11 @@ portfolio/                          # npm-workspaces monorepo root
 │   │   │   └── ui/                 # shadcn/ui primitives — read-only
 │   │   ├── games/                  # GamesIndex + 2048 / Wordle / Typeracer
 │   │   ├── draw/                   # Canvas draw tool + Vitest specs
+│   │   ├── pricing/                # /pricing rate card (PricingPage, PricingNav, PricingRow, …)
 │   │   ├── constants/index.js      # Email, location, pincode, GitHub URL, LinkedIn URL
 │   │   └── lib/
 │   │       ├── api.ts              # API client (reads VITE_API_URL, injects JWT)
+│   │       ├── animations.js       # Shared Framer Motion constants
 │   │       └── ThemeContext.jsx    # Accent colour + dark/light mode context
 │   ├── tailwind.config.js
 │   └── vite.config.js

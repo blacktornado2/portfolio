@@ -452,7 +452,7 @@ Strip entrance: `whileInView opacity 0→1, y 12→0, duration 0.5`. Items stagg
 
 ## 5. Animation & Motion
 
-All Framer Motion variants are declared at **module scope** (not inline) in `SCREAMING_SNAKE_CASE`.
+All Framer Motion variants are declared at **module scope** (not inline) in `SCREAMING_SNAKE_CASE`. The common ones are centralised in `client/src/lib/animations.js` (`HEADER_ANIM`, `SUBHEADER_ANIM`, `CARD_BORDER`, `VIEWPORT_ONCE`, `cardVariants`, `cardVariantsSlow`) — import from there rather than redeclaring per component. The patterns below document the canonical shapes.
 
 ### 5.1 Section header entrance (fires on scroll, once)
 
@@ -596,6 +596,7 @@ Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
 /games/wordle     → GameWordle
 /games/typeracer  → GameTyperacer
 /draw             → DrawPage — canvas drawing tool
+/pricing          → PricingPage — freelancing rate card (own PricingNav, no global Header/Footer)
 ```
 
 Sections use `border-t border-[var(--border)]` between them for visual separation (About section).

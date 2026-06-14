@@ -49,7 +49,9 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/blog/` | Blog index, post view, markdown content |
 | `client/src/games/` | Games index + individual games (2048, Wordle, Typeracer) |
 | `client/src/draw/` | Canvas draw tool + Vitest specs |
+| `client/src/pricing/` | `/pricing` freelancing rate-card page — uses its own `PricingNav` (not the global Header/Footer); `PricingPage.jsx` holds the `ROWS` service-data array |
 | `client/src/lib/api.ts` | API client — reads `VITE_API_URL`, injects JWT from localStorage |
+| `client/src/lib/animations.js` | Shared Framer Motion constants (`HEADER_ANIM`, `SUBHEADER_ANIM`, `CARD_BORDER`, `VIEWPORT_ONCE`, `cardVariants`, `cardVariantsSlow`) — import from here instead of redeclaring per component |
 | `client/src/lib/utils.js` | `cn()` helper — Tailwind class merge (clsx + tailwind-merge) |
 | `client/src/assets/css/index.css` | Design tokens (CSS custom properties for mode/theme), Google Fonts, Prism theme, shadcn CSS vars |
 | `client/src/lib/ThemeContext.jsx` | Theme (accent colour) + mode (dark/light) context — `useTheme()` returns `{ theme, setTheme, mode, setMode }` |
@@ -79,6 +81,7 @@ Root scripts run both halves together via `concurrently`.
 /games/wordle       GameWordle
 /games/typeracer    GameTyperacer
 /draw               DrawPage — canvas drawing tool
+/pricing            PricingPage — freelancing rate card (own PricingNav, no global Header/Footer)
 ```
 
 > Note: `Education.jsx` exists in `components/` but is **orphaned** — it is not rendered anywhere in the live tree. Don't reintroduce Education without intent.
