@@ -13,7 +13,11 @@
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run start:dev",
     "build": "npm run build --workspaces",
-    "lint": "npm run lint --workspaces"
+    "lint": "npm run lint --workspaces",
+    "db:generate": "npm run prisma:generate -w @portfolio/server",
+    "db:migrate": "npm run prisma:migrate -w @portfolio/server",
+    "db:deploy": "npm run prisma:deploy -w @portfolio/server",
+    "db:seed": "npm run prisma:seed -w @portfolio/server"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
