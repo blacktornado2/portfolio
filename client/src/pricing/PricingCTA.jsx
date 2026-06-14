@@ -28,7 +28,7 @@ export default function PricingCTA() {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="text-[var(--text-2)] text-sm mb-8"
       >
-        I typically respond within 24 hours.
+        I typically respond within 12 hours.
       </motion.p>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

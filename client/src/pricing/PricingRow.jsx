@@ -41,7 +41,7 @@ export default function PricingRow({
       className={`relative flex gap-5 items-start rounded-xl p-5 ${bgClass} ${borderClass}`}
     >
       {highlighted && (
-        <div className="absolute -top-px right-5 bg-[var(--accent)] rounded-b-md px-3 py-0.5">
+        <div className="absolute -top-px right-5 bg-[var(--accent)] rounded-b-md px-2">
           <span className="text-[#111111] text-[10px] font-bold tracking-widest uppercase">
             Most Popular
           </span>

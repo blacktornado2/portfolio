@@ -33,7 +33,7 @@ export default function PricingHero() {
           className="text-[var(--text-2)] text-base lg:text-lg max-w-xl leading-relaxed mx-auto"
         >
           Transparent pricing, no retainer lock-in. Pick a scope that fits and
-          reach out — I'll get back within 24 hours.
+          reach out — I'll get back within 12 hours.
         </motion.p>
       </div>
     </section>

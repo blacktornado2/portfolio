@@ -34,7 +34,7 @@ const ROWS = [
   {
     icon: Smartphone,
     title: "React Native Mobile App",
-    price: "$1,000 – $6,000+",
+    price: "$1,000 – $4,000+",
     description:
       "Cross-platform iOS & Android apps built with React Native. From simple screen flows to complex real-time experiences.",
     pills: ["React Native", "Expo", "REST API", "Push Notifications"],
