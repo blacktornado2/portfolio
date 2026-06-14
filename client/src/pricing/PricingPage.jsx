@@ -1,5 +1,5 @@
 // client/src/pricing/PricingPage.jsx
-import { Monitor, Zap, MessageCircle } from "lucide-react";
+import { Monitor, Zap, MessageCircle, Smartphone, Clock } from "lucide-react";
 import PricingNav from "./PricingNav";
 import PricingHero from "./PricingHero";
 import PricingRow from "./PricingRow";
@@ -9,21 +9,51 @@ const ROWS = [
   {
     icon: Monitor,
     title: "Landing Page",
-    price: "$500",
+    price: "$100 – $300",
     description:
       "Static site — no backend, no database. React + Tailwind + Framer Motion. Mobile-first, fast, and accessible out of the box.",
     pills: ["React", "Tailwind", "Framer Motion", "Vite"],
+    subTiers: [
+      { name: "Simple", price: "$100" },
+      { name: "Standard", price: "$200" },
+      { name: "Premium", price: "$300" },
+    ],
     highlighted: false,
     custom: false,
   },
   {
     icon: Zap,
     title: "Full Stack Application",
-    price: "Starting $1,500",
+    price: "Starting $700",
     description:
       "End-to-end web apps with REST API, database, auth, and deployment. Built for scale from day one.",
     pills: ["NestJS", "Prisma", "PostgreSQL", "JWT Auth"],
     highlighted: true,
+    custom: false,
+  },
+  {
+    icon: Smartphone,
+    title: "React Native Mobile App",
+    price: "$1,200 – $6,000+",
+    description:
+      "Cross-platform iOS & Android apps built with React Native. From simple screen flows to complex real-time experiences.",
+    pills: ["React Native", "Expo", "REST API", "Push Notifications"],
+    subTiers: [
+      { name: "Simple", price: "$1,200–$2,500", note: "5–8 screens, basic API" },
+      { name: "Medium", price: "$2,500–$6,000", note: "Auth, payments, push · ₹1.2L–₹3L" },
+      { name: "Complex", price: "$6,000+", note: "Real-time, maps, offline support" },
+    ],
+    highlighted: false,
+    custom: false,
+  },
+  {
+    icon: Clock,
+    title: "Hourly Rate",
+    price: "$20 / hr",
+    description:
+      "Consulting, code reviews, bug fixes, or small tasks. Billed in 1-hour blocks. Great for ongoing support.",
+    pills: [],
+    highlighted: false,
     custom: false,
   },
   {

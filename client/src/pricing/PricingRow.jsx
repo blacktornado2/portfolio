@@ -8,6 +8,7 @@ export default function PricingRow({
   price,
   description,
   pills = [],
+  subTiers = [],
   highlighted = false,
   custom = false,
   index = 0,
@@ -74,6 +75,29 @@ export default function PricingRow({
               >
                 {pill}
               </span>
+            ))}
+          </div>
+        )}
+
+        {subTiers.length > 0 && (
+          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-[var(--border)] pt-3">
+            {subTiers.map((tier) => (
+              <div
+                key={tier.name}
+                className="bg-[var(--bg)] border border-[var(--border)] rounded-lg px-3 py-2.5 text-center"
+              >
+                <p className="text-[10px] text-[var(--text-3)] uppercase tracking-wider mb-1">
+                  {tier.name}
+                </p>
+                <p className="text-[var(--accent)] font-syne font-bold text-xs leading-snug">
+                  {tier.price}
+                </p>
+                {tier.note && (
+                  <p className="text-[9px] text-[var(--text-4)] mt-1 leading-tight">
+                    {tier.note}
+                  </p>
+                )}
+              </div>
             ))}
           </div>
         )}
