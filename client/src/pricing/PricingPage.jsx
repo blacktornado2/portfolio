@@ -1,5 +1,5 @@
 // client/src/pricing/PricingPage.jsx
-import { Monitor, Zap, MessageCircle, Smartphone, Clock } from "lucide-react";
+import { Monitor, Zap, MessageCircle, Smartphone, Clock, Wrench } from "lucide-react";
 import PricingNav from "./PricingNav";
 import PricingHero from "./PricingHero";
 import PricingRow from "./PricingRow";
@@ -34,14 +34,14 @@ const ROWS = [
   {
     icon: Smartphone,
     title: "React Native Mobile App",
-    price: "$1,200 – $6,000+",
+    price: "$1,000 – $6,000+",
     description:
       "Cross-platform iOS & Android apps built with React Native. From simple screen flows to complex real-time experiences.",
     pills: ["React Native", "Expo", "REST API", "Push Notifications"],
     subTiers: [
-      { name: "Simple", price: "$1,200–$2,500", note: "5–8 screens, basic API" },
-      { name: "Medium", price: "$2,500–$6,000", note: "Auth, payments, push · ₹1.2L–₹3L" },
-      { name: "Complex", price: "$6,000+", note: "Real-time, maps, offline support" },
+      { name: "Simple", price: "$1,000–$2,000", note: "5–8 screens, basic API" },
+      { name: "Medium", price: "$2,000–$4,000", note: "Auth, payments, push notifications" },
+      { name: "Complex", price: "$4,000+", note: "Real-time, maps, offline support" },
     ],
     highlighted: false,
     custom: false,
@@ -82,6 +82,17 @@ export default function PricingPage() {
           {ROWS.map((row, i) => (
             <PricingRow key={row.title} {...row} index={i} />
           ))}
+        </div>
+
+        <div className="mt-6 flex gap-3 items-start rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4">
+          <Wrench className="w-4 h-4 text-[var(--accent)] flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-[var(--text-2)] leading-relaxed">
+            Have an existing project that needs new features? I offer{" "}
+            <span className="text-[var(--text-1)] font-medium">fixed-price feature development</span>{" "}
+            and{" "}
+            <span className="text-[var(--text-1)] font-medium">monthly maintenance retainers</span>.{" "}
+            Get in touch with your requirements.
+          </p>
         </div>
       </section>
 
