@@ -3,11 +3,19 @@ import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import vitanoPreview from "../assets/images/vitano-preview.png";
 import utkarshPreview from "../assets/images/utkarsh-portfolio.png";
+import odysseyPreview from "../assets/images/odyssey-hompage.png";
 import { myGithub } from "../constants";
 import { HEADER_ANIM, SUBHEADER_ANIM, CARD_BORDER, VIEWPORT_ONCE, cardVariantsSlow } from "../lib/animations";
 import { useTheme } from "../lib/ThemeContext";
 
 const projects = [
+  {
+    title: "Odyssey",
+    description:
+      "A private portal for luxury travel — each trip gets its own beautifully crafted page, shareable via QR code, with curated itineraries, flights, hotels, and experiences composed by the travel director. Built for Vagabond, a bespoke travel brand, to replace static PDFs with a living, branded digital experience for every client journey.",
+    tech: ["Nest.js", "React.js", "Clerk", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Claude Code"],
+    image: odysseyPreview,
+  },
   {
     title: "Vitano",
     description:
@@ -25,22 +33,6 @@ const projects = [
     github: "#",
     live: "https://www.utkarshch.com",
     image: utkarshPreview,
-  },
-  {
-    title: "DevTrack",
-    description:
-      "A real-time developer task management platform with Kanban boards, team collaboration, and sprint planning. Built to handle high concurrency with WebSocket-powered live updates.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Socket.io"],
-    github: "#",
-    live: "#",
-  },
-  {
-    title: "ShopFlow",
-    description:
-      "A cross-platform mobile e-commerce app with a seamless checkout experience, push notifications, and real-time inventory sync. Integrated Stripe for secure payments.",
-    tech: ["React Native", "Node.js", "MongoDB", "Stripe", "Firebase"],
-    github: "#",
-    live: "#",
   },
 ];
 
@@ -101,26 +93,32 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <div className="border-t border-[var(--border)] pt-4 flex items-center gap-6 mt-auto">
-                  <a
-                    href={github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
-                  >
-                    <FaGithub className="w-4 h-4" />
-                    GitHub
-                  </a>
-                  <a
-                    href={live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Live Demo
-                  </a>
-                </div>
+                {(github || live) && (
+                  <div className="border-t border-[var(--border)] pt-4 flex items-center gap-6 mt-auto">
+                    {github && (
+                      <a
+                        href={github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
+                      >
+                        <FaGithub className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    )}
+                    {live && (
+                      <a
+                        href={live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
