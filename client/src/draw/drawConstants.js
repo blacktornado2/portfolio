@@ -24,6 +24,12 @@ export const HANDLE_HIT = 10; // screen px tolerance to grab a resize handle
 export const HANDLE_SIZE = 8; // screen px square handle size
 export const MIN_RESIZE = 4; // min world size when resizing
 
+// Laser (ephemeral glowing trail — never saved, undone, or exported)
+export const LASER_LIFETIME = 2000; // ms before a point fully fades out
+export const LASER_COLOR = "#FF3B30"; // glowing red
+export const LASER_WIDTH = 4; // world px, beam thickness
+export const LASER_GLOW = 12; // shadowBlur radius for the glow
+
 // Export
 export const EXPORT_PADDING = 40;
 export const BG_COLOR = "#111111";
@@ -38,4 +44,5 @@ export const TOOLS = {
   ELLIPSE: "ellipse",
   TEXT: "text",
   ERASER: "eraser",
+  LASER: "laser",
 };

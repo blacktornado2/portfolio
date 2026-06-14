@@ -14,9 +14,16 @@ export default function DrawCanvas({ engine }) {
     commitText,
     cancelText,
     selectCursor,
+    spaceHeld,
   } = engine;
 
-  const cursor = tool === null ? selectCursor : tool === TOOLS.ERASER ? "cell" : "crosshair";
+  const cursor = spaceHeld
+    ? "grab"
+    : tool === null
+    ? selectCursor
+    : tool === TOOLS.ERASER
+    ? "cell"
+    : "crosshair";
 
   return (
     <>

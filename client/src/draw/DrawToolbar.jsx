@@ -6,6 +6,7 @@ import {
   Circle,
   Type,
   Eraser,
+  Zap,
   Undo2,
   Redo2,
   Trash2,
@@ -19,6 +20,7 @@ const TOOL_BUTTONS = [
   { id: TOOLS.ELLIPSE, Icon: Circle, label: "Ellipse" },
   { id: TOOLS.TEXT, Icon: Type, label: "Text" },
   { id: TOOLS.ERASER, Icon: Eraser, label: "Eraser" },
+  { id: TOOLS.LASER, Icon: Zap, label: "Laser (temporary)" },
 ];
 
 export default function DrawToolbar({ engine }) {

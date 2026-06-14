@@ -33,7 +33,7 @@ import {
   canUndo as histCanUndo,
   canRedo as histCanRedo,
 } from "./drawHistory";
-import { renderScene, exportCanvas } from "./drawRender";
+import { renderScene, exportCanvas, pruneLaser } from "./drawRender";
 import { loadCanvas, saveCanvas, loadPalette, savePalette } from "./drawPersistence";
 
 const ERASER_TOLERANCE = 6; // screen px, divided by scale to get world tolerance
@@ -56,6 +56,10 @@ export function useDrawEngine() {
   const pointerRef = useRef({ drawing: false, panning: false, last: null, spaceDown: false });
   const saveTimer = useRef(null);
 
+  // ephemeral laser trail: world-space points {x, y, t, m}; never persisted/undone
+  const laserRef = useRef([]);
+  const laserRafRef = useRef(null);
+
   // UI-reflected state
   const [tool, setTool] = useState(TOOLS.PENCIL);
   const [color, setColor] = useState(DEFAULT_COLORS[0]);
@@ -67,6 +71,7 @@ export function useDrawEngine() {
   const [textValue, setTextValue] = useState("");
   const [selectedId, setSelectedId] = useState(null); // selected object id in neutral mode
   const [selectCursor, setSelectCursor] = useState("default"); // cursor while in select mode
+  const [spaceHeld, setSpaceHeld] = useState(false); // space-to-pan held → grab cursor
 
   // select-mode interaction: { mode: 'move'|'resize'|null, handle, startWorld, origObj, origBounds }
   const selectRef = useRef({ mode: null, handle: null, startWorld: null, origObj: null, origBounds: null });
@@ -106,8 +111,27 @@ export function useDrawEngine() {
       height: canvas.height,
       preview: draftRef.current,
       selection: selObj ? objectBounds(selObj) : null,
+      laser: laserRef.current.length ? { points: laserRef.current, now: performance.now() } : null,
     });
   }, []);
+
+  // rAF loop that fades the laser trail: prune expired points, repaint, and keep
+  // ticking only while points remain (self-terminates so it costs nothing idle).
+  const tickLaser = useCallback(() => {
+    laserRef.current = pruneLaser(laserRef.current, performance.now());
+    redraw();
+    if (laserRef.current.length > 0) {
+      laserRafRef.current = requestAnimationFrame(tickLaser);
+    } else {
+      laserRafRef.current = null;
+    }
+  }, [redraw]);
+
+  const startLaserLoop = useCallback(() => {
+    if (laserRafRef.current == null) {
+      laserRafRef.current = requestAnimationFrame(tickLaser);
+    }
+  }, [tickLaser]);
 
   const scheduleSave = useCallback(() => {
     if (saveTimer.current) clearTimeout(saveTimer.current);
@@ -257,6 +281,11 @@ export function useDrawEngine() {
       return;
     }
     pointerRef.current.drawing = true;
+    if (t === TOOLS.LASER) {
+      laserRef.current.push({ x: world.x, y: world.y, t: performance.now(), m: true });
+      startLaserLoop();
+      return;
+    }
     if (t === TOOLS.PENCIL) {
       draftRef.current = createStroke({ color: colorRef.current, size: sizeRef.current, points: [world] });
     } else if (t === TOOLS.RECT || t === TOOLS.ELLIPSE) {
@@ -272,7 +301,7 @@ export function useDrawEngine() {
       };
     }
     redraw();
-  }, [commitObjects, commitTextValue, redraw]);
+  }, [commitObjects, commitTextValue, redraw, startLaserLoop]);
 
   const onPointerMove = useCallback((e) => {
     const screen = { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY };
@@ -325,6 +354,11 @@ export function useDrawEngine() {
       if (id) commitObjects(historyRef.current.present.filter((o) => o.id !== id));
       return;
     }
+    if (toolRef.current === TOOLS.LASER) {
+      laserRef.current.push({ x: world.x, y: world.y, t: performance.now(), m: false });
+      startLaserLoop();
+      return;
+    }
     const draft = draftRef.current;
     if (!draft) return;
     if (draft.type === "stroke") {
@@ -336,7 +370,7 @@ export function useDrawEngine() {
       draft.h = world.y - draft._start.y;
     }
     redraw();
-  }, [commitObjects, redraw]);
+  }, [commitObjects, redraw, startLaserLoop]);
 
   const onPointerUp = useCallback(() => {
     if (pointerRef.current.panning) {
@@ -418,6 +452,7 @@ export function useDrawEngine() {
     return () => {
       window.removeEventListener("resize", resize);
       if (saveTimer.current) clearTimeout(saveTimer.current);
+      if (laserRafRef.current) cancelAnimationFrame(laserRafRef.current);
     };
   }, [redraw, syncUndoState]);
 
@@ -437,7 +472,10 @@ export function useDrawEngine() {
       const editable = tag === "INPUT" || tag === "TEXTAREA" || e.target.isContentEditable;
       if (e.code === "Space" && !editable) {
         e.preventDefault();
-        pointerRef.current.spaceDown = true;
+        if (!pointerRef.current.spaceDown) {
+          pointerRef.current.spaceDown = true;
+          setSpaceHeld(true); // show grab cursor (keydown auto-repeats, so guard)
+        }
       }
       const mod = e.metaKey || e.ctrlKey;
       if (mod && e.key.toLowerCase() === "z") {
@@ -465,7 +503,10 @@ export function useDrawEngine() {
       }
     };
     const onKeyUp = (e) => {
-      if (e.code === "Space") pointerRef.current.spaceDown = false;
+      if (e.code === "Space") {
+        pointerRef.current.spaceDown = false;
+        setSpaceHeld(false);
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
@@ -496,6 +537,6 @@ export function useDrawEngine() {
     clear, exportPng,
     onPointerDown, onPointerMove, onPointerUp,
     textInput, textValue, setTextValue, commitText, cancelText,
-    selectCursor,
+    selectCursor, spaceHeld,
   };
 }
