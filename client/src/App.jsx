@@ -21,6 +21,7 @@ import Game2048 from "./games/Game2048";
 import GameWordle from "./games/GameWordle";
 import GameTyperacer from "./games/GameTyperacer";
 import DrawPage from "./draw/DrawPage";
+import PricingPage from "./pricing/PricingPage";
 import AdminLayout from "./admin/AdminLayout";
 import AdminLogin from "./admin/AdminLogin";
 import AdminPosts from "./admin/AdminPosts";
@@ -73,6 +74,7 @@ export default function App() {
       <Route path="/games/wordle" element={<GameWordle />} />
       <Route path="/games/typeracer" element={<GameTyperacer />} />
       <Route path="/draw" element={<DrawPage />} />
+      <Route path="/pricing" element={<PricingPage />} />
 
       {/* Admin */}
       <Route path="/admin/login" element={<AdminLogin />} />
