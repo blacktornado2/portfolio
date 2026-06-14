@@ -5,12 +5,16 @@ import { HEADER_ANIM, SUBHEADER_ANIM } from "../lib/animations";
 export default function PricingHero() {
   return (
     <section className="px-6 lg:px-12 py-16 border-b border-[var(--border)]">
-      <div className="max-w-3xl">
-        <motion.div {...HEADER_ANIM}>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)] mb-6">
+      <div className="max-w-3xl mx-auto text-center">
+        <motion.div {...HEADER_ANIM} className="flex justify-center mb-6">
+          <motion.span
+            whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
+            transition={{ duration: 0.3 }}
+            className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]"
+          >
             <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
             Available for work
-          </span>
+          </motion.span>
         </motion.div>
 
         <motion.h1
@@ -26,7 +30,7 @@ export default function PricingHero() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-[var(--text-2)] text-base lg:text-lg max-w-xl leading-relaxed"
+          className="text-[var(--text-2)] text-base lg:text-lg max-w-xl leading-relaxed mx-auto"
         >
           Transparent pricing, no retainer lock-in. Pick a scope that fits and
           reach out — I'll get back within 24 hours.
