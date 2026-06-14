@@ -1,10 +1,30 @@
 import { BG_COLOR, EXPORT_PADDING, HANDLE_SIZE } from "./drawConstants";
 import { getBoundingBox, worldToScreen } from "./drawModel";
 
+// Concrete colour used when a CSS variable can't be resolved (e.g. in tests).
+const COLOR_FALLBACK = "#E8B84B";
+
+// Canvas can't parse CSS custom properties — assigning `var(--x)` to
+// strokeStyle/fillStyle is a silent no-op, so the shape would inherit the
+// previously drawn object's colour. Resolve any var() to its computed value
+// (against :root) before it reaches the context.
+export function resolveColor(color) {
+  if (typeof color !== "string" || !color.includes("var(")) return color;
+  const name = color.match(/var\(\s*(--[\w-]+)\s*\)/);
+  if (!name || typeof window === "undefined" || !window.getComputedStyle) {
+    return COLOR_FALLBACK;
+  }
+  const resolved = getComputedStyle(document.documentElement)
+    .getPropertyValue(name[1])
+    .trim();
+  return resolved || COLOR_FALLBACK;
+}
+
 // Draw a single object in the current (already-transformed) context.
 export function renderObject(ctx, obj) {
-  ctx.strokeStyle = obj.color;
-  ctx.fillStyle = obj.color;
+  const color = resolveColor(obj.color);
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
   ctx.lineWidth = obj.size;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
