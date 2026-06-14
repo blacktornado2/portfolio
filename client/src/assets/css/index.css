@@ -65,6 +65,42 @@
   --accent-70:  rgba(167,139,250,0.70);
 }
 
+[data-theme="crimson"] {
+  --accent:     #F43F5E;
+  --accent-dark:#E11D48;
+  --accent-05:  rgba(244,63,94,0.05);
+  --accent-10:  rgba(244,63,94,0.10);
+  --accent-20:  rgba(244,63,94,0.20);
+  --accent-25:  rgba(244,63,94,0.25);
+  --accent-30:  rgba(244,63,94,0.30);
+  --accent-40:  rgba(244,63,94,0.40);
+  --accent-70:  rgba(244,63,94,0.70);
+}
+
+[data-theme="green"] {
+  --accent:     #4ADE80;
+  --accent-dark:#22C55E;
+  --accent-05:  rgba(74,222,128,0.05);
+  --accent-10:  rgba(74,222,128,0.10);
+  --accent-20:  rgba(74,222,128,0.20);
+  --accent-25:  rgba(74,222,128,0.25);
+  --accent-30:  rgba(74,222,128,0.30);
+  --accent-40:  rgba(74,222,128,0.40);
+  --accent-70:  rgba(74,222,128,0.70);
+}
+
+[data-theme="orange"] {
+  --accent:     #FB923C;
+  --accent-dark:#F97316;
+  --accent-05:  rgba(251,146,60,0.05);
+  --accent-10:  rgba(251,146,60,0.10);
+  --accent-20:  rgba(251,146,60,0.20);
+  --accent-25:  rgba(251,146,60,0.25);
+  --accent-30:  rgba(251,146,60,0.30);
+  --accent-40:  rgba(251,146,60,0.40);
+  --accent-70:  rgba(251,146,60,0.70);
+}
+
 /* ---- Custom golden cursor ---- */
 body.golden-cursor-active * { cursor: none !important; }
 

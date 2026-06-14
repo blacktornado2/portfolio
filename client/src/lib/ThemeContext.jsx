@@ -28,6 +28,33 @@ export const THEMES = {
     r45: "rgba(167,139,250,0.45)",
     r50: "rgba(167,139,250,0.5)",
   },
+  crimson: {
+    name: "crimson",
+    label: "Crimson",
+    accent: "#F43F5E",
+    r0: "rgba(244,63,94,0)",
+    r35: "rgba(244,63,94,0.35)",
+    r45: "rgba(244,63,94,0.45)",
+    r50: "rgba(244,63,94,0.5)",
+  },
+  green: {
+    name: "green",
+    label: "Green",
+    accent: "#4ADE80",
+    r0: "rgba(74,222,128,0)",
+    r35: "rgba(74,222,128,0.35)",
+    r45: "rgba(74,222,128,0.45)",
+    r50: "rgba(74,222,128,0.5)",
+  },
+  orange: {
+    name: "orange",
+    label: "Orange",
+    accent: "#FB923C",
+    r0: "rgba(251,146,60,0)",
+    r35: "rgba(251,146,60,0.35)",
+    r45: "rgba(251,146,60,0.45)",
+    r50: "rgba(251,146,60,0.5)",
+  },
 };
 
 const ThemeContext = createContext({
