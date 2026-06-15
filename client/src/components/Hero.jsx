@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { IoIosClose } from "react-icons/io";
 import PortfolioPage from "./PortfolioPage";
 import SectionDivider from "./SectionDivider";
+import { useTheme } from "../lib/ThemeContext";
 
 const CODE = `const profile = {
     name: 'Ankit Bhardwaj',
@@ -31,6 +32,8 @@ const CODE_WINDOW_ANIM = {
 };
 
 export default function Hero() {
+  const { theme } = useTheme();
+
   useEffect(() => {
     Prism.highlightAll();
   }, []);
@@ -46,7 +49,7 @@ export default function Hero() {
             {/* Availability badge */}
             <motion.div {...FADE_UP[0]}>
               <motion.span
-                whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
+                whileHover={{ boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
                 transition={{ duration: 0.3 }}
                 className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]"
               >
@@ -89,8 +92,9 @@ export default function Hero() {
           {/* Right column — Code Window */}
           <motion.div
             {...CODE_WINDOW_ANIM}
-            whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.1)" }}
+            whileHover={{ scale: 1.04, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
             transition={{ duration: 0.3 }}
+            className="rounded-xl"
           >
             <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden">
               {/* Window chrome */}

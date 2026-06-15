@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import profileImage from "../assets/images/Ankit-3D.png";
 import { HEADER_ANIM } from "../lib/animations";
+import { useTheme } from "../lib/ThemeContext";
 
 const BIO_ANIM = {
   initial: { opacity: 0, y: 20 },
@@ -17,6 +18,7 @@ const PHOTO_ANIM = {
 };
 
 export default function PortfolioPage() {
+  const { theme } = useTheme();
   return (
     <section className="bg-[var(--bg)] border-t border-[var(--border)] py-24 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto">
@@ -35,7 +37,7 @@ export default function PortfolioPage() {
             <motion.img
               src={profileImage}
               alt="Ankit Bhardwaj"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }}
+              whileHover={{ scale: 1.05, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
               transition={{ duration: 0.3 }}
               className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[var(--accent)] ring-offset-4 ring-offset-[var(--bg)]"
             />

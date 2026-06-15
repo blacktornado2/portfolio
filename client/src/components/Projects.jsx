@@ -38,7 +38,7 @@ const projects = [
 
 export default function Projects() {
   const { theme } = useTheme();
-  const cardHover = { scale: 1.03, boxShadow: `0 0 24px ${theme.r35}` };
+  const cardHover = { scale: 1.03, boxShadow: `0 0 30px ${theme.r35}, 0 0 60px ${theme.r35}` };
 
   return (
     <section aria-labelledby="projects-heading" className="bg-[var(--bg)] py-24 px-6 lg:px-12">

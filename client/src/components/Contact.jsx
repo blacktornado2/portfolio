@@ -4,6 +4,7 @@ import { Send, MapPin, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { myEmail, myLocation, myPincode, myGithub, myLinkedIn } from "../constants";
 import { HEADER_ANIM } from "../lib/animations";
+import { useTheme } from "../lib/ThemeContext";
 
 const LEFT_ANIM = {
   initial: { opacity: 0, y: 20 },
@@ -52,6 +53,7 @@ function validateForm(data) {
 }
 
 export default function Contact() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
@@ -179,7 +181,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Right: Form */}
-          <motion.div {...RIGHT_ANIM} whileHover={{ boxShadow: "0 0 40px rgba(0, 98, 255, 0.2), 0 0 80px rgba(0, 255, 251, 0.15)" }} transition={{ duration: 0.3 }}>
+          <motion.div {...RIGHT_ANIM} whileHover={{ scale: 1.03, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }} transition={{ duration: 0.3 }} className="rounded-xl">
             <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
