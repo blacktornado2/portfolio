@@ -4,23 +4,46 @@ import { useTheme } from "../lib/ThemeContext";
 
 const testimonials = [
   {
-    quote:
-      "Ankit delivered clean, scalable code on tight deadlines. He doesn't just write features — he thinks through the architecture before touching the keyboard. Rare to find someone who cares that much about the craft.",
+    quote: "Doesn't just write features, he thinks through the architecture first. Rare to find someone who actually cares that much about the craft.",
     name: "Utkarsh Chaudhary",
     role: "SDE-2",
     company: "one.com",
   },
   {
-    quote: "One of the most thorough engineers I've worked with. Always ships with quality and on time, and proactively catches issues before they become problems.",
+    quote: "Always shipped on time and caught issues before I even noticed them. One of the more thorough engineers I've worked with.",
     name: "Ved Prakash",
     role: "Owner",
     company: "Vitano",
   },
   {
-    quote: "Ankit makes the whole team better. His code reviews are thoughtful, his documentation is clear, and he's always willing to unblock others without being asked.",
+    quote: "His code reviews alone made the team better. Thoughtful, never nitpicky, and always willing to unblock someone without being asked.",
     name: "Roshan Yadav",
     role: "SDE",
     company: "one.com",
+  },
+  {
+    quote: "Gave Ankit a rough brief and he came back with something better than what I had in mind. Delivered early, no hand-holding needed.",
+    name: "Harshal",
+    role: "Software Engineer",
+    company: "Samsung",
+  },
+  {
+    quote: "He fixed a performance issue in hours that had been sitting on our backlog for months. Didn't patch it, actually fixed it!",
+    name: "Bhunesh",
+    role: "Software Engineer",
+    company: "Samsung Data Systems",
+  },
+  {
+    quote: "Solid work, clear communication, no surprises. Treated the project like it mattered, which honestly isn't that common.",
+    name: "Harshit",
+    role: "Senior Software Engineer",
+    company: "Veersa",
+  },
+  {
+    quote: "He got what I needed without me having to over-explain it. Built it clean, it's been running fine ever since. Would go back to him.",
+    name: "Ashish",
+    role: "Business Owner",
+    // company: "—",
   },
 ];
 
