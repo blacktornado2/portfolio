@@ -32,7 +32,6 @@ import AdminComments from "./admin/AdminComments";
 function PortfolioHome() {
   return (
     <>
-      <GoldenCursor />
       <Header />
       <div id="home">
         <Hero />
@@ -73,6 +72,8 @@ function PortfolioHome() {
 
 export default function App() {
   return (
+    <>
+    <GoldenCursor />
     <Routes>
       <Route path="/" element={<PortfolioHome />} />
       <Route path="/blog" element={<BlogIndex />} />
@@ -94,5 +95,6 @@ export default function App() {
         <Route path="comments" element={<AdminComments />} />
       </Route>
     </Routes>
+    </>
   );
 }
