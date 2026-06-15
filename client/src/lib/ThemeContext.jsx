@@ -58,7 +58,7 @@ export const THEMES = {
 };
 
 const ThemeContext = createContext({
-  theme: THEMES.gold,
+  theme: THEMES.crimson,
   setTheme: () => {},
   mode: "dark",
   setMode: () => {},
@@ -66,7 +66,7 @@ const ThemeContext = createContext({
 
 export function ThemeProvider({ children }) {
   const [themeName, setThemeName] = useState(
-    () => localStorage.getItem("portfolio-theme") || "gold"
+    () => localStorage.getItem("portfolio-theme") || "crimson"
   );
   const [mode, setModeState] = useState(
     () => localStorage.getItem("portfolio-mode") || "dark"
