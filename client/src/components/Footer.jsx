@@ -56,6 +56,7 @@ const NAV = [
 ];
 
 export default function Footer() {
+  const { theme } = useTheme();
   return (
     <footer className="bg-[var(--bg-deep)] border-t border-[var(--border)]">
       <div className="h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-40)] to-transparent" />
@@ -73,7 +74,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="text-center md:text-left">
             <p className="font-syne font-bold text-[var(--text-1)] text-lg">Ankit Bhardwaj</p>
-            <p className="text-[var(--text-3)] text-sm mt-1">Full-Stack · Mobile Developer</p>
+            <p className="text-[var(--text-2)] text-sm mt-1">Full-Stack · Mobile Developer</p>
           </div>
 
           {/* Nav */}
@@ -82,7 +83,7 @@ export default function Footer() {
               <a
                 key={label}
                 href={href}
-                className="text-sm text-[var(--text-3)] hover:text-[var(--accent)] transition-colors"
+                className="text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
               >
                 {label}
               </a>
@@ -92,23 +93,25 @@ export default function Footer() {
           {/* Social icons */}
           <div className="flex items-center gap-3">
             {SOCIALS.map(({ label, href, Icon }) => (
-              <a
+              <motion.a
                 key={label}
                 href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text-3)] hover:text-[var(--accent)] hover:border-[var(--accent-40)] transition-colors"
+                whileHover={{ scale: 1.15, boxShadow: `0 0 20px ${theme.r35}` }}
+                transition={{ duration: 0.2 }}
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--text-2)] hover:text-[var(--accent)] hover:border-[var(--accent-40)] transition-colors"
               >
                 <Icon className="w-4 h-4" aria-hidden="true" />
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>
 
         {/* Bottom row */}
         <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-mono text-[11px] text-[var(--text-4)]">
+          <p className="font-mono text-[11px] text-[var(--text-3)]">
             © {new Date().getFullYear()} Ankit Bhardwaj. All rights reserved.
           </p>
           <div className="flex items-center gap-2">
@@ -116,13 +119,21 @@ export default function Footer() {
             <div className="w-px h-4 bg-[var(--border)]" />
             <ModeToggle />
           </div>
-          <p className="font-mono text-[11px] text-[var(--text-4)]">
+          <p className="font-mono text-[11px] text-[var(--text-3)]">
             Built with{" "}
-            <span className="text-[var(--accent-70)]">React</span>
+            <span className="text-[var(--accent-70)] ml-1">NestJS</span>
             {" · "}
-            <span className="text-[var(--accent-70)]">NestJS</span>
+            <span className="text-[var(--accent-70)]">TypeScript</span>
             {" · "}
             <span className="text-[var(--accent-70)]">PostgreSQL</span>
+            {" · "}
+            <span className="text-[var(--accent-70)]">Neon</span>
+            {" · "}
+            <span className="text-[var(--accent-70)]">Claude</span>
+            {" · "}
+            <span className="text-[var(--accent-70)]">React</span>
+            {" · "}
+            <span className="text-[var(--accent-70)]">Framer Motion</span>
           </p>
         </div>
       </motion.div>
