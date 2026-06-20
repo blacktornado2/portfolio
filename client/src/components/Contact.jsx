@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Send, MapPin, Mail } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { myEmail, myLocation, myPincode, myGithub, myLinkedIn } from "../constants";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { myEmail, myLocation, myPincode, myGithub, myLinkedIn, myWhatsApp } from "../constants";
 import { HEADER_ANIM } from "../lib/animations";
 import { useTheme } from "../lib/ThemeContext";
 
@@ -28,8 +28,8 @@ const inputClass = (error) =>
 
 function ContactRow({ icon: Icon, label, children }) {
   return (
-    <div className="flex items-center gap-4">
-      <div className="bg-[var(--surface)] border border-[var(--border)] p-3 rounded-lg flex-shrink-0">
+    <div className="group flex items-center gap-4 p-2 -m-2 rounded-lg transition-colors hover:bg-[var(--surface)]">
+      <div className="bg-[var(--surface)] border border-[var(--border)] p-3 rounded-lg flex-shrink-0 transition-colors group-hover:border-[var(--accent)]/50">
         <Icon className="w-5 h-5 text-[var(--accent)]" aria-hidden="true" />
       </div>
       <div>
@@ -143,6 +143,17 @@ export default function Contact() {
             </div>
 
             <div className="space-y-5">
+              <ContactRow icon={FaWhatsapp} label="WhatsApp">
+                <a
+                  href={`https://wa.me/${myWhatsApp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--text-2)] hover:text-[var(--accent)] transition-colors text-sm"
+                >
+                  +91 96505 56483
+                </a>
+              </ContactRow>
+
               <ContactRow icon={Mail} label="Email">
                 <a
                   href={`mailto:${myEmail}`}
@@ -150,10 +161,6 @@ export default function Contact() {
                 >
                   {myEmail}
                 </a>
-              </ContactRow>
-
-              <ContactRow icon={MapPin} label="Location">
-                <p className="text-[var(--text-2)] text-sm">{myLocation}, {myPincode}</p>
               </ContactRow>
 
               <ContactRow icon={FaGithub} label="GitHub">
@@ -176,6 +183,10 @@ export default function Contact() {
                 >
                   {myLinkedIn.replace("https://www.", "").replace(/\/$/, "")}
                 </a>
+              </ContactRow>
+
+              <ContactRow icon={MapPin} label="Location">
+                <p className="text-[var(--text-2)] text-sm">{myLocation}, {myPincode}</p>
               </ContactRow>
             </div>
           </motion.div>
