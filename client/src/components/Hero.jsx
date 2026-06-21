@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
+import "prismjs/plugins/line-numbers/prism-line-numbers";
 import { motion } from "framer-motion";
 import { IoIosClose } from "react-icons/io";
+import { IoCopyOutline, IoCheckmarkOutline } from "react-icons/io5";
 import PortfolioPage from "./PortfolioPage";
 import SectionDivider from "./SectionDivider";
 import { useTheme } from "../lib/ThemeContext";
+import { myEmail } from "../constants";
 
 const CODE = `const profile = {
     name: 'Ankit Bhardwaj',
     title: 'Software Developer',
+    email: '${myEmail}',
     skills: [
         'React Native', 'React.js', 'Vue.js',
         'Node.js', 'TypeScript', 'Nest.js',
@@ -33,10 +37,46 @@ const CODE_WINDOW_ANIM = {
 
 export default function Hero() {
   const { theme } = useTheme();
+  const codeRef = useRef(null);
+  const [typedLength, setTypedLength] = useState(0);
+  const [closed, setClosed] = useState(false);
+  const [cycle, setCycle] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    Prism.highlightAll();
-  }, []);
+    setTypedLength(0);
+    let i = 0;
+    const interval = setInterval(() => {
+      i += 1;
+      setTypedLength(i);
+      if (i >= CODE.length) clearInterval(interval);
+    }, 14);
+    return () => clearInterval(interval);
+  }, [cycle]);
+
+  const handleClose = () => {
+    setClosed(true);
+    setTimeout(() => {
+      setClosed(false);
+      setCycle((c) => c + 1);
+    }, 900);
+  };
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(CODE);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  useEffect(() => {
+    const code = codeRef.current;
+    if (!code) return;
+    code.textContent = CODE.slice(0, typedLength);
+    Prism.highlightElement(code);
+    const cursor = document.createElement("span");
+    cursor.className = "typing-cursor";
+    code.appendChild(cursor);
+  }, [typedLength]);
 
   return (
     <main className="bg-[var(--bg)] text-[var(--text-1)]">
@@ -91,26 +131,54 @@ export default function Hero() {
 
           {/* Right column — Code Window */}
           <motion.div
-            {...CODE_WINDOW_ANIM}
-            whileHover={{ scale: 1.04, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
-            transition={{ duration: 0.3 }}
-            className="rounded-xl"
+            initial={CODE_WINDOW_ANIM.initial}
+            animate={{
+              ...CODE_WINDOW_ANIM.animate,
+              opacity: closed ? 0 : 1,
+              scale: closed ? 0.92 : 1,
+            }}
+            whileHover={closed ? undefined : { scale: 1.04, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
+            transition={closed ? { duration: 0.35, ease: "easeInOut" } : CODE_WINDOW_ANIM.transition}
+            className="group bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden"
           >
-            <div className="bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden">
-              {/* Window chrome */}
-              <div className="bg-[#161616] px-5 py-4 flex items-center gap-2 border-b border-[var(--border)]">
-                <span className="w-3 h-3 rounded-full bg-[#EF4444] flex items-center justify-center">
-                  <IoIosClose color="#1A0000" className="w-2.5 h-2.5" aria-hidden="true" />
-                </span>
-                <span className="w-3 h-3 rounded-full bg-[#F59E0B]" />
-                <span className="w-3 h-3 rounded-full bg-[#22C55E]" />
-                <span className="ml-3 text-xs text-[#ff3b3b] font-mono">developer.js</span>
-              </div>
-              {/* Code */}
-              <pre className="language-javascript !m-0 !p-5 !text-[15px]">
-                <code className="language-javascript">{CODE}</code>
-              </pre>
+            {/* Accent top border */}
+            <div className="h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent" />
+            {/* Window chrome */}
+            <div className="bg-[#161616] px-5 py-4 flex items-center gap-2 border-b border-[var(--border)]">
+              <button
+                type="button"
+                onClick={handleClose}
+                aria-label="Close code window"
+                className="w-3 h-3 rounded-full bg-[#EF4444] flex items-center justify-center cursor-pointer hover:brightness-110 transition"
+              >
+                <IoIosClose color="#1A0000" className="w-2.5 h-2.5" aria-hidden="true" />
+              </button>
+              <span className="w-3 h-3 rounded-full bg-[#F59E0B]" />
+              <span className="w-3 h-3 rounded-full bg-[#22C55E]" />
+              <span className="ml-3 text-xs text-[#8F8F84] font-mono">developer.js</span>
+              <button
+                type="button"
+                onClick={handleCopy}
+                aria-label="Copy code"
+                className="ml-auto flex items-center gap-1 text-xs text-[#8F8F84] hover:text-[var(--accent)] opacity-0 group-hover:opacity-100 transition cursor-pointer"
+              >
+                {copied ? (
+                  <>
+                    <IoCheckmarkOutline className="w-3.5 h-3.5" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <IoCopyOutline className="w-3.5 h-3.5" />
+                    Copy
+                  </>
+                )}
+              </button>
             </div>
+            {/* Code */}
+            <pre className="language-javascript line-numbers !m-0 !p-5 !text-[15px]">
+              <code ref={codeRef} className="language-javascript" />
+            </pre>
           </motion.div>
 
         </div>

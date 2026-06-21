@@ -165,24 +165,71 @@ body.golden-cursor-active * { cursor: none !important; }
   transform: translateX(100%);
 }
 
-/* ---- Prism.js — Dark Refined theme ---- */
+/* ---- Prism.js — Monokai theme ---- */
 pre[class*="language-"] {
-  background: #1A1A1A !important;
+  background: #272822 !important;
   padding: 1.5rem !important;
   margin: 0 !important;
   font-size: 0.875rem !important;
   font-family: 'JetBrains Mono', monospace !important;
   line-height: 1.7 !important;
 }
-.token.keyword { color: #E8B84B !important; }
-.token.string { color: #d4c090 !important; }
+.token.keyword { color: #F92672 !important; }
+.token.string { color: #E6DB74 !important; }
 .token.number,
-.token.boolean { color: #E8B84B !important; }
-.token.property { color: #888888 !important; }
-.token.punctuation { color: #FFFFFF !important; }
-.token.operator { color: #888888 !important; }
-.token.comment { color: #444444 !important; font-style: italic; }
-.token.function { color: #FFFFFF !important; }
+.token.boolean { color: #AE81FF !important; }
+.token.property { color: #66D9EF !important; }
+.token.punctuation { color: #F8F8F2 !important; }
+.token.operator { color: #F92672 !important; }
+.token.comment { color: #75715E !important; font-style: italic; }
+.token.function { color: #A6E22E !important; }
+
+/* ---- Prism line-numbers gutter ---- */
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em !important;
+  counter-reset: linenumber;
+}
+pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid #49483E;
+  user-select: none;
+}
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #75715E;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+
+/* ---- Typing animation cursor ---- */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  background: #A6E22E;
+  vertical-align: text-bottom;
+  animation: typing-blink 0.9s step-end infinite;
+}
+@keyframes typing-blink {
+  50% { opacity: 0; }
+}
 
 /* ---- Testimonials marquee ---- */
 @keyframes marquee {
