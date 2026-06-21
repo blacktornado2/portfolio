@@ -136,6 +136,7 @@ export default function Hero() {
               ...CODE_WINDOW_ANIM.animate,
               opacity: closed ? 0 : 1,
               scale: closed ? 0.92 : 1,
+              boxShadow: "0 0 0 rgba(0,0,0,0)",
             }}
             whileHover={closed ? undefined : { scale: 1.04, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
             transition={closed ? { duration: 0.35, ease: "easeInOut" } : CODE_WINDOW_ANIM.transition}
