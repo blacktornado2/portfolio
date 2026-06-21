@@ -29,3 +29,6 @@ dist.zip
 
 # Brainstorming visual-companion mockups
 .superpowers/
+
+# Claude Code local settings (per-developer overrides)
+.claude/settings.local.json
