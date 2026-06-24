@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Mail, Sun, Moon } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { myEmail, myGithub, myLinkedIn } from "../constants";
+import { FaGithub, FaLinkedin, FaMedium } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { myEmail, myGithub, myLinkedIn, myMedium, myX } from "../constants";
 import { useTheme, THEMES } from "../lib/ThemeContext";
 
 function ModeToggle() {
@@ -44,6 +45,8 @@ function ThemeSwitcher() {
 const SOCIALS = [
   { label: "GitHub", href: myGithub, Icon: FaGithub },
   { label: "LinkedIn", href: myLinkedIn, Icon: FaLinkedin },
+  { label: "X", href: myX, Icon: FaXTwitter },
+  { label: "Medium", href: myMedium, Icon: FaMedium },
   { label: "Email", href: `mailto:${myEmail}`, Icon: Mail },
 ];
 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { getPosts } from "@/lib/api";
 import { HEADER_ANIM, SUBHEADER_ANIM } from "@/lib/animations";
 import { useTheme } from "@/lib/ThemeContext";
+import { myMedium } from "@/constants";
 
 
 function PostCard({ post, index }) {
@@ -73,12 +74,22 @@ export default function FieldNotesSection() {
           <h2 id="field-notes-heading" className="font-syne font-bold text-4xl lg:text-5xl text-[var(--text-1)]">
             <span className="text-[var(--accent)]">04</span> — Dev Notes
           </h2>
-          <Link
-            to="/blog"
-            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
-          >
-            View all posts <ArrowRight className="w-3 h-3" />
-          </Link>
+          <div className="hidden sm:flex items-center gap-6">
+            <a
+              href={myMedium}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
+            >
+              Read on Medium <ArrowUpRight className="w-3 h-3" />
+            </a>
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
+            >
+              View all posts <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
         </motion.div>
 
         <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
@@ -99,8 +110,16 @@ export default function FieldNotesSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="sm:hidden mt-8 text-center"
+              className="sm:hidden mt-8 flex flex-col items-center gap-3"
             >
+              <a
+                href={myMedium}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
+              >
+                Read on Medium <ArrowUpRight className="w-3 h-3" />
+              </a>
               <Link
                 to="/blog"
                 className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--text-2)] hover:text-[var(--accent)] transition-colors duration-150"
