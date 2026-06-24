@@ -39,7 +39,7 @@ export default function PortfolioPage() {
               alt="Ankit Bhardwaj"
               whileHover={{ scale: 1.05, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-[590px] object-cover rounded-2xl ring-2 ring-[var(--accent)] ring-offset-4 ring-offset-[var(--bg)]"
+              className="w-full max-w-[590px] object-cover rounded-2xl outline outline-2 outline-offset-4 outline-[color:var(--accent)]"
             />
           </motion.div>
 
