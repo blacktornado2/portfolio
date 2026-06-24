@@ -47,27 +47,27 @@
 }
 
 [data-theme="blue"] {
-  --accent:     #60A5FA;
-  --accent-dark:#3B82F6;
-  --accent-05:  rgba(96,165,250,0.05);
-  --accent-10:  rgba(96,165,250,0.10);
-  --accent-20:  rgba(96,165,250,0.20);
-  --accent-25:  rgba(96,165,250,0.25);
-  --accent-30:  rgba(96,165,250,0.30);
-  --accent-40:  rgba(96,165,250,0.40);
-  --accent-70:  rgba(96,165,250,0.70);
+  --accent:     #4D9FFF;
+  --accent-dark:#2563EB;
+  --accent-05:  rgba(77,159,255,0.05);
+  --accent-10:  rgba(77,159,255,0.10);
+  --accent-20:  rgba(77,159,255,0.20);
+  --accent-25:  rgba(77,159,255,0.25);
+  --accent-30:  rgba(77,159,255,0.30);
+  --accent-40:  rgba(77,159,255,0.40);
+  --accent-70:  rgba(77,159,255,0.70);
 }
 
 [data-theme="purple"] {
-  --accent:     #A78BFA;
-  --accent-dark:#7C3AED;
-  --accent-05:  rgba(167,139,250,0.05);
-  --accent-10:  rgba(167,139,250,0.10);
-  --accent-20:  rgba(167,139,250,0.20);
-  --accent-25:  rgba(167,139,250,0.25);
-  --accent-30:  rgba(167,139,250,0.30);
-  --accent-40:  rgba(167,139,250,0.40);
-  --accent-70:  rgba(167,139,250,0.70);
+  --accent:     #A855F7;
+  --accent-dark:#9333EA;
+  --accent-05:  rgba(168,85,247,0.05);
+  --accent-10:  rgba(168,85,247,0.10);
+  --accent-20:  rgba(168,85,247,0.20);
+  --accent-25:  rgba(168,85,247,0.25);
+  --accent-30:  rgba(168,85,247,0.30);
+  --accent-40:  rgba(168,85,247,0.40);
+  --accent-70:  rgba(168,85,247,0.70);
 }
 
 [data-theme="crimson"] {
@@ -83,15 +83,15 @@
 }
 
 [data-theme="green"] {
-  --accent:     #4ADE80;
-  --accent-dark:#22C55E;
-  --accent-05:  rgba(74,222,128,0.05);
-  --accent-10:  rgba(74,222,128,0.10);
-  --accent-20:  rgba(74,222,128,0.20);
-  --accent-25:  rgba(74,222,128,0.25);
-  --accent-30:  rgba(74,222,128,0.30);
-  --accent-40:  rgba(74,222,128,0.40);
-  --accent-70:  rgba(74,222,128,0.70);
+  --accent:     #1BB300;
+  --accent-dark:#159400;
+  --accent-05:  rgba(27,179,0,0.05);
+  --accent-10:  rgba(27,179,0,0.10);
+  --accent-20:  rgba(27,179,0,0.20);
+  --accent-25:  rgba(27,179,0,0.25);
+  --accent-30:  rgba(27,179,0,0.30);
+  --accent-40:  rgba(27,179,0,0.40);
+  --accent-70:  rgba(27,179,0,0.70);
 }
 
 [data-theme="orange"] {
