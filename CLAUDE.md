@@ -55,7 +55,7 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/lib/utils.js` | `cn()` helper — Tailwind class merge (clsx + tailwind-merge) |
 | `client/src/assets/css/index.css` | Design tokens (CSS custom properties for mode/theme), Google Fonts, Prism theme, shadcn CSS vars |
 | `client/src/lib/ThemeContext.jsx` | Theme (accent colour) + mode (dark/light) context — `useTheme()` returns `{ theme, setTheme, mode, setMode }` |
-| `client/src/constants/index.js` | Personal data (email, location, pincode, GitHub URL, LinkedIn URL) — edit here, not in components |
+| `client/src/constants/index.js` | Personal data (email, location, pincode, GitHub/LinkedIn/Medium/X URLs, WhatsApp number) — edit here, not in components |
 | `client/tailwind.config.js` | Font families + shadcn color tokens |
 | `server/src/` | NestJS modules (one folder per feature) |
 | `server/prisma/` | Prisma schema, migrations, seed |
@@ -139,7 +139,7 @@ Tokens defined in `client/src/assets/css/index.css` as CSS custom properties. Fu
 - **Admin panel** (`client/src/admin/`) uses hardcoded hex and stays permanently dark — do not apply CSS vars there
 
 ## Personal Data
-Edit `client/src/constants/index.js` for email, location, pincode, GitHub profile URL (`myGithub`), and LinkedIn URL (`myLinkedIn`). All components import from here.
+Edit `client/src/constants/index.js` for email, location, pincode, GitHub URL (`myGithub`), LinkedIn URL (`myLinkedIn`), Medium URL (`myMedium`), X URL (`myX`), and WhatsApp number (`myWhatsApp`). All components import from here. The Footer social row renders GitHub · LinkedIn · X · Medium · Email; the Dev Notes section also surfaces a "Read on Medium" link.
 The Web3Forms access key is the only remaining hardcoded value — it lives in `client/src/components/Contact.jsx`.
 
 ## Additional Documentation

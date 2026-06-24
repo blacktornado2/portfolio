@@ -22,13 +22,20 @@ All non-admin components use CSS custom properties (set in `client/src/assets/cs
 | `var(--text-3)` | `#555555` | `#888888` | Placeholder text, very quiet labels |
 | `var(--text-4)` | `#444444` | `#AAAAAA` | Code comments, copyright |
 
-Accent vars (theme-switchable, not mode-switchable):
+Accent vars (theme-switchable, not mode-switchable). Six themes, selectable via the ThemeSwitcher in the Footer; **Crimson is the default**. Defined in `index.css` (`[data-theme="…"]`) and mirrored in the `THEMES` object in `ThemeContext.jsx` (which also holds the `r0/r35/r45/r50` glow rgba values used by Framer hover effects):
 
-| CSS var | Gold (default) | Blue | Purple |
-|---|---|---|---|
-| `var(--accent)` | `#E8B84B` | `#60A5FA` | `#A78BFA` |
-| `var(--accent-dark)` | `#D4A83E` | `#3B82F6` | `#7C3AED` |
-| `var(--accent-05..70)` | rgba at each opacity | — | — |
+| Theme | `var(--accent)` | `var(--accent-dark)` |
+|---|---|---|
+| Crimson (default) | `#F43F5E` | `#E11D48` |
+| Gold | `#E8B84B` | `#D4A83E` |
+| Blue | `#4D9FFF` | `#2563EB` |
+| Purple | `#A855F7` | `#9333EA` |
+| Green | `#1BB300` | `#159400` |
+| Orange | `#FB923C` | `#F97316` |
+
+`var(--accent-05..70)` provide the same accent at each opacity step (rgba). When changing a theme's base colour, recompute these alpha variants **and** the `THEMES` glow values to keep them in sync.
+
+> **Theme-reactive rings/borders:** never paint a static accent ring with Tailwind's `ring` utility on an element that also has a Framer `whileHover` `boxShadow` — both use the `box-shadow` property and Framer freezes the resolved colour inline on hover-exit, breaking theme switching. Use `outline` (e.g. `outline outline-2 outline-offset-4 outline-[color:var(--accent)]`) so the static ring lives on a different property. Also note Tailwind ambiguous arbitrary utilities (`ring`/`outline`/`ring-offset`) need a `color:` hint, e.g. `outline-[color:var(--accent)]`.
 
 ### Static hex values (not mode/theme dependent — still hardcoded)
 
