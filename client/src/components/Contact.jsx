@@ -192,7 +192,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Right: Form */}
-          <motion.div {...RIGHT_ANIM} whileHover={{ scale: 1.03, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }} transition={{ duration: 0.3 }} className="rounded-xl">
+          <motion.div {...RIGHT_ANIM} whileHover={{ scale: 1.03, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }} transition={{ duration: 0.3 }} className="rounded-xl self-start">
             <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-8">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
