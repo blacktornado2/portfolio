@@ -128,8 +128,10 @@ export default function Contact() {
                   { label: "Performance optimisation", gold: true },
                   { label: "Feature Add", gold: true },
                 ].map(({ label, gold }) => (
-                  <span
+                  <motion.span
                     key={label}
+                    whileHover={{ boxShadow: `0 0 10px ${theme.r35}, 0 0 20px ${theme.r35}` }}
+                    transition={{ duration: 0.2 }}
                     className={`rounded-md px-3 py-1.5 text-xs font-medium border ${
                       gold
                         ? "bg-[var(--accent-10)] border-[var(--accent-30)] text-[var(--accent)]"
@@ -137,7 +139,7 @@ export default function Contact() {
                     }`}
                   >
                     {label}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
