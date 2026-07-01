@@ -145,7 +145,7 @@ export default function Hero() {
             {/* Accent top border */}
             <div className="h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent" />
             {/* Window chrome */}
-            <div className="bg-[#161616] px-5 py-4 flex items-center gap-2 border-b border-[var(--border)]">
+            <div className="bg-[var(--code-chrome)] px-5 py-4 flex items-center gap-2 border-b border-[var(--border)]">
               <button
                 type="button"
                 onClick={handleClose}

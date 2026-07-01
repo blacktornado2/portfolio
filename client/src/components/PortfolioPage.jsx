@@ -37,9 +37,10 @@ export default function PortfolioPage() {
             <motion.img
               src={profileImage}
               alt="Ankit Bhardwaj"
-              whileHover={{ scale: 1.05, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}` }}
+              style={{ outlineStyle: "solid", outlineWidth: "2px", outlineOffset: "4px", outlineColor: "var(--accent)" }}
+              whileHover={{ scale: 1.05, boxShadow: `0 0 40px ${theme.r35}, 0 0 80px ${theme.r35}`, outlineColor: "transparent" }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-[590px] object-cover rounded-2xl outline outline-2 outline-offset-4 outline-[color:var(--accent)]"
+              className="w-full max-w-[590px] object-cover rounded-2xl"
             />
           </motion.div>
 

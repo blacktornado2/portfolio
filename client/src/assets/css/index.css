@@ -31,6 +31,7 @@
   --text-2:     #888888;
   --text-3:     #555555;
   --text-4:     #444444;
+  --code-chrome: #161616;
 }
 
 /* ---- Light mode overrides ---- */
@@ -44,6 +45,7 @@
   --text-2:     #555555;
   --text-3:     #888888;
   --text-4:     #AAAAAA;
+  --code-chrome: #EAECF0;
 }
 
 [data-theme="blue"] {
@@ -216,6 +218,21 @@ pre[class*="language-"].line-numbers > code {
   padding-right: 0.8em;
   text-align: right;
 }
+
+/* ---- Prism.js — Light mode overrides (GitHub-inspired) ---- */
+[data-mode="light"] pre[class*="language-"] { background: #F6F8FA !important; }
+[data-mode="light"] .token.keyword          { color: #CF222E !important; }
+[data-mode="light"] .token.string           { color: #0A3069 !important; }
+[data-mode="light"] .token.number,
+[data-mode="light"] .token.boolean          { color: #8250DF !important; }
+[data-mode="light"] .token.property         { color: #03a800 !important; }
+[data-mode="light"] .token.punctuation      { color: #24292F !important; }
+[data-mode="light"] .token.operator         { color: #CF222E !important; }
+[data-mode="light"] .token.comment          { color: #6E7781 !important; font-style: italic; }
+[data-mode="light"] .token.function         { color: #8250DF !important; }
+[data-mode="light"] .line-numbers .line-numbers-rows { border-right-color: #D0D7DE !important; }
+[data-mode="light"] .line-numbers-rows > span:before { color: #8C959F !important; }
+[data-mode="light"] .typing-cursor          { background: #8250DF !important; }
 
 /* ---- Typing animation cursor ---- */
 .typing-cursor {
