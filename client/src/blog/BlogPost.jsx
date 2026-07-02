@@ -13,6 +13,21 @@ import "prismjs/components/prism-jsx";
 import { getPostBySlug, getComments, getLikes, createComment, toggleLike } from "@/lib/api";
 import profileImg from "@/assets/images/profile2.jpeg";
 
+const commentInputClass = (error) =>
+  `w-full bg-[var(--surface)] border rounded px-3 py-2 text-sm text-[var(--text-1)] placeholder-[var(--text-3)] focus:outline-none transition-colors ${error
+    ? "border-red-500 focus:border-red-400"
+    : "border-[var(--border)] focus:border-[var(--accent)]"
+  }`;
+
+function validateCommentForm(data) {
+  const errs = {};
+  if (!data.authorName.trim()) errs.authorName = "Name is required";
+  if (!data.authorEmail.trim()) errs.authorEmail = "Email is required";
+  else if (!/\S+@\S+\.\S+/.test(data.authorEmail)) errs.authorEmail = "Email is invalid";
+  if (!data.body.trim()) errs.body = "Comment can't be empty";
+  return errs;
+}
+
 function slugify(text) {
   return String(text)
     .toLowerCase()
@@ -152,6 +167,7 @@ export default function BlogPost() {
   const [commentForm, setCommentForm] = useState({ authorName: "", authorEmail: "", body: "" });
   const [submittingComment, setSubmittingComment] = useState(false);
   const [commentError, setCommentError] = useState("");
+  const [commentFieldErrors, setCommentFieldErrors] = useState({});
   const [likePending, setLikePending] = useState(false);
 
   useEffect(() => {
@@ -193,10 +209,20 @@ export default function BlogPost() {
     }
   };
 
+  const handleCommentFieldChange = (field) => (e) => {
+    setCommentForm({ ...commentForm, [field]: e.target.value });
+    setCommentFieldErrors((prev) => ({ ...prev, [field]: undefined }));
+  };
+
   const handleSubmitComment = async (e) => {
     e.preventDefault();
-    if (!commentForm.authorName || !commentForm.authorEmail || !commentForm.body) return;
+    const errs = validateCommentForm(commentForm);
+    if (Object.keys(errs).length > 0) {
+      setCommentFieldErrors(errs);
+      return;
+    }
 
+    setCommentFieldErrors({});
     setCommentError("");
     setSubmittingComment(true);
     try {
@@ -332,28 +358,45 @@ export default function BlogPost() {
               <h3 className="font-syne font-bold text-lg mb-4">Comments</h3>
 
               <div className="mb-6 max-w-2xl">
-                <form onSubmit={handleSubmitComment} className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    value={commentForm.authorName}
-                    onChange={(e) => setCommentForm({ ...commentForm, authorName: e.target.value })}
-                    className="w-full bg-[var(--surface)] border border-[var(--border)] rounded px-3 py-2 text-sm text-[var(--text-1)] placeholder-[var(--text-3)] focus:border-[var(--accent)] outline-none"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={commentForm.authorEmail}
-                    onChange={(e) => setCommentForm({ ...commentForm, authorEmail: e.target.value })}
-                    className="w-full bg-[var(--surface)] border border-[var(--border)] rounded px-3 py-2 text-sm text-[var(--text-1)] placeholder-[var(--text-3)] focus:border-[var(--accent)] outline-none"
-                  />
-                  <textarea
-                    placeholder="Your comment…"
-                    value={commentForm.body}
-                    onChange={(e) => setCommentForm({ ...commentForm, body: e.target.value })}
-                    className="w-full bg-[var(--surface)] border border-[var(--border)] rounded px-3 py-2 text-sm text-[var(--text-1)] placeholder-[var(--text-3)] focus:border-[var(--accent)] outline-none resize-none"
-                    rows={3}
-                  />
+                <form onSubmit={handleSubmitComment} noValidate className="space-y-3">
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      value={commentForm.authorName}
+                      onChange={handleCommentFieldChange("authorName")}
+                      className={commentInputClass(commentFieldErrors.authorName)}
+                    />
+                    {commentFieldErrors.authorName && (
+                      <p className="text-red-400 text-xs mt-1">{commentFieldErrors.authorName}</p>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={commentForm.authorEmail}
+                      onChange={handleCommentFieldChange("authorEmail")}
+                      className={commentInputClass(commentFieldErrors.authorEmail)}
+                    />
+                    {commentFieldErrors.authorEmail ? (
+                      <p className="text-red-400 text-xs mt-1">{commentFieldErrors.authorEmail}</p>
+                    ) : (
+                      <p className="text-[var(--text-3)] text-xs mt-1">Not shown publicly</p>
+                    )}
+                  </div>
+                  <div>
+                    <textarea
+                      placeholder="Your comment…"
+                      value={commentForm.body}
+                      onChange={handleCommentFieldChange("body")}
+                      className={`${commentInputClass(commentFieldErrors.body)} resize-none`}
+                      rows={3}
+                    />
+                    {commentFieldErrors.body && (
+                      <p className="text-red-400 text-xs mt-1">{commentFieldErrors.body}</p>
+                    )}
+                  </div>
                   {commentError && (
                     <p className="text-red-400 text-sm font-mono">{commentError}</p>
                   )}
@@ -374,7 +417,7 @@ export default function BlogPost() {
                   comments.map((comment) => (
                     <div key={comment.id} className="bg-[var(--surface)] border border-[var(--border)] rounded p-4">
                       <div className="flex justify-between items-start mb-2">
-                        <div className="font-mono text-sm font-bold text-[var(--text-1)]">{comment.authorName}</div>
+                        <div className="font-mono text-sm font-bold text-[var(--accent)]">{comment.authorName}</div>
                         <span className="font-mono text-xs text-[var(--text-3)]">
                           {new Date(comment.createdAt).toLocaleDateString()}
                         </span>
