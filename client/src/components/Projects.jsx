@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import portfolioPreview from "../assets/images/portfolio-hero.png";
 import vitanoPreview from "../assets/images/vitano-preview.png";
 import utkarshPreview from "../assets/images/utkarsh-portfolio.png";
 import odysseyPreview from "../assets/images/odyssey-hompage.png";
@@ -10,16 +11,25 @@ import { useTheme } from "../lib/ThemeContext";
 
 const projects = [
   {
+    title: "Ankit's Portfolio",
+    description:
+      "This site itself — a full-stack monorepo, not a static template. A NestJS + Prisma API powers the blog's comments, likes, and JWT-gated admin panel, while the React frontend ships a canvas draw tool and three playable games. Deployed across Vercel, Render, and Neon.",
+    tech: ["React", "Vite", "Nest.js", "Prisma", "PostgreSQL", "Tailwind CSS", "Framer Motion"],
+    github: `${myGithub}/portfolio`,
+    live: "https://bhardwajankit.com",
+    image: portfolioPreview,
+  },
+  {
     title: "Odyssey",
     description:
-      "A private portal for luxury travel — each trip gets its own beautifully crafted page, shareable via QR code, with curated itineraries, flights, hotels, and experiences composed by the travel director. Built for Vagabond, a bespoke travel brand, to replace static PDFs with a living, branded digital experience for every client journey.",
+      "A private portal for luxury travel — each trip gets its own branded page, shareable via QR code, with itineraries, flights, hotels, and experiences curated by the travel director. Built for Vagabond to replace static PDF itineraries with a living digital experience clients actually enjoy.",
     tech: ["Nest.js", "React.js", "Clerk", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Claude Code"],
     image: odysseyPreview,
   },
   {
     title: "Vitano",
     description:
-      "A production business landing page built for a client selling FMCG products. Designed to convert visitors into buyers with a clean product showcase, category browsing, and a mobile-first responsive layout. Deployed live and actively used by the client.",
+      "A production landing page for an FMCG brand, built to turn visitors into buyers with a clean product showcase, category browsing, and a mobile-first layout. Live and actively used by the client to drive sales.",
     tech: ["React", "TypeScript", "Tailwind CSS", "Google Reviews"],
     github: `${myGithub}/vitano`,
     live: "https://www.vitano.in",
@@ -28,7 +38,7 @@ const projects = [
   {
     title: "Utkarsh Chaudhary — Portfolio",
     description:
-      "A developer portfolio for Utkarsh Chaudhary, a Senior Software Engineer specializing in scalable distributed systems and production AI. Bold typographic design with a minimal dark aesthetic and smooth scroll animations.",
+      "A developer portfolio for a senior engineer specializing in scalable distributed systems and production AI. Bold typography, a minimal dark aesthetic, and smooth scroll-driven animations throughout.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     github: "#",
     live: "https://www.utkarshch.com",
@@ -51,7 +61,7 @@ export default function Projects() {
         </motion.div>
 
         <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
-          "Things I've built — and things worth building"
+          &ldquo;Things I&apos;ve built — and things worth building&rdquo;
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
