@@ -108,9 +108,14 @@ export default function Hero() {
             </motion.div>
 
             {/* Role */}
-            <motion.p {...FADE_UP[2]} className="text-[var(--text-2)] text-xl">
-              Full-Stack Developer · Mobile Developer
-            </motion.p>
+            <motion.div {...FADE_UP[2]} className="flex flex-wrap items-center gap-2">
+              <span className="badge-shine inline-flex items-center px-3 py-1 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Full-Stack Developer
+              </span>
+              <span className="badge-shine inline-flex items-center px-3 py-1 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">
+                Mobile Developer
+              </span>
+            </motion.div>
 
             {/* Bio */}
             <motion.p {...FADE_UP[3]} className="text-[var(--text-2)] leading-relaxed max-w-md">

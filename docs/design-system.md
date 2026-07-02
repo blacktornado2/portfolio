@@ -222,7 +222,17 @@ bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]
 
 Pulse dot inside: `w-2 h-2 rounded-full bg-[#22C55E] animate-pulse`
 
-### 4.9 Code Window (macOS chrome)
+### 4.9 Hero Role Pills
+
+```
+badge-shine inline-flex items-center px-3 py-1 rounded-full
+bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]
+hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors
+```
+
+One pill per role (e.g. "Full-Stack Developer", "Mobile Developer"), wrapped in a `flex flex-wrap gap-2` row under the Hero name. Same `badge-shine` shimmer as 4.8, without the pulse dot.
+
+### 4.10 Code Window (macOS chrome)
 
 ```
 bg-[var(--surface)] rounded-xl border border-[var(--border)] overflow-hidden
@@ -241,7 +251,7 @@ Prism syntax colours (hardcoded in `index.css` — not mode-switchable, code blo
 - punctuation / functions: `#FFFFFF`
 - comments: `#444444` italic
 
-### 4.10 Form Input
+### 4.11 Form Input
 
 ```
 w-full bg-[var(--bg)] border rounded-lg px-4 py-3 text-[var(--text-1)] placeholder-[var(--text-3)]
@@ -255,7 +265,7 @@ Error message: `text-red-400 text-xs mt-1`
 Submit button: same as Primary Button + `disabled:opacity-60 disabled:cursor-not-allowed`
 Success feedback: `text-green-400 text-sm text-center`
 
-### 4.11 Navigation Header
+### 4.12 Navigation Header
 
 ```
 fixed top-0 left-0 w-full z-50 transition-all duration-300
@@ -288,7 +298,7 @@ const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40, restDel
 
 **Theme/mode controls are NOT in the header** — they live in the Footer (see 4.19).
 
-### 4.12 Blog Post Card (grid layout)
+### 4.13 Blog Post Card (grid layout)
 
 Card styling and hover glow live on the `motion.div` — **not** on an inner `article` — so box-shadow renders against the rounded, backgrounded element. Glow strings come from `theme.r0` / `theme.r45` (ThemeContext) so they switch colour with the theme:
 
@@ -311,7 +321,7 @@ const { theme } = useTheme();
 - Footer meta: `font-mono text-[11px] text-[var(--text-3)]` — date left, read time right
 - Footer divider: `border-t border-[var(--border)] pt-3 mt-auto`
 
-### 4.13 Blog Post Row (list layout)
+### 4.14 Blog Post Row (list layout)
 
 ```
 py-7 border-b border-[var(--border)] grid grid-cols-[1fr_auto] gap-5 items-start
@@ -322,7 +332,7 @@ group-hover:pl-1.5 transition-all duration-150
 - Default title: `font-syne font-bold text-[18px]`
 - Meta (date + read time): `font-mono text-xs text-[var(--text-3)]` right-aligned
 
-### 4.14 Blog Tag Filter Button
+### 4.15 Blog Tag Filter Button
 
 ```
 font-mono text-[11px] uppercase tracking-[0.06em] px-3 py-1 rounded border transition-all duration-150
@@ -331,7 +341,7 @@ active:   border-[var(--accent)] bg-[var(--accent-10)] text-[var(--accent)]
 inactive: border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)]
 ```
 
-### 4.15 Blog Search Bar
+### 4.16 Blog Search Bar
 
 ```
 bg-[var(--surface)] border border-[var(--border)] rounded-lg pl-9 pr-4 py-2
@@ -341,7 +351,7 @@ focus:border-[var(--accent)] transition-colors duration-200
 
 Search icon: `absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-3)]` 14×14px
 
-### 4.16 Blog Empty State
+### 4.17 Blog Empty State
 
 ```
 flex flex-col items-center justify-center py-24 text-center
@@ -352,9 +362,9 @@ flex flex-col items-center justify-center py-24 text-center
 - Message: `font-sans text-sm text-[var(--text-3)] mb-6 max-w-xs` — context-aware (search vs tag)
 - Clear button: ghost style — `font-mono text-[11px] uppercase px-4 py-2 border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)]`
 
-### 4.17 Landing Page Preview Cards (FieldNotesSection / SideQuestsSection)
+### 4.18 Landing Page Preview Cards (FieldNotesSection / SideQuestsSection)
 
-Same gold glow pattern as the blog grid card (4.12). The `motion.div` IS the card:
+Same gold glow pattern as the blog grid card (4.13). The `motion.div` IS the card:
 
 ```jsx
 const { theme } = useTheme();
@@ -368,7 +378,7 @@ const { theme } = useTheme();
 
 Outer entrance animation wraps the hover `motion.div` in a separate `motion.div` with `whileInView` stagger (see pattern 5.2).
 
-### 4.18 Testimonials Marquee
+### 4.19 Testimonials Marquee
 
 Infinite horizontal scroll. Duplicated array creates seamless loop; `translateX(-50%)` returns to start.
 
@@ -391,9 +401,9 @@ Edge fades (left/right):
   style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
 ```
 
-Testimonial card: `motion.div` with gold glow (same as 4.17). Initials avatar: `w-9 h-9 rounded-full bg-[var(--accent-10)] border border-[var(--accent-30)]`. Attribution: `font-syne font-bold text-sm text-[var(--text-1)]` name + `font-mono text-[10px] text-[var(--text-3)]` role · company.
+Testimonial card: `motion.div` with gold glow (same as 4.18). Initials avatar: `w-9 h-9 rounded-full bg-[var(--accent-10)] border border-[var(--accent-30)]`. Attribution: `font-syne font-bold text-sm text-[var(--text-1)]` name + `font-mono text-[10px] text-[var(--text-3)]` role · company.
 
-### 4.19 Footer
+### 4.20 Footer
 
 Rendered on `/`, `/blog`, `/blog/:slug`, `/games`. Not rendered on individual game pages or `/draw`.
 
@@ -425,7 +435,7 @@ Bottom row (inside `border-t border-[var(--border)] pt-6`):
 
 Entrance: `whileInView opacity 0→1, y 20→0, duration 0.5`.
 
-### 4.20 Stats Strip
+### 4.21 Stats Strip
 
 A narrow surface band between Hero and Experience showing key metrics with counting animations. Currently **commented out** in `App.jsx` — uncomment `<StatsStrip />` to activate.
 
@@ -656,5 +666,5 @@ All API calls go through `client/src/lib/api.ts`. It reads `VITE_API_URL` (falls
 9. **Muted label pattern:** `text-xs uppercase tracking-widest text-[var(--text-3)]`
 10. **Dividers inside cards:** `border-t border-[var(--border)]` — never a full horizontal rule (`<hr>`).
 11. **Blog tag filters never change when a tag is active** — `allTags` is derived from the unfiltered response only.
-12. **Empty states follow pattern 4.16** — icon, headline, context-aware message, clear-filters button.
+12. **Empty states follow pattern 4.17** — icon, headline, context-aware message, clear-filters button.
 13. **Admin panel stays permanently dark.** Never apply `var(--bg)` or mode vars to anything in `client/src/admin/`. Admin files use hardcoded hex values by design.

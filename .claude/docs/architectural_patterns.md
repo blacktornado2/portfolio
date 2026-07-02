@@ -77,9 +77,7 @@ The intended pattern for every section:
   <h2 id="[section]-heading" ...>
 ```
 
-**Currently applied in:** `Experience.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`, `TestimonialsSection.jsx`.
-
-> **Inconsistency to fix:** `Skills.jsx` and `Projects.jsx` do **not** yet set `aria-labelledby` / matching `h2 id`. When editing those sections, add them to bring them in line.
+**Currently applied in:** `Experience.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`, `TestimonialsSection.jsx`, `Skills.jsx`, `Projects.jsx`.
 
 Decorative icons always carry `aria-hidden="true"` (e.g. `Skills.jsx`, `Contact.jsx:118`).
 

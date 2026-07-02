@@ -96,9 +96,10 @@ A personal portfolio and blog built as an npm-workspaces monorepo: **React 18 + 
 
 | Project | Stack | Links |
 |---|---|---|
+| Ankit's Portfolio (this site) | React, Vite, Nest.js, Prisma, PostgreSQL, Tailwind CSS, Framer Motion | [GitHub](https://github.com/blacktornado2/portfolio) · [Live](https://bhardwajankit.com) |
+| Odyssey | Nest.js, React.js, Clerk, TypeScript, Tailwind CSS, Prisma, PostgreSQL, Claude Code | — |
 | [Vitano](https://www.vitano.in) | React, TypeScript, Tailwind CSS | [GitHub](https://github.com/blacktornado2/vitano) · [Live](https://www.vitano.in) |
-| DevTrack | React, TypeScript, Node.js, PostgreSQL, Socket.io | — |
-| ShopFlow | React Native, Node.js, MongoDB, Stripe, Firebase | — |
+| [Utkarsh Chaudhary — Portfolio](https://www.utkarshch.com) | Next.js, TypeScript, Tailwind CSS, Framer Motion | [Live](https://www.utkarshch.com) |
 
 Project cards support an optional `image` field — set it to an imported asset to show a preview thumbnail at the top of the card.
 
