@@ -11,6 +11,7 @@ import "prismjs/components/prism-json";
 import "prismjs/components/prism-sql";
 import "prismjs/components/prism-jsx";
 import { getPostBySlug, getComments, getLikes, createComment, toggleLike } from "@/lib/api";
+import { useSeo } from "@/lib/seo";
 import profileImg from "@/assets/images/profile2.jpeg";
 
 const commentInputClass = (error) =>
@@ -169,6 +170,13 @@ export default function BlogPost() {
   const [commentError, setCommentError] = useState("");
   const [commentFieldErrors, setCommentFieldErrors] = useState({});
   const [likePending, setLikePending] = useState(false);
+
+  useSeo({
+    title: post?.title,
+    description: post?.summary,
+    path: `/blog/${slug}`,
+    type: "article",
+  });
 
   useEffect(() => {
     if (!slug) return;

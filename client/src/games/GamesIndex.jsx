@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
+import { useSeo } from "@/lib/seo";
 
 function GameCard({ href, tag, title, description, preview, previewBg }) {
   return (
@@ -110,6 +111,12 @@ const GAMES = [
 ];
 
 export default function GamesIndex() {
+  useSeo({
+    title: "Games",
+    description:
+      "Side quests by Ankit Bhardwaj — playable browser builds of 2048, Wordle, and a typing racer.",
+    path: "/games",
+  });
   return (
     <main className="bg-[var(--bg)] min-h-screen text-[var(--text-1)]">
       <header className="fixed top-0 left-0 w-full z-50 bg-[var(--bg-95)] backdrop-blur-sm border-b border-[var(--border)]">

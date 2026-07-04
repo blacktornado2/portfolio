@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { getPosts } from "@/lib/api";
 import Footer from "@/components/Footer";
 import { useTheme } from "@/lib/ThemeContext";
+import { useSeo } from "@/lib/seo";
 
 function PostTag({ label }) {
   return (
@@ -118,6 +119,12 @@ function PostRow({ post }) {
 }
 
 export default function BlogIndex() {
+  useSeo({
+    title: "Blog",
+    description:
+      "Dev notes by Ankit Bhardwaj — practical write-ups on React, React Native, Node.js, and full-stack engineering.",
+    path: "/blog",
+  });
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState("All");
   const [layout, setLayout] = useState("grid");

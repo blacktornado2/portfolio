@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./assets/css/index.css";
+import { useSeo } from "./lib/seo";
 
 import Header from "./components/Header";
 import GoldenCursor from "./components/GoldenCursor";
@@ -30,6 +31,7 @@ import AdminPostEditor from "./admin/AdminPostEditor";
 import AdminComments from "./admin/AdminComments";
 
 function PortfolioHome() {
+  useSeo();
   return (
     <>
       <Header />

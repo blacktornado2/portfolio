@@ -4,6 +4,7 @@ import PricingNav from "./PricingNav";
 import PricingHero from "./PricingHero";
 import PricingRow from "./PricingRow";
 import PricingCTA from "./PricingCTA";
+import { useSeo } from "@/lib/seo";
 
 const ROWS = [
   {
@@ -69,6 +70,12 @@ const ROWS = [
 ];
 
 export default function PricingPage() {
+  useSeo({
+    title: "Pricing & Services",
+    description:
+      "Freelance rates for web apps, landing pages, mobile apps, and ongoing maintenance — work directly with Ankit Bhardwaj.",
+    path: "/pricing",
+  });
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text-1)]">
       <PricingNav />
