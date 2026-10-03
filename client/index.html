@@ -86,22 +86,25 @@
       }
     </script>
 
-    <!-- Minimal styling for the pre-hydration static snapshot below -->
+    <!--
+      The pre-hydration static snapshot below (.seo-shell) exists only for
+      crawlers, link unfurlers, and fetch tools that read raw HTML without
+      running JavaScript or CSS. It must stay out of sight for real visitors
+      (who always get the React app), so it's visually hidden off-screen
+      rather than styled to be seen — that previously caused a visible flash
+      of unstyled content before React mounted. Do not use display:none here;
+      some crawlers deprioritize display:none content, and the point is for
+      the text to still be present and readable in the raw HTML.
+    -->
     <style>
       .seo-shell {
-        min-height: 100vh;
-        background: #111111;
-        color: #ffffff;
-        font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-        padding: 4rem 1.5rem;
-        max-width: 44rem;
-        margin: 0 auto;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
       }
-      .seo-shell h1 { font-size: 2.5rem; margin: 0 0 0.25rem; }
-      .seo-shell h2 { font-size: 1.15rem; margin: 2rem 0 0.5rem; color: #f43f5e; }
-      .seo-shell p, .seo-shell li { color: #bbbbbb; line-height: 1.6; margin: 0.25rem 0; }
-      .seo-shell a { color: #f43f5e; text-decoration: none; }
-      .seo-shell ul { padding-left: 1.25rem; margin: 0.5rem 0; }
     </style>
   </head>
 
