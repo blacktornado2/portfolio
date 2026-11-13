@@ -3,6 +3,7 @@ import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { IoIosClose } from "react-icons/io";
 import { IoCopyOutline, IoCheckmarkOutline } from "react-icons/io5";
 import PortfolioPage from "./PortfolioPage";
@@ -12,7 +13,7 @@ import { myEmail } from "../constants";
 
 const CODE = `const profile = {
     name: 'Ankit Bhardwaj',
-    title: 'Software Developer',
+    title: 'Full-Stack & Mobile Developer',
     email: '${myEmail}',
     skills: [
         'React Native', 'React.js', 'Vue.js',
@@ -20,7 +21,7 @@ const CODE = `const profile = {
         'MongoDB', 'PostgreSQL',
     ],
     experience: '4+ years',
-    openToWork: true,
+    availableFor: ['Freelance', 'Contracts'],
 };`;
 
 const FADE_UP = [0.1, 0.2, 0.3, 0.4, 0.5].map((delay) => ({
@@ -94,7 +95,7 @@ export default function Hero() {
                 className="badge-shine inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-sm text-[var(--text-2)]"
               >
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
-                Available for work
+                Available for freelance projects
               </motion.span>
             </motion.div>
 
@@ -119,8 +120,9 @@ export default function Hero() {
 
             {/* Bio */}
             <motion.p {...FADE_UP[3]} className="text-[var(--text-2)] leading-relaxed max-w-md">
-              4+ years building web and mobile products at scale. Clean code,
-              scalable architecture, and a focus on performance.
+              I help startups and businesses ship web and mobile apps, from
+              first MVP to production. 4+ years of clean code, scalable
+              architecture, and a focus on performance.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -131,6 +133,12 @@ export default function Hero() {
               >
                 Hire Me
               </a>
+              <Link
+                to="/pricing"
+                className="font-syne font-bold border border-[var(--border)] text-[var(--text-1)] px-6 py-3 rounded-lg hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              >
+                View Pricing
+              </Link>
             </motion.div>
           </div>
 

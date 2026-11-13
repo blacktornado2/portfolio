@@ -40,7 +40,6 @@ const projects = [
     description:
       "A developer portfolio for a senior engineer specializing in scalable distributed systems and production AI. Bold typography, a minimal dark aesthetic, and smooth scroll-driven animations throughout.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    github: "#",
     live: "https://www.utkarshch.com",
     image: utkarshPreview,
   },

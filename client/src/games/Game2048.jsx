@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeo } from "@/lib/seo";
 
 const CSS = `
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,8 +50,13 @@ const CSS = `
 `;
 
 export default function Game2048() {
+  useSeo({
+    title: "2048",
+    description:
+      "Play 2048 in the browser — slide and merge tiles to reach 2048. A side quest built by Ankit Bhardwaj.",
+    path: "/games/2048",
+  });
   useEffect(() => {
-    document.title = "2048 — Ankit Bhardwaj";
     const style = document.createElement("style");
     style.textContent = CSS;
     document.head.appendChild(style);

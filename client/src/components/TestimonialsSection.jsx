@@ -2,18 +2,24 @@ import { motion } from "framer-motion";
 import { HEADER_ANIM, SUBHEADER_ANIM } from "../lib/animations";
 import { useTheme } from "../lib/ThemeContext";
 
+// Client testimonials first — freelance prospects weigh these over colleague quotes.
 const testimonials = [
-  {
-    quote: "Doesn't just write features, he thinks through the architecture first. Rare to find someone who actually cares that much about the craft.",
-    name: "Utkarsh Chaudhary",
-    role: "SDE-2",
-    company: "one.com",
-  },
   {
     quote: "Always shipped on time and caught issues before I even noticed them. One of the more thorough engineers I've worked with.",
     name: "Ved Prakash",
     role: "Owner",
     company: "Vitano",
+  },
+  {
+    quote: "He got what I needed without me having to over-explain it. Built it clean, it's been running fine ever since. Would go back to him.",
+    name: "Ashish",
+    role: "Business Owner",
+  },
+  {
+    quote: "Doesn't just write features, he thinks through the architecture first. Rare to find someone who actually cares that much about the craft.",
+    name: "Utkarsh Chaudhary",
+    role: "SDE-2",
+    company: "one.com",
   },
   {
     quote: "His code reviews alone made the team better. Thoughtful, never nitpicky, and always willing to unblock someone without being asked.",
@@ -38,12 +44,6 @@ const testimonials = [
     name: "Harshit",
     role: "Senior Software Engineer",
     company: "Veersa",
-  },
-  {
-    quote: "He got what I needed without me having to over-explain it. Built it clean, it's been running fine ever since. Would go back to him.",
-    name: "Ashish",
-    role: "Business Owner",
-    // company: "—",
   },
 ];
 
@@ -75,7 +75,7 @@ function TestimonialCard({ quote, name, role, company }) {
         <div>
           <div className="font-syne font-bold text-sm text-[var(--text-1)] leading-tight">{name}</div>
           <div className="font-mono text-[10px] text-[var(--text-3)]">
-            {role} · {company}
+            {company ? `${role} · ${company}` : role}
           </div>
         </div>
       </div>

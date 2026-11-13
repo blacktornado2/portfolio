@@ -51,7 +51,7 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/draw/` | Canvas draw tool + Vitest specs |
 | `client/src/pricing/` | `/pricing` freelancing rate-card page — uses its own `PricingNav` (not the global Header/Footer); `PricingPage.jsx` holds the `ROWS` service-data array |
 | `client/src/lib/api.ts` | API client — reads `VITE_API_URL`, injects JWT from localStorage |
-| `client/src/lib/seo.js` | `useSeo()` hook — per-route title/description/canonical/OG tags (wired into home, blog index/post, games index, draw, pricing) |
+| `client/src/lib/seo.js` | `useSeo()` hook — per-route title/description/canonical/OG tags (wired into home, blog index/post, games index + each game, draw, pricing). It also creates the canonical link — `index.html` deliberately has none, since every route is served that file |
 | `client/index.html` | Base meta (OG/Twitter/JSON-LD) **plus a static crawler snapshot inside `#root`** — update its copy when Hero/Experience/Projects content changes |
 | `client/public/` | `og-image.png` (1200×630 link-preview card), `logo.png` favicon, `robots.txt`, `sitemap.xml` — add new routes to the sitemap |
 | `client/src/lib/animations.js` | Shared Framer Motion constants (`HEADER_ANIM`, `SUBHEADER_ANIM`, `CARD_BORDER`, `VIEWPORT_ONCE`, `cardVariants`, `cardVariantsSlow`) — import from here instead of redeclaring per component |

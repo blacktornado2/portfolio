@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Send, MapPin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Send, MapPin, Mail, ArrowRight } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { myEmail, myLocation, myPincode, myGithub, myLinkedIn, myWhatsApp } from "../constants";
 import { HEADER_ANIM } from "../lib/animations";
@@ -26,6 +27,11 @@ const inputClass = (error) =>
     : "border-[var(--border)] focus:border-[var(--accent)]"
   }`;
 
+// Selects dim their text while the empty "(optional)" placeholder option is chosen.
+const selectClass = (empty) =>
+  `w-full bg-[var(--bg)] border border-[var(--border)] rounded-lg px-4 py-3 focus:outline-none focus:border-[var(--accent)] transition-colors ${empty ? "text-[var(--text-3)]" : "text-[var(--text-1)]"
+  }`;
+
 function ContactRow({ icon: Icon, label, children }) {
   return (
     <div className="group flex items-center gap-4 p-2 -m-2 rounded-lg transition-colors hover:bg-[var(--surface)]">
@@ -40,7 +46,11 @@ function ContactRow({ icon: Icon, label, children }) {
   );
 }
 
-const EMPTY_FORM = { name: "", email: "", subject: "", message: "" };
+const EMPTY_FORM = { name: "", email: "", subject: "", budget: "", timeline: "", message: "" };
+
+// Optional lead-qualifying fields — sent to Web3Forms alongside the message.
+const BUDGET_OPTIONS = ["Under $500", "$500 – $2,000", "$2,000 – $5,000", "$5,000+", "Not sure yet"];
+const TIMELINE_OPTIONS = ["ASAP", "Within a month", "1–3 months", "Flexible"];
 
 function validateForm(data) {
   const errs = {};
@@ -76,6 +86,8 @@ export default function Contact() {
     form.append("name", formData.name);
     form.append("email", formData.email);
     form.append("subject", formData.subject);
+    form.append("budget", formData.budget || "Not specified");
+    form.append("timeline", formData.timeline || "Not specified");
     form.append("message", formData.message);
 
     try {
@@ -142,6 +154,13 @@ export default function Contact() {
                   </motion.span>
                 ))}
               </div>
+              <Link
+                to="/pricing"
+                className="inline-flex items-center gap-1.5 mt-6 text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
+              >
+                See rates &amp; services
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
             </div>
 
             <div className="space-y-5">
@@ -214,6 +233,20 @@ export default function Contact() {
                     className={inputClass(errors.subject)}
                     value={formData.subject} onChange={handleChange} />
                   {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <select name="budget" aria-label="Project budget (optional)"
+                    className={selectClass(!formData.budget)}
+                    value={formData.budget} onChange={handleChange}>
+                    <option value="">Budget (optional)</option>
+                    {BUDGET_OPTIONS.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                  <select name="timeline" aria-label="Project timeline (optional)"
+                    className={selectClass(!formData.timeline)}
+                    value={formData.timeline} onChange={handleChange}>
+                    <option value="">Timeline (optional)</option>
+                    {TIMELINE_OPTIONS.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
                 </div>
                 <div>
                   <textarea name="message" aria-label="Your message" placeholder="Your Message" rows={5}

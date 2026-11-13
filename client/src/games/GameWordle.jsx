@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeo } from "@/lib/seo";
 
 const CSS = `
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -44,8 +45,13 @@ const CSS = `
 `;
 
 export default function GameWordle() {
+  useSeo({
+    title: "Wordle",
+    description:
+      "A developer-themed Wordle — guess the five-letter coding word in six tries. Built by Ankit Bhardwaj.",
+    path: "/games/wordle",
+  });
   useEffect(() => {
-    document.title = "Wordle — Ankit Bhardwaj";
     const style = document.createElement("style");
     style.textContent = CSS;
     document.head.appendChild(style);

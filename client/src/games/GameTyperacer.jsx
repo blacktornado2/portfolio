@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSeo } from "@/lib/seo";
 
 const CSS = `
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -59,8 +60,13 @@ const CSS = `
 `;
 
 export default function GameTyperacer() {
+  useSeo({
+    title: "Type Racer",
+    description:
+      "Race against the clock typing real code snippets in JavaScript, TypeScript, React, and Node.js. Built by Ankit Bhardwaj.",
+    path: "/games/typeracer",
+  });
   useEffect(() => {
-    document.title = "Type Racer — Ankit Bhardwaj";
     const style = document.createElement("style");
     style.textContent = CSS;
     document.head.appendChild(style);
