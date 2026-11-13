@@ -39,7 +39,7 @@ Root scripts run both halves together via `concurrently`.
 
 | Path | Purpose |
 |---|---|
-| `client/src/components/` | One file per portfolio section + `globe.jsx` (icon cloud wrapper) |
+| `client/src/components/` | One file per portfolio section + `globe.jsx` (icon cloud wrapper — icons are imported from the `simple-icons` package, not fetched) |
 | `client/src/components/FieldNotesSection.jsx` | 04 — Dev Notes: fetches 3 latest posts from API, gold glow cards |
 | `client/src/components/SideQuestsSection.jsx` | 05 — Side Quests: static cards for 2048, Wordle, TypeRacer |
 | `client/src/components/TestimonialsSection.jsx` | 07 — Testimonials: infinite marquee, gold glow on hover, NOT in navbar |
@@ -53,7 +53,8 @@ Root scripts run both halves together via `concurrently`.
 | `client/src/lib/api.ts` | API client — reads `VITE_API_URL`, injects JWT from localStorage |
 | `client/src/lib/seo.js` | `useSeo()` hook — per-route title/description/canonical/OG tags (wired into home, blog index/post, games index + each game, draw, pricing). It also creates the canonical link — `index.html` deliberately has none, since every route is served that file |
 | `client/index.html` | Base meta (OG/Twitter/JSON-LD) **plus a static crawler snapshot inside `#root`** — update its copy when Hero/Experience/Projects content changes |
-| `client/public/` | `og-image.png` (1200×630 link-preview card), `logo.png` favicon, `robots.txt`, `sitemap.xml` — add new routes to the sitemap |
+| `client/public/` | `og-image.png` (1200×630 link-preview card — bump the `?v=` in `index.html` + `seo.js` when you replace it), `logo.png` favicon, `robots.txt`, `sitemap.xml` — add new static routes to the sitemap (blog posts are listed by `/sitemap-posts.xml`, see `middleware.js`) |
+| `middleware.js` (repo root) | Vercel Routing Middleware: for bot user-agents on `/blog/:slug` it injects the post's title/description/OG tags into `index.html` (unfurlers don't run JS); also serves `/sitemap-posts.xml` live from the API. Falls back to the plain SPA on any failure. Tests in `middleware.test.js`. Keep it dependency-free — the root has a stray `pnpm-lock.yaml` that only covers `concurrently` |
 | `client/src/lib/animations.js` | Shared Framer Motion constants (`HEADER_ANIM`, `SUBHEADER_ANIM`, `CARD_BORDER`, `VIEWPORT_ONCE`, `cardVariants`, `cardVariantsSlow`) — import from here instead of redeclaring per component |
 | `client/src/lib/utils.js` | `cn()` helper — Tailwind class merge (clsx + tailwind-merge) |
 | `client/src/assets/css/index.css` | Design tokens (CSS custom properties for mode/theme), Google Fonts, Prism theme, shadcn CSS vars |
@@ -108,6 +109,7 @@ Root scripts run both halves together via `concurrently`.
 npm run dev            # client (Vite :5173) + server (Nest :3001) via concurrently
 npm run build          # build all workspaces
 npm run lint           # lint all workspaces
+npm test               # middleware tests + client Vitest suite
 
 # Server-specific (cd server)
 npm run start:dev      # ts-node dev server

@@ -3,3 +3,4 @@ Allow: /
 Disallow: /admin
 
 Sitemap: https://bhardwajankit.com/sitemap.xml
+Sitemap: https://bhardwajankit.com/sitemap-posts.xml

@@ -14,6 +14,7 @@
     "dev:server": "cd server && npm run start:dev",
     "build": "npm run build --workspaces",
     "lint": "npm run lint --workspaces",
+    "test": "vitest run middleware.test.js --root . && npm run test -w client",
     "db:generate": "npm run prisma:generate -w @portfolio/server",
     "db:migrate": "npm run prisma:migrate -w @portfolio/server",
     "db:deploy": "npm run prisma:deploy -w @portfolio/server",

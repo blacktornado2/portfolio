@@ -93,7 +93,7 @@ export default function FieldNotesSection() {
         </motion.div>
 
         <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
-          "Practical writing on full-stack development, architecture decisions, and the tools I reach for."
+          &ldquo;Practical writing on full-stack development, architecture decisions, and the tools I reach for.&rdquo;
         </motion.p>
 
         {loading ? (

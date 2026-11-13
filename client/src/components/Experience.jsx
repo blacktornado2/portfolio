@@ -42,7 +42,7 @@ export default function ExperienceSection() {
         </motion.div>
 
         <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
-          "Transforming ideas into digital reality, one project at a time"
+          &ldquo;Transforming ideas into digital reality, one project at a time&rdquo;
         </motion.p>
 
         {/* Cards */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
@@ -101,7 +101,7 @@ export default function Hero() {
 
             {/* Name */}
             <motion.div {...FADE_UP[1]}>
-              <p className="text-[var(--text-2)] text-lg mb-1">Hello, I'm</p>
+              <p className="text-[var(--text-2)] text-lg mb-1">Hello, I&apos;m</p>
               <h1 className="font-syne font-bold text-5xl lg:text-7xl leading-tight">
                 Ankit{" "}
                 <span className="text-[var(--accent)]">Bhardwaj</span>

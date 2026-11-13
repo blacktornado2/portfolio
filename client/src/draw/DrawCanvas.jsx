@@ -1,4 +1,3 @@
-import React from "react";
 import { TOOLS } from "./drawConstants";
 
 export default function DrawCanvas({ engine }) {

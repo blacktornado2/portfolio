@@ -5,7 +5,8 @@ export const SITE_URL = "https://bhardwajankit.com";
 const DEFAULT_TITLE = "Ankit Bhardwaj — Full-Stack & Mobile Developer";
 const DEFAULT_DESCRIPTION =
   "Full-stack and mobile developer with 4+ years of experience building web and mobile products at scale — React, React Native, Node.js, NestJS, PostgreSQL. Available for freelance work.";
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+// Bump ?v= when og-image.png changes — unfurlers cache images by URL.
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.png?v=2`;
 
 function setMeta(attr, key, content) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`);

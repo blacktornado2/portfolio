@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./assets/css/index.css";
 import { useSeo } from "./lib/seo";
@@ -8,7 +7,6 @@ import GoldenCursor from "./components/GoldenCursor";
 import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
-import StatsStrip from "./components/StatsStrip";
 import Projects from "./components/Projects";
 import FieldNotesSection from "./components/FieldNotesSection";
 import SideQuestsSection from "./components/SideQuestsSection";
@@ -38,7 +36,7 @@ function PortfolioHome() {
       <div id="home">
         <Hero />
       </div>
-      {/* <StatsStrip /> */}
+      {/* <StatsStrip /> — pending; re-add its import from "./components/StatsStrip" when enabling */}
       <SectionDivider />
       <div id="experience">
         <Experience />

@@ -47,7 +47,7 @@ export default function PortfolioPage() {
           {/* Right: Bio */}
           <motion.div {...BIO_ANIM} className="space-y-5 text-[var(--text-2)] text-lg leading-relaxed">
             <p>
-              Hey, I'm{" "}
+              Hey, I&apos;m{" "}
               <span className="text-[var(--accent)] font-semibold">Ankit</span> — a
               full-stack and mobile developer with 4+ years of experience
               building products that people actually use. Currently at{" "}
@@ -57,9 +57,9 @@ export default function PortfolioPage() {
             <p>
               I care a lot about the quality of what I ship — clean
               architecture, readable code, and interfaces that feel fast and
-              intentional. Whether it's designing a solid API, picking the right
+              intentional. Whether it&apos;s designing a solid API, picking the right
               data model, or making a mobile screen feel effortless, I want the
-              engineering to be something I'm proud of.
+              engineering to be something I&apos;m proud of.
             </p>
             <p>
               Outside work, I travel whenever I can, play cricket and badminton,
@@ -67,8 +67,8 @@ export default function PortfolioPage() {
               people who live beyond the screen.
             </p>
             <p>
-              If you're building something interesting or just want to connect —
-              I'm always up for a conversation.
+              If you&apos;re building something interesting or just want to connect —
+              I&apos;m always up for a conversation.
             </p>
           </motion.div>
         </div>

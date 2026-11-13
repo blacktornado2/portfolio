@@ -1,42 +1,71 @@
 import IconCloud from "./ui/icon-cloud";
+import {
+  siTypescript,
+  siJavascript,
+  siDart,
+  siReact,
+  siFlutter,
+  siAndroid,
+  siHtml5,
+  siCss,
+  siNodedotjs,
+  siExpress,
+  siNextdotjs,
+  siPrisma,
+  siPostgresql,
+  siFirebase,
+  siNginx,
+  siVercel,
+  siTestinglibrary,
+  siJest,
+  siCypress,
+  siDocker,
+  siGit,
+  siJira,
+  siGithub,
+  siGitlab,
+  siAndroidstudio,
+  siSonarqubeserver,
+  siFigma,
+} from "simple-icons";
 
-const slugs = [
-  "typescript",
-  "javascript",
-  "dart",
-  "java",
-  "react",
-  "flutter",
-  "android",
-  "html5",
-  "css3",
-  "nodedotjs",
-  "express",
-  "nextdotjs",
-  "prisma",
-  "amazonaws",
-  "postgresql",
-  "firebase",
-  "nginx",
-  "vercel",
-  "testinglibrary",
-  "jest",
-  "cypress",
-  "docker",
-  "git",
-  "jira",
-  "github",
-  "gitlab",
-  "visualstudiocode",
-  "androidstudio",
-  "sonarqube",
-  "figma",
+// Bundled from the simple-icons package rather than fetched at runtime — the
+// react-icon-cloud fetcher points at a simple-icons data URL that no longer exists.
+// Java, AWS and VS Code are no longer in simple-icons (removed at the brands' request).
+const icons = [
+  siTypescript,
+  siJavascript,
+  siDart,
+  siReact,
+  siFlutter,
+  siAndroid,
+  siHtml5,
+  siCss,
+  siNodedotjs,
+  siExpress,
+  siNextdotjs,
+  siPrisma,
+  siPostgresql,
+  siFirebase,
+  siNginx,
+  siVercel,
+  siTestinglibrary,
+  siJest,
+  siCypress,
+  siDocker,
+  siGit,
+  siJira,
+  siGithub,
+  siGitlab,
+  siAndroidstudio,
+  siSonarqubeserver,
+  siFigma,
 ];
 
 function IconCloudDemo() {
   return (
     <div className="relative flex size-full max-w-lg items-center justify-center overflow-hidden rounded-lg  px-20 pb-20 pt-8 bg-transparent">
-      <IconCloud iconSlugs={slugs} />
+      <IconCloud icons={icons} />
     </div>
   );
 }

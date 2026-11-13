@@ -21,7 +21,7 @@ export default function PricingHero() {
           {...SUBHEADER_ANIM}
           className="font-syne font-bold text-4xl lg:text-5xl leading-tight mb-4 text-[var(--text-1)]"
         >
-          Let's build something{" "}
+          Let&apos;s build something{" "}
           <span className="text-[var(--accent)]">worth shipping.</span>
         </motion.h1>
 
@@ -33,7 +33,7 @@ export default function PricingHero() {
           className="text-[var(--text-2)] text-base lg:text-lg max-w-xl leading-relaxed mx-auto"
         >
           Transparent pricing, no retainer lock-in. Pick a scope that fits and
-          reach out — I'll get back within 12 hours.
+          reach out — I&apos;ll get back within 12 hours.
         </motion.p>
       </div>
     </section>

@@ -49,7 +49,7 @@ export default function SideQuestsSection() {
         </motion.div>
 
         <motion.p {...SUBHEADER_ANIM} className="text-[var(--text-2)] italic mb-16">
-          "Weekend builds that got out of hand."
+          &ldquo;Weekend builds that got out of hand.&rdquo;
         </motion.p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

@@ -28,6 +28,8 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
+      // `const { node, ...props }` is how we drop keys before spreading
+      'no-unused-vars': ['error', { ignoreRestSiblings: true }],
       'react/prop-types': 'off',
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': [
@@ -35,5 +37,10 @@ export default [
         { allowConstantExport: true },
       ],
     },
+  },
+  {
+    // Build config files run in Node, not the browser
+    files: ['*.config.js'],
+    languageOptions: { globals: globals.node },
   },
 ]

@@ -1,4 +1,3 @@
-import React from "react";
 import { useDrawEngine } from "./useDrawEngine";
 import DrawToolbar from "./DrawToolbar";
 import DrawCanvas from "./DrawCanvas";

@@ -10,17 +10,18 @@ afterEach(() => {
   cleanup();
 });
 
-vi.mock("framer-motion", () => ({
-  motion: {
-    div: (props) => <div {...props} />,
-    h1: (props) => <h1 {...props} />,
-    h2: (props) => <h2 {...props} />,
-    p: (props) => <p {...props} />,
-    a: (props) => <a {...props} />,
-  },
-}));
+// Render any motion.<tag> as the plain element, dropping animation-only props.
+vi.mock("framer-motion", () => {
+  const MOTION_PROPS = ["initial", "animate", "exit", "transition", "variants", "custom", "viewport", "whileHover", "whileInView", "whileTap"];
+  const plain = (Tag) => function MotionStub(props) {
+    const rest = { ...props };
+    MOTION_PROPS.forEach((key) => delete rest[key]);
+    return <Tag {...rest} />;
+  };
+  return { motion: new Proxy({}, { get: (_, tag) => plain(tag) }) };
+});
 
-global.IntersectionObserver = class {
+globalThis.IntersectionObserver = class {
   observe() {}
   unobserve() {}
   disconnect() {}

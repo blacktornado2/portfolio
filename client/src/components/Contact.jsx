@@ -125,11 +125,11 @@ export default function Contact() {
           <motion.div {...LEFT_ANIM} className="space-y-8">
             <div>
               <h3 className="font-syne font-bold text-3xl text-[var(--text-1)] mb-4">
-                Let's build something worth shipping.
+                Let&apos;s build something worth shipping.
               </h3>
               <p className="text-[var(--text-2)] leading-relaxed mb-6">
                 I work best with people who have a clear vision and want engineering that matches it.
-                Reach out if you're building something real.
+                Reach out if you&apos;re building something real.
               </p>
               <div className="flex flex-wrap gap-2">
                 {[
