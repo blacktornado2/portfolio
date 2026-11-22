@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Send, MapPin, Mail, ArrowRight } from "lucide-react";
+import { Send, MapPin, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { myEmail, myLocation, myPincode, myGithub, myLinkedIn, myWhatsApp } from "../constants";
 import { HEADER_ANIM } from "../lib/animations";
@@ -154,13 +153,6 @@ export default function Contact() {
                   </motion.span>
                 ))}
               </div>
-              <Link
-                to="/pricing"
-                className="inline-flex items-center gap-1.5 mt-6 text-sm text-[var(--text-2)] hover:text-[var(--accent)] transition-colors"
-              >
-                See rates &amp; services
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </Link>
             </div>
 
             <div className="space-y-5">

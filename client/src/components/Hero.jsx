@@ -3,7 +3,6 @@ import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { IoIosClose } from "react-icons/io";
 import { IoCopyOutline, IoCheckmarkOutline } from "react-icons/io5";
 import PortfolioPage from "./PortfolioPage";
@@ -133,12 +132,6 @@ export default function Hero() {
               >
                 Hire Me
               </a>
-              <Link
-                to="/pricing"
-                className="font-syne font-bold border border-[var(--border)] text-[var(--text-1)] px-6 py-3 rounded-lg hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-              >
-                View Pricing
-              </Link>
             </motion.div>
           </div>
 
