@@ -69,6 +69,20 @@ const IPen = () => (
   </svg>
 );
 
+const IWrench = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+  </svg>
+);
+
+const ICalculator = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2" /><line x1="8" y1="6" x2="16" y2="6" />
+    <path d="M16 14v4" /><path d="M16 10h.01" /><path d="M12 10h.01" /><path d="M8 10h.01" />
+    <path d="M12 14h.01" /><path d="M8 14h.01" /><path d="M12 18h.01" /><path d="M8 18h.01" />
+  </svg>
+);
+
 const IGithub = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
@@ -97,6 +111,7 @@ const ICON_MAP = {
   home: <IHome />, code: <ICode />, briefcase: <IBriefcase />,
   folder: <IFolder />, book: <IBook />, mail: <IMail />, file: <IFile />,
   gamepad: <IGamepad />, quote: <IQuote />, pen: <IPen />,
+  wrench: <IWrench />, calculator: <ICalculator />,
   github: <IGithub />, linkedin: <ILinkedin />, copy: <ICopy />, whatsapp: <IWhatsApp />,
 };
 
@@ -135,7 +150,7 @@ export default function CommandPalette({ isOpen, onClose }) {
         { id: "experience",   label: "Go to Experience",     icon: "briefcase", action: () => scrollToSection("experience") },
         { id: "projects",     label: "Go to Projects",       icon: "folder",    action: () => scrollToSection("projects") },
         { id: "dev-notes",    label: "Go to Dev Notes",      icon: "file",      action: () => scrollToSection("blog") },
-        { id: "side-quests",  label: "Go to Side Quests",    icon: "gamepad",   action: () => scrollToSection("games") },
+        { id: "tools",        label: "Go to Tools",          icon: "wrench",    action: () => scrollToSection("tools") },
         { id: "skills",       label: "Go to Skills",         icon: "code",      action: () => scrollToSection("skills") },
         { id: "testimonials", label: "Go to Testimonials",   icon: "quote",     action: () => scrollToSection("testimonials") },
         { id: "contact",      label: "Go to Contact",        icon: "mail",      action: () => scrollToSection("contact") },
@@ -146,6 +161,7 @@ export default function CommandPalette({ isOpen, onClose }) {
       items: [
         { id: "blog",   label: "Open Blog",       icon: "book", hint: "↗", action: () => { onClose(); navigate("/blog"); } },
         { id: "games",  label: "Open Games",      icon: "gamepad", hint: "↗", action: () => { onClose(); navigate("/games"); } },
+        { id: "calculators", label: "Open Calculators", icon: "calculator", hint: "↗", action: () => { onClose(); navigate("/calculators"); } },
         { id: "draw",   label: "Open Draw Tool",  icon: "pen",  hint: "↗", action: () => { onClose(); navigate("/draw"); } },
       ],
     },

@@ -102,7 +102,7 @@ accent      →  var(--accent)
 <span class="text-[var(--accent)]">02</span> — Professional Journey
 <span class="text-[var(--accent)]">03</span> — Projects
 <span class="text-[var(--accent)]">04</span> — Dev Notes
-<span class="text-[var(--accent)]">05</span> — Side Quests
+<span class="text-[var(--accent)]">05</span> — Tools
 <span class="text-[var(--accent)]">06</span> — Skills
 <span class="text-[var(--accent)]">07</span> — Testimonials
 <span class="text-[var(--accent)]">08</span> — Contact
@@ -277,7 +277,7 @@ Logo: `font-syne font-bold text-[var(--text-1)] text-lg hover:text-[var(--accent
 
 Nav links (shorter labels, in page order):
 ```
-About · Experience · Projects · Blog · Games · Skills · Contact
+About · Experience · Projects · Blog · Tools · Skills · Contact
 ```
 
 Search button (inline):
@@ -362,7 +362,7 @@ flex flex-col items-center justify-center py-24 text-center
 - Message: `font-sans text-sm text-[var(--text-3)] mb-6 max-w-xs` — context-aware (search vs tag)
 - Clear button: ghost style — `font-mono text-[11px] uppercase px-4 py-2 border border-[var(--border)] text-[var(--text-2)] hover:border-[var(--accent)] hover:text-[var(--accent)]`
 
-### 4.18 Landing Page Preview Cards (FieldNotesSection / SideQuestsSection)
+### 4.18 Landing Page Preview Cards (FieldNotesSection / ToolsSection)
 
 Same gold glow pattern as the blog grid card (4.13). The `motion.div` IS the card:
 
@@ -597,7 +597,7 @@ Icon colour in pills: tech-specific (e.g. `text-[#61DAFB]` for React).
   #experience    → experience cards                          (02 — Professional Journey)
   #projects      → 2-col project cards                       (03 — Projects)
   #blog          → 3 latest posts preview, CTA to /blog      (04 — Dev Notes)
-  #games         → 3 game cards (2048, Wordle, TypeRacer)    (05 — Side Quests)
+  #tools         → 3 tool cards (Games, Calculators, Draw)   (05 — Tools)
   #skills        → icon cloud + 2×2 skill cards              (06 — Skills)
   #testimonials  → infinite marquee, 3 testimonial cards     (07 — Testimonials)
   #contact       → info panel + form                         (08 — Contact)

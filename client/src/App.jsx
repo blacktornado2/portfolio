@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./assets/css/index.css";
 import { useSeo } from "./lib/seo";
@@ -9,7 +10,7 @@ import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import FieldNotesSection from "./components/FieldNotesSection";
-import SideQuestsSection from "./components/SideQuestsSection";
+import ToolsSection from "./components/ToolsSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -22,6 +23,12 @@ import GameWordle from "./games/GameWordle";
 import GameTyperacer from "./games/GameTyperacer";
 import DrawPage from "./draw/DrawPage";
 import PricingPage from "./pricing/PricingPage";
+
+// Calculators pull in Recharts — split them out so the portfolio bundle stays lean.
+const CalculatorsIndex = lazy(() => import("./calculators/CalculatorsIndex"));
+const EmiCalculator = lazy(() => import("./calculators/EmiCalculator"));
+const TenureCalculator = lazy(() => import("./calculators/TenureCalculator"));
+const SipCalculator = lazy(() => import("./calculators/SipCalculator"));
 import AdminLayout from "./admin/AdminLayout";
 import AdminLogin from "./admin/AdminLogin";
 import AdminPosts from "./admin/AdminPosts";
@@ -50,8 +57,8 @@ function PortfolioHome() {
         <FieldNotesSection />
       </div>
       <SectionDivider />
-      <div id="games">
-        <SideQuestsSection />
+      <div id="tools">
+        <ToolsSection />
       </div>
       <SectionDivider />
       <div id="skills">
@@ -70,6 +77,12 @@ function PortfolioHome() {
   );
 }
 
+function Lazy({ children }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[var(--bg)]" />}>{children}</Suspense>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -84,6 +97,10 @@ export default function App() {
       <Route path="/games/typeracer" element={<GameTyperacer />} />
       <Route path="/draw" element={<DrawPage />} />
       <Route path="/pricing" element={<PricingPage />} />
+      <Route path="/calculators" element={<Lazy><CalculatorsIndex /></Lazy>} />
+      <Route path="/calculators/emi" element={<Lazy><EmiCalculator /></Lazy>} />
+      <Route path="/calculators/loan-tenure" element={<Lazy><TenureCalculator /></Lazy>} />
+      <Route path="/calculators/sip" element={<Lazy><SipCalculator /></Lazy>} />
 
       {/* Admin */}
       <Route path="/admin/login" element={<AdminLogin />} />

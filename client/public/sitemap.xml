@@ -40,4 +40,24 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://bhardwajankit.com/calculators</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://bhardwajankit.com/calculators/emi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://bhardwajankit.com/calculators/loan-tenure</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://bhardwajankit.com/calculators/sip</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>

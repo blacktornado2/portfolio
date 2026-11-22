@@ -1,0 +1,50 @@
+/* Range slider: accent-filled track up to the thumb (--fill set inline). */
+.calc-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) var(--fill, 0%),
+    var(--border) var(--fill, 0%),
+    var(--border) 100%
+  );
+  cursor: pointer;
+  outline: none;
+}
+.calc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--accent);
+  transition: transform 0.15s;
+}
+.calc-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.calc-range:hover::-webkit-slider-thumb,
+.calc-range:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+.calc-range:focus-visible {
+  box-shadow: 0 0 0 3px var(--accent-25);
+}
+
+/* Native month picker follows the site mode. */
+.calc-month { color-scheme: dark; }
+[data-mode="light"] .calc-month { color-scheme: light; }
+
+/* Recharts focus outline on click is noise. */
+.calc-chart .recharts-wrapper,
+.calc-chart .recharts-surface:focus { outline: none; }

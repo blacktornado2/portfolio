@@ -10,7 +10,7 @@ Patterns observed across the portfolio **section components** (`client/src/compo
 
 All Framer Motion prop objects are declared at module scope, never inline in JSX. Inline object literals create a new reference every render, which prevents Framer Motion from bailing out.
 
-**Where:** Every section component — `Skills.jsx`, `Experience.jsx`, `Projects.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`, `TestimonialsSection.jsx`, `PortfolioPage.jsx`.
+**Where:** Every section component — `Skills.jsx`, `Experience.jsx`, `Projects.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `ToolsSection.jsx`, `TestimonialsSection.jsx`, `PortfolioPage.jsx`.
 
 ```
 // Module level — correct
@@ -40,7 +40,7 @@ All hardcoded hex values (`#1A1A1A`, `#2A2A2A`, `#888888`, `#FFFFFF`, etc.) in s
 
 Cards in a list use a custom variant with a per-index delay, not individual `transition` props.
 
-**Where:** `Skills.jsx`, `Experience.jsx`, `Projects.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`.
+**Where:** `Skills.jsx`, `Experience.jsx`, `Projects.jsx`, `FieldNotesSection.jsx`, `ToolsSection.jsx`.
 
 ```js
 const cardVariants = {
@@ -62,7 +62,7 @@ Delay step is `0.1s` per card; Projects uses `0.15s` (`Projects.jsx:12`) because
 
 Section content (skill categories, experiences, projects) is declared as module-level `const` arrays, not inline in JSX. Components map over the array — no hardcoded repetition.
 
-**Where:** `Skills.jsx` (`skillCategories`), `Experience.jsx` (`experiences`), `Projects.jsx` (`projects`), `SideQuestsSection.jsx` (`games`), `TestimonialsSection.jsx` (`testimonials`).
+**Where:** `Skills.jsx` (`skillCategories`), `Experience.jsx` (`experiences`), `Projects.jsx` (`projects`), `ToolsSection.jsx` (`tools`), `TestimonialsSection.jsx` (`testimonials`).
 
 Icon components in data arrays are stored as component references (`SkillIcon: FaReact`), not as pre-instantiated JSX elements (`<FaReact />`). This allows passing props (like `aria-hidden`) at render time. See the `{ name, SkillIcon, color }` shape at `Skills.jsx:40-47`.
 
@@ -77,7 +77,7 @@ The intended pattern for every section:
   <h2 id="[section]-heading" ...>
 ```
 
-**Currently applied in:** `Experience.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `SideQuestsSection.jsx`, `TestimonialsSection.jsx`, `Skills.jsx`, `Projects.jsx`.
+**Currently applied in:** `Experience.jsx`, `Contact.jsx`, `FieldNotesSection.jsx`, `ToolsSection.jsx`, `TestimonialsSection.jsx`, `Skills.jsx`, `Projects.jsx`.
 
 Decorative icons always carry `aria-hidden="true"` (e.g. `Skills.jsx`, `Contact.jsx:118`).
 
@@ -164,7 +164,7 @@ Three new sections live between Projects and Skills:
 | Component | Section ID | Number | Notes |
 |---|---|---|---|
 | `FieldNotesSection.jsx` | `#blog` | 04 | Fetches 3 latest posts via `getPosts(1)` from the API; falls back gracefully on error |
-| `SideQuestsSection.jsx` | `#games` | 05 | Static data — no API call; links to `/games/2048`, `/games/wordle`, `/games/typeracer` |
+| `ToolsSection.jsx` | `#tools` | 05 | Static data — no API call; links to `/games`, `/calculators`, `/draw` |
 | `TestimonialsSection.jsx` | `#testimonials` | 07 | Infinite CSS marquee; NOT in Header nav or scroll-spy; pauses on hover |
 
-The gold glow card pattern for `FieldNotesSection` and `SideQuestsSection` differs from the standard content card (4.1 in design-system.md): there is **no gold left border** and box-shadow is `0 0 28px rgba(232,184,75,0.45)` (stronger than the standard `0.35`). The `motion.div` carries the card background/border/radius so the shadow renders correctly against the rounded shape.
+The gold glow card pattern for `FieldNotesSection` and `ToolsSection` differs from the standard content card (4.1 in design-system.md): there is **no gold left border** and box-shadow is `0 0 28px rgba(232,184,75,0.45)` (stronger than the standard `0.35`). The `motion.div` carries the card background/border/radius so the shadow renders correctly against the rounded shape.

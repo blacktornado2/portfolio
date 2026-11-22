@@ -41,15 +41,16 @@ Root scripts run both halves together via `concurrently`.
 |---|---|
 | `client/src/components/` | One file per portfolio section + `globe.jsx` (icon cloud wrapper — icons are imported from the `simple-icons` package, not fetched) |
 | `client/src/components/FieldNotesSection.jsx` | 04 — Dev Notes: fetches 3 latest posts from API, gold glow cards |
-| `client/src/components/SideQuestsSection.jsx` | 05 — Side Quests: static cards for 2048, Wordle, TypeRacer |
+| `client/src/components/ToolsSection.jsx` | 05 — Tools: static cards linking to Games (`/games`), Calculators (`/calculators`), Draw (`/draw`) |
 | `client/src/components/TestimonialsSection.jsx` | 07 — Testimonials: infinite marquee, gold glow on hover, NOT in navbar |
-| `client/src/components/Footer.jsx` | Global footer — rendered on `/`, `/blog`, `/blog/:slug`, `/games`; not on game/draw pages. Contains ThemeSwitcher (accent colour) + ModeToggle (dark/light) |
+| `client/src/components/Footer.jsx` | Global footer — rendered on `/`, `/blog`, `/blog/:slug`, `/games`, `/calculators/*`; not on game/draw pages. Contains ThemeSwitcher (accent colour) + ModeToggle (dark/light) |
 | `client/src/components/StatsStrip.jsx` | Animated stats strip (Years Experience, Projects, Technologies, Clients) — **currently commented out** in App.jsx, pending integration |
 | `client/src/components/ui/` | shadcn/ui primitives — read-only vendor code |
 | `client/src/blog/` | Blog index, post view, markdown content |
 | `client/src/games/` | Games index + individual games (2048, Wordle, Typeracer) |
 | `client/src/draw/` | Canvas draw tool + Vitest specs |
 | `client/src/pricing/` | `/pricing` freelancing rate-card page — uses its own `PricingNav` (not the global Header/Footer); `PricingPage.jsx` holds the `ROWS` service-data array |
+| `client/src/calculators/` | Finance calculators. `lib/loan.js` = pure amortisation math, `lib/sip.js` = SIP projection (both Vitest-covered), `lib/format.js` = ₹ / lakh / crore formatting, `lib/useUrlState.js` = inputs mirrored to the query string. Shared UI in `components/` (Recharts chart, schedule table). Routes are `React.lazy` so Recharts stays out of the main bundle — add new calculators to `CALCULATORS` in `CalculatorsIndex.jsx` and the sitemap |
 | `client/src/lib/api.ts` | API client — reads `VITE_API_URL`, injects JWT from localStorage |
 | `client/src/lib/seo.js` | `useSeo()` hook — per-route title/description/canonical/OG tags (wired into home, blog index/post, games index + each game, draw, pricing). It also creates the canonical link — `index.html` deliberately has none, since every route is served that file |
 | `client/index.html` | Base meta (OG/Twitter/JSON-LD) **plus a static crawler snapshot inside `#root`** — update its copy when Hero/Experience/Projects content changes |
@@ -73,7 +74,7 @@ Root scripts run both halves together via `concurrently`.
                     #experience  → 02 — Professional Journey
                     #projects    → 03 — Projects
                     #blog        → 04 — Dev Notes    (FieldNotesSection — 3 latest posts preview)
-                    #games       → 05 — Side Quests  (SideQuestsSection — 3 games cards)
+                    #tools       → 05 — Tools        (ToolsSection — Games, Calculators, Draw cards)
                     #skills      → 06 — Skills
                     #testimonials→ 07 — Testimonials (infinite marquee, NOT in navbar)
                     #contact     → 08 — Contact
@@ -86,6 +87,10 @@ Root scripts run both halves together via `concurrently`.
 /games/typeracer    GameTyperacer
 /draw               DrawPage — canvas drawing tool
 /pricing            PricingPage — freelancing rate card (own PricingNav, no global Header/Footer)
+/calculators        CalculatorsIndex — cards for each calculator (lazy-loaded)
+/calculators/emi    EmiCalculator — amount + rate + tenure → monthly EMI
+/calculators/loan-tenure  TenureCalculator — amount + rate + EMI → months to repay
+/calculators/sip    SipCalculator — monthly SIP + return + years (+ optional yearly step-up, % or ₹) → corpus
 ```
 
 > Note: `Education.jsx` exists in `components/` but is **orphaned** — it is not rendered anywhere in the live tree. Don't reintroduce Education without intent.
@@ -139,8 +144,8 @@ Tokens defined in `client/src/assets/css/index.css` as CSS custom properties. Fu
 - All background/surface/border/text values use **CSS vars** (`var(--bg)`, `var(--surface)`, `var(--border)`, `var(--text-1..4)`) — supports dark (default) and light mode via `[data-mode="light"]` on `<html>`
 - Gold accent `var(--accent)` (`#E8B84B` default) — switchable to blue or purple via ThemeSwitcher in Footer
 - Section headings: `font-syne font-bold text-4xl lg:text-5xl`
-- Section numbering: `01 — About Me`, `02 — Professional Journey`, `03 — Projects`, `04 — Dev Notes`, `05 — Side Quests`, `06 — Skills`, `07 — Testimonials`, `08 — Contact` (gold number, em-dash, `var(--text-1)` name)
-- **Navbar labels** (shorter): About · Experience · Projects · Blog · Games · Skills · Contact (in that order)
+- Section numbering: `01 — About Me`, `02 — Professional Journey`, `03 — Projects`, `04 — Dev Notes`, `05 — Tools`, `06 — Skills`, `07 — Testimonials`, `08 — Contact` (gold number, em-dash, `var(--text-1)` name)
+- **Navbar labels** (shorter): About · Experience · Projects · Blog · Tools · Skills · Contact (in that order)
 - **Admin panel** (`client/src/admin/`) uses hardcoded hex and stays permanently dark — do not apply CSS vars there
 
 ## Personal Data

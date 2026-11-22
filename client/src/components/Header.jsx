@@ -28,7 +28,7 @@ export default function Header() {
   }, [menuOpen]);
 
   useEffect(() => {
-    const ids = ["home", "about", "experience", "projects", "blog", "games", "skills", "contact"];
+    const ids = ["home", "about", "experience", "projects", "blog", "tools", "skills", "contact"];
     const observers = ids.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;
@@ -58,7 +58,7 @@ export default function Header() {
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
     { id: "blog", label: "Blog" },
-    { id: "games", label: "Games" },
+    { id: "tools", label: "Tools" },
     { id: "skills", label: "Skills" },
     { id: "contact", label: "Contact" },
   ];
